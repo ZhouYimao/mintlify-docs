@@ -175,21 +175,35 @@ nav button:active,
 /* Group headers (Getting started, Customization, etc.) - always pure white */
 .sidebar h3,
 .sidebar .group-title,
+.sidebar [class*="group-title"],
 [class*="sidebar"] h3,
-[class*="group"] {
+[class*="sidebar"] .group,
+nav h3,
+aside h3 {
   color: var(--emagen-white) !important;
   font-weight: 600 !important;
   text-decoration: none !important;
 }
 
-/* Regular sidebar links - start gray */
+/* Make sure group headers don't affect regular links */
+.sidebar h3 a,
+.sidebar .group-title a,
+[class*="group"] a:not(.sidebar a) {
+  color: var(--emagen-white) !important;
+  font-weight: 600 !important;
+}
+
+/* Regular sidebar links - start gray - force override */
 .sidebar a,
 .sidebar button,
 [class*="sidebar"] a,
-[class*="nav"] a {
+[class*="nav"] a,
+nav[class*="sidebar"] a,
+aside a,
+[role="navigation"] a {
   color: var(--emagen-gray) !important;
   text-decoration: none !important;
-  font-weight: 400;
+  font-weight: 400 !important;
   transition: all 0.2s ease;
 }
 
@@ -289,4 +303,13 @@ select:active,
   border-color: inherit !important;
   transition: none !important;
   animation: none !important;
+}
+
+/* Super specific override for sidebar links - must be gray by default */
+body .sidebar a:not(.active):not([aria-current="page"]):not([data-active="true"]):not(.group-title):not(h3 a),
+body [class*="sidebar"] a:not(.active):not([aria-current="page"]):not([data-active="true"]):not(.group-title):not(h3 a),
+body aside a:not(.active):not([aria-current="page"]):not([data-active="true"]):not(.group-title):not(h3 a),
+body nav a:not(.active):not([aria-current="page"]):not([data-active="true"]):not(.group-title):not(h3 a) {
+  color: var(--emagen-gray) !important;
+  font-weight: 400 !important;
 }
