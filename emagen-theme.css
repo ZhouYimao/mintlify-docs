@@ -140,66 +140,87 @@ select:focus {
   box-shadow: none !important;
 }
 
-/* Navigation hover effects - subtle brightness increase */
+/* Navigation - progressive brightness hierarchy */
 nav a,
 nav button,
 .navbar a,
 .navbar button {
-  color: var(--emagen-white) !important;
+  color: var(--emagen-gray) !important;  /* Start with gray */
   text-decoration: none !important;
-  opacity: 0.7;
   transition: all 0.2s ease;
+  font-weight: 400;
 }
 
 nav a:hover,
 nav button:hover,
 .navbar a:hover,
 .navbar button:hover {
-  opacity: 1 !important;
+  color: rgba(255, 255, 255, 0.9) !important;  /* Slightly whiter on hover */
   text-decoration: underline !important;
   text-decoration-color: var(--emagen-black) !important;
   background: none !important;
 }
 
-/* Navigation item focus states - only for keyboard navigation */
-nav a:focus-visible,
-nav button:focus-visible,
-.navbar a:focus-visible,
-.navbar button:focus-visible {
-  outline: 1px solid var(--emagen-white) !important;
-  outline-offset: 2px !important;
+/* No click/active effects - remove instant feedback */
+nav a:active,
+nav button:active,
+.navbar a:active,
+.navbar button:active {
+  transform: none !important;
   background: none !important;
 }
 
-/* Sidebar links - clean, no underlines */
+/* Sidebar hierarchy - gray → white → pure white + bold */
+
+/* Group headers (Getting started, Customization, etc.) - always pure white */
+.sidebar h3,
+.sidebar .group-title,
+[class*="sidebar"] h3,
+[class*="group"] {
+  color: var(--emagen-white) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
+
+/* Regular sidebar links - start gray */
 .sidebar a,
 .sidebar button,
 [class*="sidebar"] a,
 [class*="nav"] a {
-  color: var(--emagen-white) !important;
+  color: var(--emagen-gray) !important;
   text-decoration: none !important;
-  opacity: 0.8;
+  font-weight: 400;
   transition: all 0.2s ease;
 }
 
+/* Sidebar hover - slightly whiter */
 .sidebar a:hover,
 .sidebar button:hover,
 [class*="sidebar"] a:hover,
 [class*="nav"] a:hover {
-  opacity: 1 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
   background: none !important;
   text-decoration: none !important;
 }
 
-/* Sidebar active/selected states */
+/* Sidebar selected - pure white + bold */
 .sidebar .active,
 .sidebar [aria-current="page"],
 [class*="sidebar"] .active,
-[class*="nav"] [aria-current="page"] {
-  opacity: 1 !important;
-  background: var(--emagen-white) !important;
-  color: var(--emagen-black) !important;
+[class*="nav"] [aria-current="page"],
+.sidebar a[data-active="true"] {
+  color: var(--emagen-white) !important;
+  font-weight: 600 !important;
+  background: none !important;
   text-decoration: none !important;
+}
+
+/* No click feedback effects */
+.sidebar a:active,
+.sidebar button:active,
+[class*="sidebar"] a:active {
+  transform: none !important;
+  background: none !important;
 }
 
 /* Override any blue selections from Mintlify */
