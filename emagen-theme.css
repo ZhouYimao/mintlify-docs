@@ -29,3 +29,9 @@ a {
   outline: none !important;
   box-shadow: none !important;
 }
+
+/* Selected sidebar links - white like headings */
+[aria-current="page"],
+.active {
+  color: var(--emagen-white) !important;
+}
