@@ -46,18 +46,30 @@ body, html {
   --background-primary: var(--emagen-black);
 }
 
-/* Pure monochrome links - no color, just contrast */
+/* Pure monochrome links - different styles for different contexts */
 a, .link {
   color: var(--emagen-white) !important;
-  text-decoration: underline;
-  text-decoration-color: var(--emagen-gray);
+  text-decoration: none !important;  /* Remove default underlines */
   transition: all 0.2s ease;
 }
 
-a:hover, .link:hover {
+/* Content area links should have underlines */
+main a,
+article a,
+.content a,
+[class*="prose"] a {
+  text-decoration: underline !important;
+  text-decoration-color: var(--emagen-gray) !important;
+}
+
+/* Content area link hover - invert style */
+main a:hover,
+article a:hover,
+.content a:hover,
+[class*="prose"] a:hover {
   background-color: var(--emagen-white) !important;
   color: var(--emagen-black) !important;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 /* Navigation improvements */
@@ -128,20 +140,66 @@ select:focus {
   box-shadow: none !important;
 }
 
-/* Navigation item selection */
-nav a:focus,
-nav button:focus,
-.nav-item:focus {
-  background: var(--emagen-white) !important;
-  color: var(--emagen-black) !important;
+/* Navigation hover effects - subtle brightness increase */
+nav a,
+nav button,
+.navbar a,
+.navbar button {
+  color: var(--emagen-white) !important;
+  text-decoration: none !important;
+  opacity: 0.7;
+  transition: all 0.2s ease;
 }
 
-/* Sidebar selection states */
-.sidebar a:focus,
-.sidebar button:focus,
-.sidebar .active {
+nav a:hover,
+nav button:hover,
+.navbar a:hover,
+.navbar button:hover {
+  opacity: 1 !important;
+  text-decoration: underline !important;
+  text-decoration-color: var(--emagen-black) !important;
+  background: none !important;
+}
+
+/* Navigation item focus states - only for keyboard navigation */
+nav a:focus-visible,
+nav button:focus-visible,
+.navbar a:focus-visible,
+.navbar button:focus-visible {
+  outline: 1px solid var(--emagen-white) !important;
+  outline-offset: 2px !important;
+  background: none !important;
+}
+
+/* Sidebar links - clean, no underlines */
+.sidebar a,
+.sidebar button,
+[class*="sidebar"] a,
+[class*="nav"] a {
+  color: var(--emagen-white) !important;
+  text-decoration: none !important;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.sidebar a:hover,
+.sidebar button:hover,
+[class*="sidebar"] a:hover,
+[class*="nav"] a:hover {
+  opacity: 1 !important;
+  background: none !important;
+  text-decoration: none !important;
+}
+
+/* Sidebar active/selected states */
+.sidebar .active,
+.sidebar [aria-current="page"],
+[class*="sidebar"] .active,
+[class*="nav"] [aria-current="page"] {
+  opacity: 1 !important;
   background: var(--emagen-white) !important;
   color: var(--emagen-black) !important;
+  text-decoration: none !important;
 }
 
 /* Override any blue selections from Mintlify */
