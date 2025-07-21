@@ -287,6 +287,16 @@ mark,
   outline: none !important;
 }
 
+/* Force disable focus outlines on external links */
+a[href^="http"]:focus,
+a[href^="https"]:focus,
+a[target="_blank"]:focus {
+  outline: none !important;
+  background: none !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
 /* Disable click effects on all interactive elements */
 button:active,
 a:active,
@@ -303,6 +313,31 @@ select:active,
   border-color: inherit !important;
   transition: none !important;
   animation: none !important;
+}
+
+/* Nuclear option - disable ALL animations and transitions globally */
+*,
+*:before,
+*:after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+/* Re-enable only hover transitions for smooth experience */
+*:hover {
+  transition: color 0.2s ease, opacity 0.2s ease !important;
+}
+
+/* Force disable any Mintlify-specific animations */
+.animate-pulse,
+.animate-bounce,
+.animate-spin,
+[class*="animate"],
+[class*="transition"] {
+  animation: none !important;
+  transition: none !important;
 }
 
 /* Super specific override for sidebar links - must be gray by default */
