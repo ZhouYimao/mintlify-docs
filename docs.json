@@ -3,14 +3,15 @@
   "theme": "mint",
   "name": "Mint Starter Kit",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#000000",
+    "light": "#6e6e73",
+    "dark": "#1d1d1f"
   },
   "appearance": {
     "default": "dark",
     "strict": true
   },
+  "customCSS": ["emagen-theme.css"],
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
