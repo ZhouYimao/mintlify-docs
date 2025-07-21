@@ -98,3 +98,84 @@ button:hover, .button:hover {
   background: var(--emagen-gray) !important;
   color: var(--emagen-white) !important;
 }
+
+/* Selection styling - black/white invert instead of blue */
+::selection {
+  background: var(--emagen-white) !important;
+  color: var(--emagen-black) !important;
+}
+
+::-moz-selection {
+  background: var(--emagen-white) !important;
+  color: var(--emagen-black) !important;
+}
+
+/* Focus states - black/white invert instead of blue outline */
+*:focus,
+*:focus-visible {
+  outline: 2px solid var(--emagen-white) !important;
+  outline-offset: 2px !important;
+  background: var(--emagen-white) !important;
+  color: var(--emagen-black) !important;
+}
+
+/* Input focus states */
+input:focus,
+textarea:focus,
+select:focus {
+  border: 2px solid var(--emagen-white) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+}
+
+/* Navigation item selection */
+nav a:focus,
+nav button:focus,
+.nav-item:focus {
+  background: var(--emagen-white) !important;
+  color: var(--emagen-black) !important;
+}
+
+/* Sidebar selection states */
+.sidebar a:focus,
+.sidebar button:focus,
+.sidebar .active {
+  background: var(--emagen-white) !important;
+  color: var(--emagen-black) !important;
+}
+
+/* Override any blue selections from Mintlify */
+[class*="bg-blue"],
+[class*="text-blue"],
+[style*="background: blue"],
+[style*="background-color: blue"],
+[style*="color: blue"],
+.selected,
+.highlight,
+.active {
+  background: var(--emagen-white) !important;
+  color: var(--emagen-black) !important;
+}
+
+/* Tab and menu item selections */
+[role="tab"][aria-selected="true"],
+[aria-selected="true"],
+.tab-active,
+.menu-item-active {
+  background: var(--emagen-white) !important;
+  color: var(--emagen-black) !important;
+}
+
+/* Search result highlighting */
+mark,
+.search-highlight {
+  background: var(--emagen-white) !important;
+  color: var(--emagen-black) !important;
+}
+
+/* Remove any box-shadow blue glows */
+*:focus,
+*:active,
+*:hover {
+  box-shadow: none !important;
+}
