@@ -258,3 +258,35 @@ mark,
 *:hover {
   box-shadow: none !important;
 }
+
+/* Completely disable all click animations and effects */
+*:active,
+*:active:focus,
+*:active:hover {
+  transform: none !important;
+  scale: none !important;
+  transition: none !important;
+  animation: none !important;
+  background-color: inherit !important;
+  color: inherit !important;
+  border: inherit !important;
+  outline: none !important;
+}
+
+/* Disable click effects on all interactive elements */
+button:active,
+a:active,
+input:active,
+textarea:active,
+select:active,
+[role="button"]:active,
+[tabindex]:active {
+  transform: none !important;
+  scale: none !important;
+  background-color: inherit !important;
+  color: inherit !important;
+  box-shadow: none !important;
+  border-color: inherit !important;
+  transition: none !important;
+  animation: none !important;
+}
