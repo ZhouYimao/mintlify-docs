@@ -53,20 +53,29 @@ a, .link {
   transition: all 0.2s ease;
 }
 
-/* Content area links should have underlines */
-main a,
-article a,
-.content a,
-[class*="prose"] a {
+/* Only paragraph links should have underlines - exclude cards, headings, titles */
+p a,
+li a:not([class*="card"] a):not([class*="group"] a):not([class*="nav"] a),
+.prose p a {
   text-decoration: underline !important;
   text-decoration-color: var(--emagen-gray) !important;
 }
 
-/* Content area link hover - invert style */
-main a:hover,
-article a:hover,
-.content a:hover,
-[class*="prose"] a:hover {
+/* Force remove underlines from card and heading links */
+.card a,
+[class*="card"] a,
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a,
+.group a,
+[class*="group"] a,
+[class*="title"] a {
+  text-decoration: none !important;
+}
+
+/* Content area link hover - invert style - but not cards */
+main a:hover:not(.card a):not([class*="card"] a):not([class*="nav"] a),
+article a:hover:not(.card a):not([class*="card"] a):not([class*="nav"] a),
+.content a:hover:not(.card a):not([class*="card"] a):not([class*="nav"] a),
+[class*="prose"] a:hover:not(.card a):not([class*="card"] a):not([class*="nav"] a) {
   background-color: var(--emagen-white) !important;
   color: var(--emagen-black) !important;
   text-decoration: none !important;
@@ -96,6 +105,23 @@ pre, code {
   background: rgba(255, 255, 255, 0.03) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
   backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* Card links should never have underlines */
+.card a,
+[class*="card"] a,
+a.card,
+a[class*="card"] {
+  text-decoration: none !important;
+  color: var(--emagen-white) !important;
+}
+
+/* Card link text and descriptions */
+.card p,
+[class*="card"] p,
+.card [class*="description"],
+[class*="card"] [class*="description"] {
+  color: var(--emagen-gray) !important;
 }
 
 /* Button styling with Emagen aesthetics */
@@ -340,11 +366,20 @@ select:active,
   transition: none !important;
 }
 
-/* Super specific override for sidebar links - must be gray by default */
-body .sidebar a:not(.active):not([aria-current="page"]):not([data-active="true"]):not(.group-title):not(h3 a),
-body [class*="sidebar"] a:not(.active):not([aria-current="page"]):not([data-active="true"]):not(.group-title):not(h3 a),
-body aside a:not(.active):not([aria-current="page"]):not([data-active="true"]):not(.group-title):not(h3 a),
-body nav a:not(.active):not([aria-current="page"]):not([data-active="true"]):not(.group-title):not(h3 a) {
+/* Ultra specific override for sidebar links - MUST be gray by default */
+html body .sidebar a:not(.active):not([aria-current="page"]):not([data-active="true"]):not(.group-title):not(h3 a),
+html body [class*="sidebar"] a:not(.active):not([aria-current="page"]):not([data-active="true"]):not(.group-title):not(h3 a),
+html body aside a:not(.active):not([aria-current="page"]):not([data-active="true"]):not(.group-title):not(h3 a),
+html body nav a:not(.active):not([aria-current="page"]):not([data-active="true"]):not(.group-title):not(h3 a),
+html body [role="navigation"] a:not(.active):not([aria-current="page"]):not([data-active="true"]):not(.group-title):not(h3 a) {
   color: var(--emagen-gray) !important;
   font-weight: 400 !important;
+  opacity: 1 !important;
+}
+
+/* Extreme override - if nothing else works */
+[data-theme="dark"] .sidebar a,
+[data-theme="dark"] [class*="sidebar"] a,
+[data-theme="dark"] aside a {
+  color: var(--emagen-gray) !important;
 }
