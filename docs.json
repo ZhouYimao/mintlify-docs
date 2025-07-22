@@ -12,10 +12,7 @@
     "strict": true
   },
   "customCSS": ["emagen-theme.css"],
-  "favicon": {
-    "light": "/favicon-black.svg",
-    "dark": "/favicon-white.svg"
-  },
+  "favicon": "/favicon-square.svg",
   "navigation": {
     "tabs": [
       {
