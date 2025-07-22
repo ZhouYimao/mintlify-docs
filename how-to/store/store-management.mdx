@@ -31,10 +31,10 @@ sidebarTitle: "Store Management"
     Protocol implementations for popular services like GitHub, Slack, databases
   </Card>
   
-  <Card title="📦 Subscriptions" icon="box">
-    **Premium features and services**
+  <Card title="📦 Subscription Plans" icon="crown">
+    **Genesis, Evolution, and Singularity tiers**
     
-    Enhanced capabilities, professional support, and enterprise features
+    Choose the right plan for your organization's size and needs
   </Card>
 </CardGroup>
 
@@ -292,30 +292,48 @@ sidebarTitle: "Store Management"
     ```
   </Tab>
   
-  <Tab title="📦 Managing Subscriptions">
+  <Tab title="📦 Subscription Plans">
     ```yaml
-    subscription_management:
-      subscription_types:
-        feature_subscriptions:
-          - "advanced_analytics_suite"
-          - "enterprise_security_pack"
-          - "premium_agent_models"
+    cagen_subscription_tiers:
+      genesis:
+        price: "$39/month"
+        description: "Perfect for individuals and creators"
+        features:
+          parallel_actions: 10
+          team_members: 50  # Humans + Agents
+          memory_storage: "1x baseline"
+          runtime_storage: "5GB"
+          api_credits: "$5 (first month)"
           
-        service_subscriptions:
-          - "priority_support"
-          - "professional_services"
-          - "custom_development"
+      evolution:
+        price: "$149/month"
+        description: "Built for growing teams"
+        features:
+          parallel_actions: 50  # 5x Genesis
+          team_members: 200
+          memory_storage: "5x baseline"
+          runtime_storage: "25GB"
+          api_credits: "$20 (first month)"
+          custom_agents: true
           
-      billing_integration:
-        payment_method: "stripe_integration"
-        billing_cycle: "monthly" | "annual"
-        usage_based: "metered_billing"
-        
-      subscription_lifecycle:
-        trial_period: "14_days_free"
-        auto_renewal: "configurable"
-        cancellation: "immediate_or_end_of_period"
-        downgrade_upgrade: "seamless"
+      singularity:
+        price: "$399/month"
+        description: "Enterprise-ready unlimited intelligence"
+        features:
+          parallel_actions: 200  # 20x Genesis
+          team_members: 1000
+          memory_storage: "20x baseline"
+          runtime_storage: "100GB"
+          api_credits: "$50 (first month)"
+          enterprise_features: true
+          dedicated_support: true
+          
+    billing_management:
+      payment_provider: "stripe"
+      billing_cycles: ["monthly", "annual"]
+      upgrade: "instant_with_proration"
+      downgrade: "at_next_billing_cycle"
+      refund_policy: "14_day_money_back_guarantee"
     ```
   </Tab>
 </Tabs>
@@ -488,6 +506,115 @@ sidebarTitle: "Store Management"
     ```
   </Tab>
 </Tabs>
+
+## Subscription Plans
+
+### Cagen Subscription Tiers
+
+<CardGroup cols={3}>
+  <Card title="🌱 Genesis" icon="seedling">
+    **$39/month**
+    
+    Perfect for individuals and creators starting their AI-native journey
+    
+    - 10 parallel actions
+    - 50 team members (humans + agents)
+    - 5GB runtime storage
+    - $5 API credits (first month)
+  </Card>
+  
+  <Card title="🧬 Evolution" icon="dna">
+    **$149/month**
+    
+    Built for growing teams embracing AI collaboration
+    
+    - 50 parallel actions (5x Genesis)
+    - 200 team members
+    - 25GB runtime storage
+    - $20 API credits (first month)
+    - Custom agent creation
+  </Card>
+  
+  <Card title="⚛️ Singularity" icon="atom">
+    **$399/month**
+    
+    Enterprise-ready for unlimited organizational intelligence
+    
+    - 200 parallel actions (20x Genesis)
+    - 1000 team members
+    - 100GB runtime storage
+    - $50 API credits (first month)
+    - Enterprise features & support
+  </Card>
+</CardGroup>
+
+### Choosing the Right Plan
+
+<AccordionGroup>
+  <Accordion title="For Individuals & Creators">
+    **Genesis ($39/month)** is ideal if you:
+    - Are a solopreneur or freelancer
+    - Need basic automation for personal productivity
+    - Want to explore AI-native workflows
+    - Have modest storage and processing needs
+  </Accordion>
+  
+  <Accordion title="For Growing Teams">
+    **Evolution ($149/month)** is perfect when you:
+    - Have 5-20 team members
+    - Need custom agents for specific workflows
+    - Run multiple projects simultaneously
+    - Require more processing power and storage
+    - Want team collaboration features
+  </Accordion>
+  
+  <Accordion title="For Enterprises">
+    **Singularity ($399/month)** is essential if you:
+    - Have 20+ team members
+    - Need unlimited scalability
+    - Require enterprise security features
+    - Want dedicated support and SLA
+    - Run mission-critical AI operations
+  </Accordion>
+</AccordionGroup>
+
+### Subscription Management
+
+<Steps>
+  <Step title="View Current Plan">
+    Navigate to **Store** → **Subscriptions** to see your current plan and usage
+  </Step>
+  
+  <Step title="Upgrade Plan">
+    Click **Upgrade** to move to a higher tier
+    - Instant access to new features
+    - Prorated billing for current month
+    - No downtime or data loss
+  </Step>
+  
+  <Step title="Manage Billing">
+    Access billing settings to:
+    - Update payment method
+    - Download invoices
+    - View usage history
+    - Set spending alerts
+  </Step>
+</Steps>
+
+### Value Comparison
+
+| Feature | Genesis | Evolution | Singularity |
+|---------|---------|-----------|-------------|
+| **Price** | $39/mo | $149/mo | $399/mo |
+| **Value Multiplier** | 1x | 5x capacity for 3.8x price | 20x capacity for 10x price |
+| **Best For** | Individuals | Growing Teams | Enterprises |
+| **Support** | Community | Email | Dedicated |
+| **Custom Agents** | ❌ | ✅ | ✅ Unlimited |
+| **Workspaces** | 1 | 3 | Unlimited |
+
+<Note>
+  All plans include a 14-day money-back guarantee. Start with the plan that fits your current needs - you can upgrade anytime as you grow.
+</Note>
 
 ## Community & Support
 
