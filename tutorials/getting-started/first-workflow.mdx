@@ -1,0 +1,447 @@
+---
+title: "Build Your First Workflow"
+description: "Learn how to chain Actions together to create powerful automation"
+sidebarTitle: "First Workflow"
+---
+
+# Build Your First Workflow
+
+Workflows in Cagen allow you to chain multiple Actions together, creating sophisticated automation that can handle complex business processes. In this tutorial, we'll build a content creation and distribution workflow.
+
+## What You'll Learn
+
+- Understanding Actions and Triggers
+- Creating a multi-step workflow
+- Setting up different trigger types
+- Monitoring workflow execution
+- Optimizing workflow performance
+
+## Prerequisites
+
+- Completed [Create Your First Agent](/tutorials/getting-started/first-agent) tutorial
+- At least one active Agent in your workspace
+
+## Understanding the Building Blocks
+
+Before we build, let's understand the core concepts:
+
+<CardGroup cols={2}>
+  <Card title="Actions" icon="play">
+    Discrete tasks that Agents can perform
+    
+    Examples:
+    - Analyze data
+    - Generate content
+    - Send notifications
+  </Card>
+  
+  <Card title="Triggers" icon="bolt">
+    Events that start Actions
+    
+    Types:
+    - Interaction (manual/chat)
+    - Event (webhooks, changes)
+    - Scheduled (time-based)
+  </Card>
+  
+  <Card title="Workflows" icon="diagram-project">
+    Chains of Actions working together
+    
+    Features:
+    - Sequential or parallel execution
+    - Conditional logic
+    - Error handling
+  </Card>
+  
+  <Card title="Issues" icon="tasks">
+    Containers that organize workflows
+    
+    Benefits:
+    - Track progress
+    - Manage lifecycle
+    - Assign to Agents
+  </Card>
+</CardGroup>
+
+## Scenario: Content Creation Pipeline
+
+We'll build a workflow that:
+1. **Monitors** trending topics in your industry
+2. **Generates** relevant content ideas
+3. **Creates** draft articles
+4. **Optimizes** for SEO
+5. **Schedules** publication across channels
+
+## Step 1: Create the Workflow Issue
+
+<Steps>
+  <Step title="Navigate to Issues">
+    Go to **Work > Issues** in the sidebar
+  </Step>
+  
+  <Step title="Create New Issue">
+    Click **Create** or press `C` then `I`
+  </Step>
+  
+  <Step title="Configure the Issue">
+    Fill in:
+    ```yaml
+    Title: Weekly Content Pipeline
+    Project: Marketing
+    Assignee: Growth Hacker Agent (or your preferred Agent)
+    Due Date: Recurring weekly
+    ```
+  </Step>
+</Steps>
+
+## Step 2: Design Your Workflow
+
+In the Issue content area, we'll define our workflow:
+
+```markdown
+## Workflow: Weekly Content Pipeline
+
+### Required Outputs
+- [ ] 3 trending topic analyses
+- [ ] 5 content ideas with titles
+- [ ] 1 fully written article (800-1000 words)
+- [ ] SEO optimization report
+- [ ] Publishing schedule
+
+### Actions Chain
+
+1. **Research Trending Topics**
+   - Monitor industry news sites
+   - Analyze competitor content
+   - Check social media trends
+   
+2. **Generate Content Ideas**
+   - Based on trends found
+   - Align with our content strategy
+   - Score by potential impact
+   
+3. **Create Article**
+   - Pick top-scoring idea
+   - Write comprehensive article
+   - Include relevant examples
+   
+4. **Optimize for SEO**
+   - Add meta descriptions
+   - Optimize headings
+   - Internal linking suggestions
+   
+5. **Schedule Distribution**
+   - Blog post
+   - Social media versions
+   - Email newsletter snippet
+```
+
+## Step 3: Add Action Components
+
+Click the **[需要确认：如何在Issue中添加Action组件？]** button in the content editor to add specific Actions:
+
+### Action 1: Trend Research
+
+<Tabs>
+  <Tab title="Configuration">
+    ```yaml
+    Action: Research Industry Trends
+    Agent: Growth Hacker Agent
+    Trigger: Every Monday 9 AM
+    
+    Parameters:
+      sources:
+        - Google Trends
+        - Reddit (r/startup, r/saas)
+        - Twitter trending
+        - Competitor blogs
+      
+      output_format: structured_report
+      
+      analysis_depth: comprehensive
+    ```
+  </Tab>
+  
+  <Tab title="Expected Output">
+    ```markdown
+    ## Trend Analysis Report
+    
+    ### Top 3 Trending Topics
+    1. **AI in Customer Service**
+       - Search volume: +156% MoM
+       - Competitor coverage: 12 articles
+       - Our opportunity: High
+    
+    2. **Remote Team Management**
+       - Search volume: +89% MoM
+       - Competitor coverage: 8 articles
+       - Our opportunity: Medium
+    
+    [...]
+    ```
+  </Tab>
+</Tabs>
+
+### Action 2: Content Ideation
+
+<Tabs>
+  <Tab title="Configuration">
+    ```yaml
+    Action: Generate Content Ideas
+    Agent: Same as Action 1
+    Trigger: On completion of Action 1
+    
+    Parameters:
+      input: ${action1.output.trends}
+      
+      idea_count: 5
+      
+      criteria:
+        - SEO potential
+        - Audience relevance
+        - Our expertise
+        - Competitive advantage
+    ```
+  </Tab>
+  
+  <Tab title="Expected Output">
+    ```markdown
+    ## Content Ideas
+    
+    1. **"How AI Agents Reduce Customer Service Costs by 70%"**
+       - SEO Score: 9/10
+       - Competition: Low
+       - Estimated traffic: 5,000/month
+    
+    2. **"Building Your First AI Support Agent: Complete Guide"**
+       - SEO Score: 8/10
+       - Competition: Medium
+       - Estimated traffic: 3,000/month
+    
+    [...]
+    ```
+  </Tab>
+</Tabs>
+
+## Step 4: Set Up Triggers
+
+Cagen supports three trigger types for workflows:
+
+### Scheduled Trigger (for our example)
+
+```yaml
+Trigger Type: Scheduled
+Schedule: Every Monday at 9:00 AM
+Timezone: [需要确认：如何设置时区？]
+Active: Yes
+```
+
+### Event Trigger (alternative)
+
+```yaml
+Trigger Type: Event
+Event: New competitor publishes article
+Source: RSS feed / Web monitoring
+Action: Run competitive analysis workflow
+```
+
+### Interaction Trigger (on-demand)
+
+```yaml
+Trigger Type: Interaction
+Command: "Create content about [topic]"
+Context: When mentioned in any conversation
+Permission: Team members only
+```
+
+## Step 5: Add Intelligence Layers
+
+Make your workflow smarter with conditional logic:
+
+```markdown
+### Conditional Logic
+
+IF trend_score > 80:
+  → Generate 3 content pieces
+  → Fast-track publication
+  
+ELIF trend_score > 50:
+  → Generate 1 content piece
+  → Standard publication
+  
+ELSE:
+  → Skip this week
+  → Monitor for next week
+```
+
+## Step 6: Launch and Monitor
+
+<Steps>
+  <Step title="Save and Start">
+    Click **Save and Start** to activate your workflow
+  </Step>
+  
+  <Step title="Monitor Progress">
+    Watch the Activity feed in your Issue:
+    ```
+    🔄 Workflow started
+    ✅ Action 1: Trend Research - Complete (2m 15s)
+    🏃 Action 2: Content Ideation - In Progress
+    ⏸️ Action 3: Article Creation - Waiting
+    ```
+  </Step>
+  
+  <Step title="Review Outputs">
+    Each Action's output appears in the Issue Activity
+  </Step>
+</Steps>
+
+## Advanced Workflow Features
+
+### Parallel Execution
+
+Run multiple Actions simultaneously:
+
+```yaml
+Parallel Actions:
+  - Research trends on Google
+  - Analyze competitor content
+  - Check social media buzz
+  
+Then: Combine results → Generate ideas
+```
+
+### Error Handling
+
+```yaml
+On Error:
+  - Retry up to 3 times
+  - If still failing: Notify human
+  - Continue with other branches
+```
+
+### Human-in-the-Loop
+
+```yaml
+Action: Generate Article
+After: Request human review
+Options:
+  - Approve → Proceed to SEO
+  - Revise → Regenerate with feedback
+  - Reject → Try different topic
+```
+
+## Workflow Templates
+
+<CardGroup cols={2}>
+  <Card title="Sales Pipeline" icon="funnel">
+    Lead scoring → Personalized outreach → Follow-up sequence → Meeting scheduling
+  </Card>
+  
+  <Card title="Customer Onboarding" icon="user-plus">
+    Welcome email → Setup assistance → Feature education → Success check-in
+  </Card>
+  
+  <Card title="Financial Reporting" icon="chart-pie">
+    Data collection → Analysis → Report generation → Stakeholder distribution
+  </Card>
+  
+  <Card title="Code Deployment" icon="code-branch">
+    Code review → Testing → Build → Deploy → Monitor
+  </Card>
+</CardGroup>
+
+## Monitoring and Optimization
+
+### Metrics to Track
+
+<Info>
+  Your workflow automatically tracks these metrics. View them in the Issue details.
+</Info>
+
+- **Execution Time**: How long each Action takes
+- **Success Rate**: Percentage of successful completions
+- **Output Quality**: Based on feedback and results
+- **Resource Usage**: Action points consumed
+
+### Optimization Tips
+
+1. **Start Simple**: Basic workflow first, add complexity gradually
+2. **Monitor Bottlenecks**: Identify slow Actions and optimize
+3. **Iterate Based on Results**: Use metrics to guide improvements
+4. **Leverage Caching**: Reuse results when possible
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Workflow not starting">
+    Check:
+    - Trigger configuration is correct
+    - Agent has necessary permissions
+    - Action points are available
+  </Accordion>
+  
+  <Accordion title="Actions failing">
+    Common causes:
+    - Missing integrations (connect required tools)
+    - Insufficient context (provide more details)
+    - API limits (check third-party services)
+  </Accordion>
+  
+  <Accordion title="Unexpected results">
+    Improve by:
+    - Adding validation steps
+    - Providing examples of desired output
+    - Using more specific prompts
+  </Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+<Tip>
+  **Golden Rule**: Design workflows as you would delegate to a human team member - clear objectives, defined steps, and success criteria.
+</Tip>
+
+### Do's
+- ✅ Break complex processes into discrete Actions
+- ✅ Include validation and error handling
+- ✅ Monitor and iterate based on performance
+- ✅ Document expected inputs and outputs
+
+### Don'ts
+- ❌ Create overly complex workflows initially
+- ❌ Skip testing with sample data
+- ❌ Ignore Agent feedback and suggestions
+- ❌ Forget to set resource limits
+
+## Next Steps
+
+You've built your first workflow! Here's what to explore next:
+
+<CardGroup cols={2}>
+  <Card title="Advanced Workflows" icon="rocket" href="/tutorials/advanced/complex-workflows">
+    Multi-Agent collaboration and complex logic
+  </Card>
+  
+  <Card title="Custom Actions" icon="code" href="/how-to/actions/create-custom">
+    Build Actions specific to your needs
+  </Card>
+  
+  <Card title="Workflow Library" icon="book" href="/reference/workflow-templates">
+    Pre-built workflows for common scenarios
+  </Card>
+  
+  <Card title="Integration Guide" icon="plug" href="/how-to/integrations">
+    Connect external tools and services
+  </Card>
+</CardGroup>
+
+## Key Takeaways
+
+- ✅ Workflows chain Actions for complex automation
+- ✅ Three trigger types: Scheduled, Event, Interaction
+- ✅ Issues organize and track workflow execution
+- ✅ Start simple, iterate based on metrics
+- ✅ Human-in-the-loop keeps quality high
+
+Ready for more? Learn about [Team Collaboration →](/tutorials/getting-started/team-setup)
