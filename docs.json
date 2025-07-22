@@ -108,9 +108,7 @@
           },
           {
             "group": "System Architecture",
-            "pages": [
-              "explanation/architecture/url-structure"
-            ]
+            "pages": []
           },
           {
             "group": "Best Practices",
