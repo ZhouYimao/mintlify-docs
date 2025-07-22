@@ -1,19 +1,7 @@
-<svg width="240" height="40" viewBox="0 0 240 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Emagen A logo from original SVG - white, positioned on left -->
-  <g transform="translate(20, 20) scale(0.25, 0.25)">
-    <g transform="matrix(1.3333333,0,0,-1.3333333,-568.86425,629.30852)">
-      <g transform="translate(534.2332,445.1454)">
-        <path d="m 0,0 -20.176,26.836 -87.409,-116.264 h 40.352 l 51.714,68.786 -4.657,-6.194 47.058,-62.592 h 40.351 z"
-              style="fill:#FFFFFF;fill-opacity:1;fill-rule:nonzero;stroke:none"/>
-      </g>
-    </g>
-  </g>
+<svg width="180" height="40" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Simple A shape -->
+  <path d="M 5 35 L 15 5 L 20 5 L 30 35 L 25 35 L 22 25 L 13 25 L 10 35 L 5 35 Z M 15 20 L 20 20 L 17.5 12 L 15 20 Z" fill="white"/>
   
-  <!-- Cagen text - white, positioned to the right of A -->
-  <text x="65" y="28" 
-        font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', sans-serif" 
-        font-size="26" 
-        font-weight="600" 
-        fill="#FFFFFF"
-        letter-spacing="-0.02em">Cagen</text>
+  <!-- Cagen text -->
+  <text x="40" y="28" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="24" font-weight="600" fill="white">Cagen</text>
 </svg>
