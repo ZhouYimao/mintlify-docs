@@ -1,0 +1,11 @@
+<svg width="160" height="32" viewBox="0 0 160 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Emagen A logo scaled down -->
+  <g transform="scale(0.13) translate(0, 50)">
+    <path d="m 0,0 -20.176,26.836 -87.409,-116.264 h 40.352 l 51.714,68.786 -4.657,-6.194 47.058,-62.592 h 40.351 z"
+          style="fill:#FFFFFF;fill-opacity:1;fill-rule:nonzero;stroke:none"
+          transform="translate(534.2332,445.1454) matrix(1.3333333,0,0,-1.3333333,-568.86425,629.30852)" />
+  </g>
+  
+  <!-- Cagen text -->
+  <text x="36" y="24" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="24" font-weight="600" fill="white">Cagen</text>
+</svg>

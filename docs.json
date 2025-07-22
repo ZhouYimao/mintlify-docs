@@ -94,8 +94,8 @@
     }
   },
   "logo": {
-    "light": "/logo/emagen-logo.svg",
-    "dark": "/logo/emagen-logo.svg"
+    "light": "/logo/cagen-full.svg",
+    "dark": "/logo/cagen-full.svg"
   },
   "navbar": {
     "links": [
