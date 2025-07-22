@@ -140,6 +140,7 @@
             "group": "Core Concepts",
             "pages": [
               "explanation/core-concepts/ai-native-organization",
+              "explanation/core-concepts/cagen-system-agent",
               "explanation/concepts/ai-collaboration",
               "explanation/concepts/memory-intelligence"
             ]

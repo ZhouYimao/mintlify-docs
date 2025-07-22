@@ -1,0 +1,365 @@
+---
+title: "Cagen: The System Agent"
+description: "Understanding Cagen's role as your organization's primary system agent and conversation orchestrator"
+sidebarTitle: "Cagen System Agent"
+---
+
+## Meet Cagen: Your System Agent
+
+When you first start using Cagen, you'll encounter **Cagen itself** as a special AI agent that serves as your organization's system administrator and conversation orchestrator. Unlike other agents you might create, Cagen is built into the platform and handles core system functions automatically.
+
+## Cagen's Core Responsibilities
+
+### System-Level Management
+
+Cagen operates at the system level, managing:
+
+- **Issues and Projects**: Creating, updating, and tracking work items
+- **Conversations**: Orchestrating group discussions and topic management  
+- **Team Coordination**: Facilitating communication between humans and other agents
+- **Context Switching**: Adapting behavior based on conversation type and participants
+
+### Ambient Intelligence
+
+Unlike other agents that need to be explicitly mentioned, **Cagen is always listening** in conversations and can:
+
+- Provide context when needed
+- Suggest relevant actions or next steps
+- Connect related discussions across different channels
+- Maintain continuity in long-running conversations
+
+## The @Mention System
+
+### Mentioning Humans
+
+When you mention a person using `@`, they receive an notification in their Inbox:
+
+```
+Example: @kiwi @yixiong can you review this proposal?
+
+Result:
+- kiwi receives Inbox notification
+- yixiong receives Inbox notification  
+- Both can respond directly in the conversation
+```
+
+### Mentioning Agents
+
+When you mention an agent using `@`, that agent is triggered to participate:
+
+```
+Example: @sam please execute the deployment action
+
+Result:
+- sam agent is activated
+- sam uses ReACT reasoning to decide whether to execute deployment
+- sam performs the action if appropriate
+- Results are shared back to the conversation
+```
+
+### Cagen's Special Status
+
+**Cagen is always present** without needing to be mentioned:
+
+```yaml
+visibility_rules:
+  cagen: "Always sees all messages in conversations"
+  other_agents: "Only triggered when explicitly mentioned with @"
+  
+response_triggers:
+  cagen: "Responds when context is needed or system actions required"
+  other_agents: "Respond when mentioned and relevant to their expertise"
+```
+
+## Cagen as Conversation Orchestrator
+
+### MCP Tool Integration
+
+Cagen operates as the conversation orchestrator using MCP (Model Context Protocol) tools. When processing conversations, Cagen receives data in this format:
+
+```json
+{
+  "mentioned": ["user_id_or_agent_id"],
+  "content": "message content"
+}
+```
+
+**Example breakdown:**
+```json
+{
+  "mentioned": ["user_1", "user_2", "agent_1"],
+  "content": "kiwi and yixiong should review this, then sam can execute the deploy action"
+}
+```
+
+**Frontend display:**
+```
+Cagen: @kiwi @yixiong @sam kiwi and yixiong should review this, then sam can execute the deploy action
+```
+
+**What happens:**
+- **kiwi** and **yixiong** receive Inbox notifications
+- **sam** (agent) is triggered and enters ReACT reasoning flow
+- **sam** decides whether to execute the deploy action based on context
+- All participants can see the coordinated interaction
+
+### Context-Aware Behavior
+
+Cagen adapts its behavior based on conversation context:
+
+#### In Group Chats
+```yaml
+role: "Facilitator and coordinator"
+behavior:
+  - Monitor discussion flow and suggest structure when needed
+  - Identify when decisions need to be made or actions taken
+  - Connect relevant information from Memory Bank
+  - Coordinate between human participants and other agents
+  
+example_scenarios:
+  - "It looks like we need to make a decision on the API design. Should I create an issue to track this?"
+  - "This discussion relates to the customer feedback from last week. Would you like me to pull up those insights?"
+```
+
+#### In Topic Discussions
+```yaml
+role: "Topic manager and decision tracker"
+behavior:
+  - Keep discussions focused on the topic goal
+  - Track decisions and action items
+  - Suggest when the topic is ready to be resolved
+  - Archive completed topics with summary
+  
+example_scenarios:
+  - "We've covered all the requirements. Should I create the implementation issues?"
+  - "This topic has been resolved. Would you like me to archive it with the decision summary?"
+```
+
+#### In Issue Channels
+```yaml
+role: "Issue coordinator and progress tracker"  
+behavior:
+  - Track issue progress and blockers
+  - Coordinate between assigned agents and human team members
+  - Suggest next steps and resource needs
+  - Update issue status based on conversation outcomes
+  
+example_scenarios:
+  - "The deployment is complete. Should I mark this issue as done?"
+  - "There seems to be a blocker with the API integration. Should I escalate this?"
+```
+
+## Cagen's Intelligence Capabilities
+
+### ReACT Reasoning Framework
+
+Like other agents, Cagen uses ReACT (Reasoning and Acting) to make decisions:
+
+```yaml
+reasoning_process:
+  observe: "Analyze conversation context and participant needs"
+  think: "Determine if system action is needed and what type"
+  act: "Execute appropriate system functions or coordinate other agents"
+  observe: "Monitor results and adjust approach if needed"
+```
+
+### System Action Authority
+
+Cagen can perform system-level actions that other agents cannot:
+
+**Issue Management:**
+- Create, update, and close issues
+- Assign issues to team members or agents
+- Link related issues and conversations
+- Generate progress reports
+
+**Conversation Management:**
+- Create new channels for specific topics
+- Archive completed discussions
+- Merge related conversations
+- Set conversation permissions and notifications
+
+**Team Coordination:**
+- Schedule meetings based on conversation needs
+- Create action items from decisions
+- Route questions to appropriate team members or agents
+- Maintain context across multiple related conversations
+
+### Memory Integration
+
+Cagen has special access to your organization's Memory Bank:
+
+```yaml
+memory_capabilities:
+  read_access: "Full organizational memory"
+  write_access: "Can update memory with conversation insights"
+  context_retrieval: "Automatically surfaces relevant historical context"
+  pattern_recognition: "Identifies trends and recurring themes"
+  
+examples:
+  - "This issue is similar to one we solved last quarter. Here's what worked then..."
+  - "I've updated our process documentation based on this discussion"
+  - "This decision conflicts with our previous strategy. Should we review our approach?"
+```
+
+## Action 0: The Universal Executor
+
+### What is Action 0?
+
+**Action 0** is Cagen's built-in capability to execute arbitrary actions using Claude Code as the execution engine. It's called "Action 0" because it's the foundational action that all other actions build upon.
+
+### How Action 0 Works
+
+When you need to execute an action, you can:
+
+#### Method 1: Natural Language
+```
+"Cagen, please deploy the latest version to staging"
+
+Cagen determines: 
+- What action is needed (deployment)
+- What parameters are required (target: staging, version: latest)
+- Whether to execute immediately or ask for confirmation
+```
+
+#### Method 2: Force Execute with Shift+Tab
+```
+In any input field:
+1. Type your action request
+2. Press Shift+Tab to force execution
+3. Action 0 processes the request using Claude Code engine
+4. Results are returned to the conversation
+```
+
+### Claude Code as Execution Engine
+
+Action 0 leverages **Claude Code's powerful execution capabilities**:
+
+```yaml
+execution_capabilities:
+  code_execution: "Run Python, JavaScript, shell commands"
+  file_operations: "Read, write, and manipulate files"
+  api_interactions: "Call external APIs and services"
+  data_processing: "Analyze and transform data"
+  system_integration: "Connect with external tools and services"
+  
+security_features:
+  sandboxed_execution: "Safe, isolated execution environment"
+  permission_controls: "Respects user and organizational permissions"
+  audit_logging: "All actions are logged for security and debugging"
+```
+
+### Action 0 Examples
+
+#### Development Tasks
+```
+Request: "Run the test suite and deploy if all tests pass"
+
+Action 0 Process:
+1. Execute: `npm test` or equivalent test command
+2. Analyze: Check test results for failures
+3. Decision: If tests pass, proceed with deployment
+4. Execute: Run deployment script
+5. Report: Share results in conversation
+```
+
+#### Data Analysis
+```
+Request: "Analyze last week's customer feedback and summarize key themes"
+
+Action 0 Process:
+1. Query: Retrieve customer feedback from past week
+2. Process: Use AI to identify themes and sentiment
+3. Analyze: Generate insights and recommendations  
+4. Present: Create formatted summary with visualizations
+```
+
+#### System Administration
+```
+Request: "Check server health and restart any failing services"
+
+Action 0 Process:
+1. Monitor: Query server status and metrics
+2. Identify: Detect failing or unhealthy services
+3. Execute: Restart services that need attention
+4. Verify: Confirm services are running properly
+5. Report: Provide status update with details
+```
+
+## Best Practices for Working with Cagen
+
+### Effective Communication
+
+**Be Clear About Intent:**
+```
+Good: "Cagen, create an issue to track the API rate limiting implementation"
+Less Good: "We need to do something about the API"
+```
+
+**Provide Context When Needed:**
+```
+Good: "This relates to the customer complaints from last week's feedback"
+Helpful: Include relevant background information for better decisions
+```
+
+### Leveraging Cagen's Orchestration
+
+**Use Cagen to Coordinate Complex Tasks:**
+```
+"Cagen, coordinate with @dev-team to review the architecture, 
+then have @qa-agent test the implementation, 
+and finally @deploy-agent can push to production"
+```
+
+**Let Cagen Handle System Tasks:**
+```
+Instead of: Manually creating issues and channels
+Try: "Cagen, set up the project structure for the mobile app initiative"
+```
+
+### Action 0 Optimization
+
+**Combine Related Actions:**
+```
+Efficient: "Run tests, update documentation, and deploy to staging"
+Instead of: Three separate requests for each action
+```
+
+**Use Force Execute for Immediate Needs:**
+```
+When: You need immediate execution without discussion
+How: Shift+Tab after typing your action request
+```
+
+## Cagen's Evolution
+
+### Learning from Your Organization
+
+Cagen becomes more effective over time by:
+
+- **Learning communication patterns** within your team
+- **Understanding your workflow preferences** and optimizing suggestions  
+- **Building knowledge** of your systems and processes
+- **Adapting its orchestration style** to your team's culture
+
+### Customization Options
+
+While Cagen's core functionality remains consistent, you can customize:
+
+```yaml
+customizable_aspects:
+  response_style: "Formal, casual, or technical tone"
+  proactivity_level: "How often Cagen offers suggestions"
+  automation_preferences: "Which tasks to handle automatically"
+  notification_settings: "When and how Cagen alerts the team"
+```
+
+## Conclusion
+
+Cagen serves as both your organization's system administrator and conversation orchestrator. By understanding how to work effectively with Cagen—through the @mention system, Action 0 capabilities, and its role in different conversation contexts—you can unlock the full potential of AI-native organizational intelligence.
+
+Think of Cagen not just as a tool, but as your organization's first and most capable team member, one who's always available to help coordinate, execute, and optimize your collective work.
+
+<Note>
+  Cagen's effectiveness grows with your organization's usage. The more your team interacts with Cagen and leverages its capabilities, the better it becomes at understanding and supporting your specific needs and workflows.
+</Note>
