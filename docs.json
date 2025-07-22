@@ -25,7 +25,7 @@
   ],
   "topbarCtaButton": {
     "name": "Launch Cagen",
-    "url": "https://app.cagen.ai"
+    "url": "https://cagen.ai/app"
   },
   "navigation": {
     "tabs": [
@@ -164,7 +164,7 @@
     "primary": {
       "type": "button",
       "label": "Launch Cagen",
-      "href": "https://app.cagen.ai"
+      "href": "https://cagen.ai/app"
     }
   },
   "footer": {
@@ -191,7 +191,7 @@
         "description": "Ask Cagen AI about this documentation",
         "icon": "robot",
         "href": {
-          "base": "https://app.cagen.ai/chat",
+          "base": "https://cagen.ai/app/public/chat",
           "query": [
             {
               "key": "context",
