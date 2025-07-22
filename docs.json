@@ -12,6 +12,11 @@
     "light": "#ffffff",
     "dark": "#1d1d1f"
   },
+  "appearance": {
+    "default": "dark",
+    "strict": true
+  },
+  "customCSS": ["emagen-theme.css"],
   "topbarLinks": [
     {
       "name": "Support",
@@ -22,61 +27,85 @@
     "name": "Launch Cagen",
     "url": "https://app.cagen.ai"
   },
-  "anchors": [
-    {
-      "name": "Discord",
-      "icon": "discord",
-      "url": "https://discord.gg/cagen"
-    },
-    {
-      "name": "GitHub",
-      "icon": "github",
-      "url": "https://github.com/emagen-ai"
-    },
-    {
-      "name": "Product Hunt",
-      "icon": "rocket",
-      "url": "https://producthunt.com/products/cagen"
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Welcome",
+            "pages": [
+              "index"
+            ]
+          },
+          {
+            "group": "Get Started",
+            "pages": [
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Tutorials",
+            "pages": [
+              "tutorials/getting-started/first-agent",
+              "tutorials/getting-started/first-workflow",
+              "tutorials/use-cases/startup-guide"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "explanation/core-concepts/ai-native-organization"
+            ]
+          },
+          {
+            "group": "Updates",
+            "pages": [
+              "changelog"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Discord",
+          "href": "https://discord.gg/cagen",
+          "icon": "discord"
+        },
+        {
+          "anchor": "GitHub",
+          "href": "https://github.com/emagen-ai",
+          "icon": "github"
+        },
+        {
+          "anchor": "Product Hunt",
+          "href": "https://producthunt.com/products/cagen",
+          "icon": "rocket"
+        }
+      ]
     }
-  ],
-  "navigation": [
-    {
-      "group": "Welcome",
-      "pages": [
-        "index"
-      ]
-    },
-    {
-      "group": "Get Started",
-      "pages": [
-        "quickstart"
-      ]
-    },
-    {
-      "group": "Tutorials",
-      "pages": [
-        "tutorials/getting-started/first-agent",
-        "tutorials/getting-started/first-workflow",
-        "tutorials/use-cases/startup-guide"
-      ]
-    },
-    {
-      "group": "Core Concepts", 
-      "pages": [
-        "explanation/core-concepts/ai-native-organization"
-      ]
-    },
-    {
-      "group": "Updates",
-      "pages": [
-        "changelog"
-      ]
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:support@emagen.ai"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Launch Cagen",
+      "href": "https://app.cagen.ai"
     }
-  ],
-  "footerSocials": {
-    "x": "https://x.com/emagen_ai",
-    "github": "https://github.com/emagen-ai",
-    "linkedin": "https://www.linkedin.com/company/emagen-ai"
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/emagen_ai",
+      "github": "https://github.com/emagen-ai",
+      "linkedin": "https://www.linkedin.com/company/emagen-ai"
+    }
   },
   "feedback": {
     "thumbsRating": true,
