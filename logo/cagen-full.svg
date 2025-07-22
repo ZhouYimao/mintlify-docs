@@ -1,7 +1,8 @@
 <svg width="180" height="40" viewBox="0 0 180 40" xmlns="http://www.w3.org/2000/svg">
-  <!-- Emagen A logo -->
-  <g transform="translate(0, 2) scale(0.15, 0.15)">
-    <g transform="matrix(1.3333333,0,0,-1.3333333,-568.86425,629.30852)">
+  <!-- Emagen A logo - 精确垂直居中 -->
+  <g transform="translate(5, 20) scale(0.16, 0.16)">
+    <!-- 使用translate调整垂直位置，让A的视觉中心与文字对齐 -->
+    <g transform="matrix(1.3333333,0,0,-1.3333333,-568.86425,629.30852) translate(0, -20)">
       <g transform="translate(534.2332,445.1454)">
         <path d="m 0,0 -20.176,26.836 -87.409,-116.264 h 40.352 l 51.714,68.786 -4.657,-6.194 47.058,-62.592 h 40.351 z"
               fill="#FFFFFF"/>
@@ -9,6 +10,12 @@
     </g>
   </g>
   
-  <!-- Cagen text -->
-  <text x="45" y="28" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="24" font-weight="600" fill="#FFFFFF">Cagen</text>
+  <!-- Cagen text - 使用黄金比例间距 -->
+  <text x="48" y="26" 
+        font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif" 
+        font-size="22" 
+        font-weight="600" 
+        fill="#FFFFFF"
+        alignment-baseline="middle"
+        letter-spacing="-0.01em">Cagen</text>
 </svg>
