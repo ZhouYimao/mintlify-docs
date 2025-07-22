@@ -36,117 +36,15 @@ a {
   color: var(--emagen-white) !important;
 }
 
-/* Text selection styles - Perfect color inversion */
-/* Default: assumes dark theme by default per docs.json appearance settings */
-::selection {
+/* Text selection - Force white background with black text */
+*::selection {
   background-color: var(--emagen-white) !important;
   color: var(--emagen-black) !important;
   text-shadow: none !important;
 }
 
-::-moz-selection {
+*::-moz-selection {
   background-color: var(--emagen-white) !important;
-  color: var(--emagen-black) !important;
-  text-shadow: none !important;
-}
-
-/* Light mode selection - inverted to black bg with white text */
-[data-theme="light"] ::selection,
-.light ::selection,
-html:not([data-theme="dark"]) ::selection {
-  background-color: var(--emagen-black) !important;
-  color: var(--emagen-white) !important;
-  text-shadow: none !important;
-}
-
-[data-theme="light"] ::-moz-selection,
-.light ::-moz-selection,
-html:not([data-theme="dark"]) ::-moz-selection {
-  background-color: var(--emagen-black) !important;
-  color: var(--emagen-white) !important;
-  text-shadow: none !important;
-}
-
-/* Ensure selection works on all text elements */
-p::selection, 
-h1::selection, 
-h2::selection, 
-h3::selection, 
-h4::selection, 
-h5::selection, 
-h6::selection,
-li::selection,
-td::selection,
-th::selection,
-span::selection,
-div::selection,
-a::selection,
-strong::selection,
-em::selection,
-blockquote::selection {
-  background-color: var(--emagen-white) !important;
-  color: var(--emagen-black) !important;
-  text-shadow: none !important;
-}
-
-p::-moz-selection, 
-h1::-moz-selection, 
-h2::-moz-selection, 
-h3::-moz-selection, 
-h4::-moz-selection, 
-h5::-moz-selection, 
-h6::-moz-selection,
-li::-moz-selection,
-td::-moz-selection,
-th::-moz-selection,
-span::-moz-selection,
-div::-moz-selection,
-a::-moz-selection,
-strong::-moz-selection,
-em::-moz-selection,
-blockquote::-moz-selection {
-  background-color: var(--emagen-white) !important;
-  color: var(--emagen-black) !important;
-  text-shadow: none !important;
-}
-
-/* Light mode specific element selections */
-[data-theme="light"] p::selection,
-[data-theme="light"] h1::selection,
-[data-theme="light"] h2::selection,
-[data-theme="light"] h3::selection,
-[data-theme="light"] h4::selection,
-[data-theme="light"] h5::selection,
-[data-theme="light"] h6::selection,
-[data-theme="light"] li::selection,
-[data-theme="light"] td::selection,
-[data-theme="light"] th::selection,
-[data-theme="light"] span::selection,
-[data-theme="light"] div::selection,
-[data-theme="light"] a::selection,
-[data-theme="light"] strong::selection,
-[data-theme="light"] em::selection,
-[data-theme="light"] blockquote::selection {
-  background-color: var(--emagen-black) !important;
-  color: var(--emagen-white) !important;
-  text-shadow: none !important;
-}
-
-/* Code blocks always use inverted selection for better visibility */
-pre::selection,
-code::selection,
-pre code::selection,
-.code-block::selection {
-  background-color: rgba(255, 255, 255, 0.99) !important;
-  color: var(--emagen-black) !important;
-  text-shadow: none !important;
-}
-
-pre::-moz-selection,
-code::-moz-selection,
-pre code::-moz-selection,
-.code-block::-moz-selection {
-  background-color: rgba(255, 255, 255, 0.99) !important;
   color: var(--emagen-black) !important;
   text-shadow: none !important;
 }
