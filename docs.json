@@ -78,19 +78,6 @@
         "tab": "How-to Guides",
         "groups": [
           {
-            "group": "Interface & Navigation",
-            "pages": [
-              "how-to/interface/command-launcher",
-              "how-to/interface/inbox"
-            ]
-          },
-          {
-            "group": "Communication",
-            "pages": [
-              "how-to/communication/conversations"
-            ]
-          },
-          {
             "group": "Work Management",
             "pages": [
               "how-to/work/issue-management"
@@ -118,12 +105,6 @@
             "group": "Team Management",
             "pages": [
               "how-to/members/team-management"
-            ]
-          },
-          {
-            "group": "Runtime Environment",
-            "pages": [
-              "how-to/runtime/runtime-environment"
             ]
           },
           {
@@ -158,12 +139,16 @@
           {
             "group": "Core Concepts",
             "pages": [
-              "explanation/core-concepts/ai-native-organization"
+              "explanation/core-concepts/ai-native-organization",
+              "explanation/concepts/ai-collaboration",
+              "explanation/concepts/memory-intelligence"
             ]
           },
           {
             "group": "System Architecture",
-            "pages": []
+            "pages": [
+              "explanation/architecture/system-design"
+            ]
           },
           {
             "group": "Best Practices",
@@ -175,15 +160,34 @@
         "tab": "Reference",
         "groups": [
           {
-            "group": "General",
+            "group": "Interface",
             "pages": [
-              "reference/pricing-plans"
+              "reference/interface/command-launcher",
+              "reference/interface/inbox"
+            ]
+          },
+          {
+            "group": "Communication",
+            "pages": [
+              "reference/communication/conversations"
+            ]
+          },
+          {
+            "group": "System",
+            "pages": [
+              "reference/system/runtime-environment"
             ]
           },
           {
             "group": "Agent Types",
             "pages": [
               "reference/agent-types/built-in-agents"
+            ]
+          },
+          {
+            "group": "General",
+            "pages": [
+              "reference/pricing-plans"
             ]
           }
         ]
