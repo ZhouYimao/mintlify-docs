@@ -49,10 +49,12 @@ a {
   text-shadow: none !important;
 }
 
-/* Logo adjustments - remove left padding */
+/* Logo adjustments - remove left padding and scale up */
 nav img[alt*="logo"],
 nav svg,
 [href="/"] img,
 [href="/"] svg {
   margin-left: -3px !important;
+  transform: scale(1.3) !important;
+  transform-origin: left center !important;
 }
