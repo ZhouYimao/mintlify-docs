@@ -1,0 +1,297 @@
+---
+title: "How to Create a Custom Agent"
+description: "Step-by-step guide to creating and configuring your own custom Agent"
+sidebarTitle: "Create Custom Agent"
+---
+
+<Info>
+  This guide assumes you have already completed the [First Agent tutorial](/tutorials/getting-started/first-agent). If you haven't, we recommend starting there for a gentler introduction.
+</Info>
+
+## Prerequisites
+
+- Active Cagen account with available Agent slots
+- Clear understanding of the task you want to automate
+- Any necessary API keys for integrations
+
+## Steps
+
+### 1. Access the Agent Creation Interface
+
+Navigate to **Team > Agents** in the sidebar, then click **Create Agent** or press `C` → `Agent`.
+
+### 2. Choose Your Starting Point
+
+You have three options:
+
+<Tabs>
+  <Tab title="From Template">
+    Select a pre-built template closest to your needs:
+    - Modify the template configuration
+    - Saves time with proven patterns
+    - Best for common use cases
+  </Tab>
+  
+  <Tab title="From Scratch">
+    Start with a blank Agent:
+    - Full control over configuration
+    - Define custom capabilities
+    - Best for unique requirements
+  </Tab>
+  
+  <Tab title="Clone Existing">
+    Duplicate an existing Agent:
+    - Inherit all settings and workflows
+    - Modify for new purpose
+    - Best for variations of existing Agents
+  </Tab>
+</Tabs>
+
+### 3. Configure Basic Information
+
+```yaml
+Agent Configuration:
+  name: "Market Research Agent"
+  description: "Monitors competitors and industry trends"
+  avatar: "🔍"  # Optional emoji or image
+  status: "active"
+```
+
+<Warning>
+  Choose descriptive names that clearly indicate the Agent's purpose. This helps when managing multiple Agents.
+</Warning>
+
+### 4. Define Agent Capabilities
+
+Specify what your Agent can do:
+
+```yaml
+Capabilities:
+  core_functions:
+    - Web research
+    - Data analysis
+    - Report generation
+    
+  permissions:
+    read:
+      - Public web content
+      - Company knowledge base
+      - Previous reports
+    
+    write:
+      - Reports folder
+      - Team notifications
+      
+    execute:
+      - Scheduled searches
+      - Data processing
+      - Alert triggers
+```
+
+### 5. Set Up Memory Access
+
+Configure what information the Agent can access:
+
+<Steps>
+  <Step>
+    **Define Memory Scope**
+    ```yaml
+    memory_access:
+      team_documents: true
+      user_specific: false
+      external_sources:
+        - industry_reports
+        - competitor_websites
+    ```
+  </Step>
+  
+  <Step>
+    **Set Retention Policy**
+    ```yaml
+    retention:
+      conversation_history: 30_days
+      generated_content: permanent
+      temporary_data: 7_days
+    ```
+  </Step>
+</Steps>
+
+### 6. Configure Model and Performance
+
+Choose the AI model and performance settings:
+
+```yaml
+Model Configuration:
+  model: "gpt-4-turbo"  # or "claude-3-opus", "gemini-pro"
+  
+  performance:
+    response_time: "balanced"  # fast, balanced, or thorough
+    creativity: 0.7  # 0.0 to 1.0
+    consistency: 0.9  # 0.0 to 1.0
+    
+  resource_limits:
+    max_tokens_per_request: 4000
+    max_requests_per_hour: 100
+    max_memory_usage: "1GB"
+```
+
+### 7. Create Initial Instructions
+
+Provide clear instructions for your Agent:
+
+```markdown
+## Core Instructions
+
+You are a Market Research Agent for [Company Name]. Your primary responsibilities:
+
+1. Monitor competitor activities daily
+2. Track industry trends and news
+3. Generate weekly insight reports
+4. Alert team to significant changes
+
+### Guidelines:
+- Focus on actionable insights
+- Prioritize relevance over volume
+- Maintain objectivity in analysis
+- Cite all sources
+
+### Output Format:
+- Executive summaries for quick scanning
+- Detailed analysis with supporting data
+- Clear recommendations for action
+```
+
+### 8. Test Your Agent
+
+Before deploying, test thoroughly:
+
+<Tabs>
+  <Tab title="Interactive Test">
+    1. Click **Test Agent**
+    2. Give it a sample task
+    3. Review the output
+    4. Adjust configuration as needed
+  </Tab>
+  
+  <Tab title="Simulation Mode">
+    1. Enable **Simulation Mode**
+    2. Run through typical scenarios
+    3. Check resource usage
+    4. Validate outputs
+  </Tab>
+</Tabs>
+
+### 9. Set Up Monitoring
+
+Configure how to track Agent performance:
+
+```yaml
+Monitoring:
+  metrics:
+    - task_completion_rate
+    - average_response_time
+    - user_satisfaction_score
+    - resource_utilization
+    
+  alerts:
+    - type: "performance_degradation"
+      threshold: "20% below baseline"
+      notify: "admin@company.com"
+      
+    - type: "error_rate"
+      threshold: "> 5%"
+      notify: "team_slack_channel"
+```
+
+### 10. Deploy and Iterate
+
+<Steps>
+  <Step>
+    Click **Save and Deploy** to activate your Agent
+  </Step>
+  
+  <Step>
+    Monitor initial performance closely
+  </Step>
+  
+  <Step>
+    Gather feedback from users
+  </Step>
+  
+  <Step>
+    Iterate based on real-world usage
+  </Step>
+</Steps>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Start Simple">
+    Begin with core functionality and add features gradually. It's easier to expand than to debug an overly complex Agent.
+  </Accordion>
+  
+  <Accordion title="Clear Boundaries">
+    Define exactly what your Agent should and shouldn't do. This prevents scope creep and improves reliability.
+  </Accordion>
+  
+  <Accordion title="Regular Reviews">
+    Schedule monthly reviews to:
+    - Analyze performance metrics
+    - Update instructions based on edge cases
+    - Optimize resource usage
+  </Accordion>
+  
+  <Accordion title="Version Control">
+    Keep track of configuration changes:
+    - Document why changes were made
+    - Test thoroughly before deploying updates
+    - Maintain rollback capability
+  </Accordion>
+</AccordionGroup>
+
+## Common Pitfalls to Avoid
+
+- **Over-permissioning**: Only grant necessary access
+- **Vague instructions**: Be specific about expected behaviors
+- **Ignoring feedback**: User complaints often reveal improvement opportunities
+- **Set and forget**: Agents need maintenance and optimization
+
+## Advanced Configurations
+
+### Multi-Model Strategy
+
+For complex Agents, use different models for different tasks:
+
+```yaml
+multi_model:
+  research_tasks: "gpt-4-turbo"
+  summarization: "claude-3-haiku"
+  data_analysis: "gemini-pro"
+```
+
+### Conditional Behaviors
+
+Create Agents that adapt based on context:
+
+```yaml
+conditional_logic:
+  - if: "urgent_request"
+    then: 
+      model: "gpt-4-turbo"
+      response_time: "fast"
+      
+  - if: "detailed_analysis"
+    then:
+      model: "claude-3-opus"
+      response_time: "thorough"
+```
+
+## Next Steps
+
+- Learn to [Create Agent Teams](/how-to/agents/create-agent-teams)
+- Explore [Advanced Agent Patterns](/how-to/agents/advanced-patterns)
+- Set up [Agent Analytics](/how-to/agents/analytics)
+
+<Note>
+  Remember: The best Agents are built iteratively. Start with a working version and improve based on actual usage.
+</Note>

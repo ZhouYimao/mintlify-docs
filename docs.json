@@ -78,8 +78,22 @@
         "tab": "How-to Guides",
         "groups": [
           {
-            "group": "Coming Soon",
-            "pages": []
+            "group": "Agents",
+            "pages": [
+              "how-to/agents/create-custom-agent"
+            ]
+          },
+          {
+            "group": "Workflows",
+            "pages": [
+              "how-to/workflows/setup-triggers"
+            ]
+          },
+          {
+            "group": "Memory Bank",
+            "pages": [
+              "how-to/memory/manage-memory-bank"
+            ]
           }
         ]
       },
@@ -106,8 +120,16 @@
         "tab": "Reference",
         "groups": [
           {
-            "group": "Coming Soon",
-            "pages": []
+            "group": "General",
+            "pages": [
+              "reference/pricing-plans"
+            ]
+          },
+          {
+            "group": "Agent Types",
+            "pages": [
+              "reference/agent-types/built-in-agents"
+            ]
           }
         ]
       }

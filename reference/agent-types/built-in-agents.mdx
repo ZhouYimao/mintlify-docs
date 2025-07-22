@@ -1,0 +1,452 @@
+---
+title: "Built-in Agent Types"
+description: "Complete reference for all pre-built Agent templates available in Cagen"
+sidebarTitle: "Built-in Agents"
+---
+
+<Info>
+  All built-in Agents can be customized to fit your specific needs. Use them as starting points and modify as required.
+</Info>
+
+## Agent Template Overview
+
+| Agent Type | Primary Function | Best For | Pricing Tier |
+|------------|------------------|----------|--------------|
+| Growth Hacker | Marketing & Growth | Startups, Marketers | All plans |
+| Customer Success | Support & Engagement | SaaS, Service businesses | All plans |
+| Code Review | Development Quality | Dev teams | All plans |
+| Data Intelligence | Analysis & Insights | Analysts, Decision makers | All plans |
+| Personal Productivity | Task Management | Everyone | All plans |
+
+## Growth Hacker Agent 🚀
+
+### Capabilities
+
+<Tabs>
+  <Tab title="Core Functions">
+    - A/B test design and execution
+    - Growth metrics tracking
+    - Campaign performance analysis
+    - Competitor monitoring
+    - SEO optimization suggestions
+    - Content multiplication
+  </Tab>
+  
+  <Tab title="Integrations">
+    - Google Analytics
+    - Facebook Ads
+    - Google Ads
+    - LinkedIn Campaign Manager
+    - Mailchimp/SendGrid
+    - Social media platforms
+  </Tab>
+  
+  <Tab title="Outputs">
+    - Weekly growth reports
+    - A/B test results
+    - Campaign ROI analysis
+    - Competitor insights
+    - SEO recommendations
+    - Content calendars
+  </Tab>
+</Tabs>
+
+### Configuration Options
+
+```yaml
+growth_hacker_config:
+  focus_areas:
+    - acquisition
+    - activation
+    - retention
+    - referral
+    - revenue
+    
+  tracking:
+    primary_metric: "monthly_active_users"
+    secondary_metrics:
+      - conversion_rate
+      - customer_acquisition_cost
+      - lifetime_value
+      
+  experiment_velocity: "2_per_week"
+  
+  reporting:
+    frequency: "weekly"
+    format: "executive_summary"
+    include_recommendations: true
+```
+
+### Performance Metrics
+
+- **Average improvement**: 35% growth in primary metric within 3 months
+- **Test velocity**: 8-10 experiments per month
+- **Insight generation**: 20+ actionable insights weekly
+
+## Customer Success Agent 🤝
+
+### Capabilities
+
+<Tabs>
+  <Tab title="Core Functions">
+    - 24/7 customer inquiry handling
+    - Sentiment analysis
+    - Issue escalation
+    - Proactive outreach
+    - Feedback collection
+    - Success metrics tracking
+  </Tab>
+  
+  <Tab title="Integrations">
+    - Intercom
+    - Zendesk
+    - Freshdesk
+    - Slack/Discord
+    - Email systems
+    - CRM platforms
+  </Tab>
+  
+  <Tab title="Outputs">
+    - Response drafts
+    - Sentiment reports
+    - Escalation alerts
+    - Customer health scores
+    - Satisfaction surveys
+    - Retention analysis
+  </Tab>
+</Tabs>
+
+### Configuration Options
+
+```yaml
+customer_success_config:
+  response_mode:
+    speed: "immediate"  # immediate, reviewed, scheduled
+    tone: "friendly_professional"
+    personalization_level: "high"
+    
+  escalation_rules:
+    - sentiment: "negative"
+      confidence: "> 0.8"
+      action: "notify_human"
+      
+    - keywords: ["refund", "cancel", "angry"]
+      action: "immediate_escalation"
+      
+  proactive_outreach:
+    - trigger: "no_activity_30_days"
+      message_type: "check_in"
+      
+    - trigger: "feature_underutilization"
+      message_type: "tips_and_tricks"
+```
+
+### Performance Metrics
+
+- **Response time**: < 2 minutes average
+- **Resolution rate**: 78% first-contact resolution
+- **Satisfaction score**: 4.6/5.0 average
+
+## Code Review Agent 👨‍💻
+
+### Capabilities
+
+<Tabs>
+  <Tab title="Core Functions">
+    - Automated code review
+    - Security vulnerability scanning
+    - Performance analysis
+    - Style guide enforcement
+    - Documentation generation
+    - Test coverage analysis
+  </Tab>
+  
+  <Tab title="Language Support">
+    - JavaScript/TypeScript
+    - Python
+    - Java
+    - Go
+    - Rust
+    - C/C++
+    - Ruby
+    - PHP
+  </Tab>
+  
+  <Tab title="Integrations">
+    - GitHub
+    - GitLab
+    - Bitbucket
+    - CI/CD pipelines
+    - IDE plugins
+    - Issue trackers
+  </Tab>
+</Tabs>
+
+### Configuration Options
+
+```yaml
+code_review_config:
+  review_depth: "comprehensive"  # quick, standard, comprehensive
+  
+  checks:
+    security:
+      - sql_injection
+      - xss_vulnerabilities
+      - authentication_issues
+      - dependency_vulnerabilities
+      
+    quality:
+      - complexity_threshold: 10
+      - duplication_threshold: "5%"
+      - test_coverage_minimum: "80%"
+      
+    style:
+      guide: "team_custom"  # or standard guides
+      auto_fix: true
+      
+  feedback_style: "constructive"
+  include_positive_feedback: true
+```
+
+### Performance Metrics
+
+- **Issues caught**: 95% of human-reviewable issues
+- **False positive rate**: < 5%
+- **Review speed**: 10x faster than manual review
+
+## Data Intelligence Agent 📊
+
+### Capabilities
+
+<Tabs>
+  <Tab title="Core Functions">
+    - Data cleaning and preprocessing
+    - Statistical analysis
+    - Predictive modeling
+    - Visualization creation
+    - Anomaly detection
+    - Report generation
+  </Tab>
+  
+  <Tab title="Data Sources">
+    - Databases (SQL/NoSQL)
+    - CSV/Excel files
+    - APIs
+    - Real-time streams
+    - Cloud storage
+    - Web scraping
+  </Tab>
+  
+  <Tab title="Analysis Types">
+    - Descriptive statistics
+    - Trend analysis
+    - Correlation analysis
+    - Predictive analytics
+    - Cohort analysis
+    - A/B test analysis
+  </Tab>
+</Tabs>
+
+### Configuration Options
+
+```yaml
+data_intelligence_config:
+  analysis_mode: "automated"  # automated, guided, manual
+  
+  preprocessing:
+    handle_missing: "smart_imputation"
+    outlier_detection: true
+    normalization: "auto"
+    
+  modeling:
+    algorithm_selection: "auto"
+    cross_validation: true
+    explainability: "high"
+    
+  visualization:
+    library: "plotly"  # plotly, matplotlib, d3
+    interactivity: true
+    brand_colors: true
+    
+  reporting:
+    format: ["pdf", "interactive_html"]
+    include_methodology: true
+    executive_summary: true
+```
+
+### Performance Metrics
+
+- **Processing speed**: 100GB in < 10 minutes
+- **Accuracy**: 94% on benchmark datasets
+- **Insight quality**: 85% actionable insights
+
+## Personal Productivity Agent ⚡
+
+### Capabilities
+
+<Tabs>
+  <Tab title="Core Functions">
+    - Calendar optimization
+    - Task prioritization
+    - Meeting preparation
+    - Email management
+    - Focus time protection
+    - Daily planning
+  </Tab>
+  
+  <Tab title="Integrations">
+    - Google Calendar
+    - Microsoft Outlook
+    - Notion
+    - Todoist
+    - Slack
+    - Email providers
+  </Tab>
+  
+  <Tab title="Optimization Areas">
+    - Time blocking
+    - Energy management
+    - Context switching reduction
+    - Deep work scheduling
+    - Break reminders
+    - Weekly reviews
+  </Tab>
+</Tabs>
+
+### Configuration Options
+
+```yaml
+productivity_config:
+  work_style: "maker"  # maker, manager, hybrid
+  
+  preferences:
+    peak_hours: ["09:00-11:00", "14:00-16:00"]
+    meeting_preferences:
+      max_per_day: 3
+      buffer_time: 15
+      no_meeting_blocks: ["friday_afternoon"]
+      
+    task_batching:
+      email: "twice_daily"
+      shallow_work: "afternoon"
+      deep_work: "morning"
+      
+  optimization_goals:
+    - minimize_context_switching
+    - maximize_deep_work
+    - maintain_work_life_balance
+```
+
+### Performance Metrics
+
+- **Time saved**: 2+ hours daily
+- **Focus time increase**: 40% more deep work
+- **Task completion**: 25% improvement
+
+## Customization Guidelines
+
+### Extending Built-in Agents
+
+<Steps>
+  <Step title="Clone the Template">
+    Start with the closest built-in Agent
+  </Step>
+  
+  <Step title="Modify Capabilities">
+    Add or remove functions based on needs
+  </Step>
+  
+  <Step title="Adjust Parameters">
+    Fine-tune configuration for your use case
+  </Step>
+  
+  <Step title="Add Custom Instructions">
+    Include company-specific knowledge
+  </Step>
+  
+  <Step title="Test and Iterate">
+    Refine based on actual usage
+  </Step>
+</Steps>
+
+### Common Customizations
+
+<AccordionGroup>
+  <Accordion title="Industry-Specific Adaptations">
+    - **E-commerce**: Add inventory management to Growth Hacker
+    - **Healthcare**: Add HIPAA compliance to Customer Success
+    - **Finance**: Add regulatory checks to Data Intelligence
+  </Accordion>
+  
+  <Accordion title="Scale Adjustments">
+    - **Startup**: Focus on speed and experimentation
+    - **Enterprise**: Add approval workflows and audit trails
+    - **Solo**: Optimize for individual productivity
+  </Accordion>
+  
+  <Accordion title="Integration Extensions">
+    - Connect to proprietary systems
+    - Add custom API endpoints
+    - Implement special data formats
+  </Accordion>
+</AccordionGroup>
+
+## Selection Guide
+
+### By Business Goal
+
+| Goal | Recommended Agent | Why |
+|------|-------------------|-----|
+| Increase revenue | Growth Hacker | Focuses on acquisition and conversion |
+| Improve retention | Customer Success | Enhances customer experience |
+| Ship faster | Code Review | Accelerates development cycle |
+| Better decisions | Data Intelligence | Provides actionable insights |
+| Personal efficiency | Productivity | Optimizes individual output |
+
+### By Team Size
+
+- **Solo/Small (1-5)**: Start with Personal Productivity + one domain Agent
+- **Growing (5-20)**: Add Customer Success and Growth Hacker
+- **Scaling (20+)**: Full suite with custom configurations
+
+### By Industry
+
+- **SaaS**: All agents, especially Customer Success
+- **E-commerce**: Growth Hacker + Data Intelligence
+- **Agencies**: Productivity + specialized Agents
+- **Development**: Code Review + Productivity
+
+## Performance Benchmarks
+
+<Info>
+  These benchmarks are based on aggregate user data. Your results may vary based on configuration and usage patterns.
+</Info>
+
+| Metric | Growth Hacker | Customer Success | Code Review | Data Intelligence | Productivity |
+|--------|---------------|------------------|-------------|-------------------|--------------|
+| Setup time | 15 min | 20 min | 10 min | 25 min | 10 min |
+| Time to value | 1 day | Immediate | Immediate | 2 hours | 1 day |
+| ROI | 10x | 8x | 5x | 12x | 3x |
+| User satisfaction | 4.5/5 | 4.7/5 | 4.6/5 | 4.4/5 | 4.8/5 |
+
+## Frequently Asked Questions
+
+<AccordionGroup>
+  <Accordion title="Can I use multiple Agents together?">
+    Yes! Agents can work together. For example, Data Intelligence can feed insights to Growth Hacker for campaign optimization.
+  </Accordion>
+  
+  <Accordion title="How often are templates updated?">
+    Templates receive monthly updates based on user feedback and new capabilities. Your customizations are preserved during updates.
+  </Accordion>
+  
+  <Accordion title="What if I need a completely different Agent?">
+    You can create custom Agents from scratch or request new templates through our community forum.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+- [Create Your First Agent](/tutorials/getting-started/first-agent)
+- [Customize Agent Behavior](/how-to/agents/create-custom-agent)
+- [Agent Best Practices](/explanation/best-practices/agent-design)

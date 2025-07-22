@@ -1,0 +1,358 @@
+---
+title: "How to Set Up Workflow Triggers"
+description: "Configure different types of triggers to automate your workflows"
+sidebarTitle: "Setup Triggers"
+---
+
+<Info>
+  Triggers are the starting point of any automated workflow. This guide covers all trigger types and their configuration options.
+</Info>
+
+## Prerequisites
+
+- An existing workflow or Issue to attach triggers to
+- Understanding of your automation needs
+- Necessary permissions for the resources being monitored
+
+## Trigger Types Overview
+
+Cagen supports three main trigger types:
+
+| Trigger Type | Use Case | Example |
+|-------------|----------|---------|
+| **Scheduled** | Time-based automation | Daily reports, weekly summaries |
+| **Event** | Respond to changes | New customer signup, file upload |
+| **Interaction** | Human-initiated | Chat commands, button clicks |
+
+## Setting Up Scheduled Triggers
+
+### Basic Schedule Configuration
+
+<Steps>
+  <Step title="Navigate to Trigger Settings">
+    Go to **Work > Issues** → Select your Issue → Click **Configure Trigger**
+  </Step>
+  
+  <Step title="Select 'Scheduled' Type">
+    Choose the scheduled trigger option from the dropdown
+  </Step>
+  
+  <Step title="Define Schedule">
+    Use either simple or advanced scheduling:
+    
+    <Tabs>
+      <Tab title="Simple Schedule">
+        ```yaml
+        schedule:
+          frequency: "daily"
+          time: "09:00"
+          timezone: "America/New_York"
+        ```
+      </Tab>
+      
+      <Tab title="Cron Expression">
+        ```yaml
+        schedule:
+          cron: "0 9 * * 1-5"  # 9 AM on weekdays
+          timezone: "America/New_York"
+        ```
+      </Tab>
+    </Tabs>
+  </Step>
+</Steps>
+
+### Common Schedule Patterns
+
+```yaml
+# Every hour
+cron: "0 * * * *"
+
+# Every Monday at 9 AM
+cron: "0 9 * * 1"
+
+# First day of month at midnight
+cron: "0 0 1 * *"
+
+# Every 15 minutes during business hours
+cron: "*/15 9-17 * * 1-5"
+```
+
+<Tip>
+  Use [crontab.guru](https://crontab.guru) to validate your cron expressions
+</Tip>
+
+## Setting Up Event Triggers
+
+### Configure Event Monitoring
+
+<Steps>
+  <Step title="Select Event Source">
+    Choose what to monitor:
+    
+    ```yaml
+    event_source:
+      type: "webhook"  # webhook, file_change, database, api
+      endpoint: "https://api.cagen.ai/webhooks/[your-id]"
+    ```
+  </Step>
+  
+  <Step title="Define Event Conditions">
+    Specify which events should trigger the workflow:
+    
+    ```yaml
+    conditions:
+      - field: "event_type"
+        operator: "equals"
+        value: "customer.created"
+        
+      - field: "data.plan"
+        operator: "in"
+        value: ["pro", "enterprise"]
+    ```
+  </Step>
+  
+  <Step title="Set Up Event Handling">
+    Configure how to process the event:
+    
+    ```yaml
+    event_handling:
+      extract_data:
+        customer_id: "$.data.id"
+        email: "$.data.email"
+        plan: "$.data.subscription.plan"
+        
+      error_handling:
+        retry_count: 3
+        retry_delay: "exponential"
+        fallback_action: "notify_admin"
+    ```
+  </Step>
+</Steps>
+
+### MCP Integration Events
+
+For external service monitoring via MCP:
+
+```yaml
+mcp_event:
+  connection: "github"
+  event_type: "pull_request"
+  
+  filters:
+    - repository: "emagen-ai/cagen"
+    - action: ["opened", "synchronize"]
+    - base_branch: "main"
+    
+  data_mapping:
+    pr_number: "$.number"
+    author: "$.user.login"
+    title: "$.title"
+```
+
+## Setting Up Interaction Triggers
+
+### Chat-Based Triggers
+
+Configure triggers that respond to messages:
+
+<Steps>
+  <Step title="Define Trigger Phrases">
+    ```yaml
+    interaction_trigger:
+      type: "chat_command"
+      
+      patterns:
+        - exact: "/analyze"
+        - regex: "^(analyze|review) .+ (report|data)$"
+        - contains: ["help", "assist"]
+        
+      scope:
+        conversations: ["all"]  # or specific conversation IDs
+        users: ["all"]  # or specific user IDs
+    ```
+  </Step>
+  
+  <Step title="Extract Parameters">
+    ```yaml
+    parameter_extraction:
+      - name: "target"
+        pattern: "analyze (.*) report"
+        required: true
+        
+      - name: "timeframe"
+        pattern: "last (\d+) (days|weeks|months)"
+        default: "7 days"
+    ```
+  </Step>
+</Steps>
+
+### Button/UI Triggers
+
+For UI-initiated workflows:
+
+```yaml
+ui_trigger:
+  type: "button"
+  
+  placement:
+    - location: "issue_detail"
+      label: "Run Analysis"
+      icon: "chart-line"
+      
+    - location: "inbox_card"
+      label: "Quick Action"
+      style: "primary"
+      
+  confirmation:
+    required: true
+    message: "This will start the analysis workflow. Continue?"
+```
+
+## Advanced Trigger Configuration
+
+### Combining Multiple Triggers
+
+Create workflows that respond to multiple trigger types:
+
+```yaml
+triggers:
+  - type: "scheduled"
+    cron: "0 8 * * *"
+    name: "morning_run"
+    
+  - type: "event"
+    source: "webhook"
+    condition: "data.urgent == true"
+    name: "urgent_request"
+    
+  - type: "interaction"
+    command: "/force-run"
+    name: "manual_override"
+```
+
+### Conditional Trigger Activation
+
+Enable triggers based on conditions:
+
+```yaml
+trigger_conditions:
+  - name: "business_hours_only"
+    active_when:
+      time_range: "09:00-18:00"
+      days: ["mon", "tue", "wed", "thu", "fri"]
+      timezone: "America/New_York"
+      
+  - name: "high_priority_mode"
+    active_when:
+      system_load: "< 70%"
+      queue_size: "< 100"
+```
+
+### Rate Limiting and Throttling
+
+Prevent trigger spam:
+
+```yaml
+rate_limits:
+  per_trigger:
+    max_executions: 10
+    time_window: "1 hour"
+    
+  per_user:
+    max_executions: 5
+    time_window: "15 minutes"
+    
+  cooldown:
+    after_execution: "5 minutes"
+    after_error: "15 minutes"
+```
+
+## Monitoring and Debugging
+
+### Enable Trigger Logging
+
+```yaml
+logging:
+  level: "debug"  # info, debug, trace
+  
+  capture:
+    - trigger_evaluation
+    - parameter_extraction
+    - execution_start
+    - execution_result
+    
+  retention: "7 days"
+```
+
+### Set Up Alerts
+
+```yaml
+alerts:
+  - condition: "trigger_failed"
+    threshold: "3 times in 1 hour"
+    notify:
+      - email: "ops@company.com"
+      - slack: "#alerts"
+      
+  - condition: "no_trigger_in_expected_window"
+    expected: "every 1 hour"
+    grace_period: "15 minutes"
+    notify:
+      - sms: "+1234567890"
+```
+
+## Best Practices
+
+<Cards>
+  <Card title="Test in Simulation Mode" icon="flask">
+    Always test triggers in simulation mode before going live
+  </Card>
+  
+  <Card title="Use Descriptive Names" icon="tag">
+    Name triggers clearly to understand their purpose at a glance
+  </Card>
+  
+  <Card title="Document Dependencies" icon="link">
+    Note any external services or APIs your triggers depend on
+  </Card>
+  
+  <Card title="Plan for Failures" icon="shield">
+    Include error handling and fallback mechanisms
+  </Card>
+</Cards>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Trigger not firing">
+    Check:
+    - Trigger is enabled in Issue settings
+    - Conditions are correctly configured
+    - No rate limits are being hit
+    - Agent has necessary permissions
+  </Accordion>
+  
+  <Accordion title="Multiple triggers firing">
+    Solutions:
+    - Add mutual exclusion logic
+    - Use trigger priorities
+    - Implement cooldown periods
+  </Accordion>
+  
+  <Accordion title="Performance issues">
+    Optimize by:
+    - Reducing condition complexity
+    - Caching frequently accessed data
+    - Using more specific event filters
+  </Accordion>
+</AccordionGroup>
+
+## Related Guides
+
+- [Create Complex Workflows](/how-to/workflows/complex-workflows)
+- [Workflow Error Handling](/how-to/workflows/error-handling)
+- [Trigger Analytics](/how-to/workflows/analytics)
+
+<Note>
+  **Pro tip**: Start with simple triggers and add complexity as needed. It's easier to debug simple triggers than complex ones.
+</Note>
