@@ -1,0 +1,658 @@
+---
+title: "Team Management"
+description: "Manage team members and AI agents in your Cagen organization with role-based permissions and collaboration tools"
+sidebarTitle: "Team Management"
+---
+
+<Info>
+  Cagen treats both human team members and AI agents as first-class participants in your organization, with unified management, permissions, and collaboration features.
+</Info>
+
+## Organization Structure
+
+### Member Types
+
+<CardGroup cols={2}>
+  <Card title="👤 Human Members" icon="user">
+    **Team members with organizational roles**
+    
+    - Developers, designers, managers
+    - Full access to conversations and work items
+    - Can create and manage agents
+    - Subject to billing and usage limits
+  </Card>
+  
+  <Card title="🤖 AI Agents" icon="robot">
+    **Specialized AI assistants for different tasks**
+    
+    - Custom-trained for specific functions
+    - Participate in conversations and workflows
+    - Execute actions and access tools
+    - Usage tracked for cost optimization
+  </Card>
+</CardGroup>
+
+### Organizational Hierarchy
+
+```
+Organization
+├── 👤 Owners (Full admin access)
+├── 👤 Admins (Org management + billing)
+├── 👤 Members (Standard access)
+├── 👤 Guests (Limited project access)
+└── 🤖 Agents
+    ├── Organization Agents (Available to all)
+    ├── Team Agents (Department-specific)
+    └── Personal Agents (Individual use)
+```
+
+## Managing Human Members
+
+### Inviting Team Members
+
+<Steps>
+  <Step title="Send Invitations">
+    **From Command Launcher:**
+    ```
+    ⌘K → "invite teammate [email]"
+    ⌘K → "add team member alice@company.com"
+    ```
+    
+    **From Team Settings:**
+    1. Navigate to **Team** → **Members**  
+    2. Click **Invite Member**
+    3. Enter email address and select role
+    4. Customize invitation message
+  </Step>
+  
+  <Step title="Configure Initial Role">
+    ```yaml
+    invitation_details:
+      email: "alice@company.com"
+      role: "member"  # owner, admin, member, guest
+      teams: ["frontend", "product"]
+      welcome_message: "Welcome to our Cagen workspace!"
+      
+    permissions:
+      can_create_agents: true
+      can_manage_billing: false
+      api_spending_limit: "$100/month"
+    ```
+  </Step>
+  
+  <Step title="Onboarding Checklist">
+    New members automatically receive:
+    - Access to organization knowledge base
+    - Introduction to available agents
+    - Team-specific workspace setup
+    - Initial tutorials and documentation
+  </Step>
+</Steps>
+
+### Role Management
+
+<Tabs>
+  <Tab title="Owner Role">
+    ```yaml
+    owner_permissions:
+      organization:
+        - Full administrative access
+        - Billing and subscription management
+        - Member role assignments
+        - Organization deletion
+        
+      agents:
+        - Create/edit/delete all agents
+        - Access to all agent configurations
+        - Agent usage analytics
+        
+      data:
+        - Access to all memory banks
+        - Export organization data
+        - Configure retention policies
+    ```
+  </Tab>
+  
+  <Tab title="Admin Role">
+    ```yaml
+    admin_permissions:
+      organization:
+        - Invite/remove members
+        - Manage team structure
+        - Configure integrations
+        - Access usage analytics
+        
+      agents:
+        - Create organization-wide agents
+        - Manage agent permissions
+        - Monitor agent usage
+        
+      limitations:
+        - Cannot delete organization
+        - Cannot change owner role
+        - Limited billing access
+    ```
+  </Tab>
+  
+  <Tab title="Member Role">
+    ```yaml
+    member_permissions:
+      workspace:
+        - Create conversations and issues
+        - Use all available agents
+        - Access shared memory banks
+        - Participate in workflows
+        
+      agents:
+        - Create personal agents
+        - Share agents with team
+        - Configure agent preferences
+        
+      restrictions:
+        - Cannot manage billing
+        - Cannot invite new members
+        - Limited admin settings access
+    ```
+  </Tab>
+  
+  <Tab title="Guest Role">
+    ```yaml
+    guest_permissions:
+      limited_access:
+        - Specific project participation
+        - Read-only access to most features
+        - Limited agent interactions
+        - Temporary access (expires)
+        
+      use_cases:
+        - Client collaboration
+        - Contractor access
+        - External consultants
+        - Time-limited projects
+    ```
+  </Tab>
+</Tabs>
+
+### Team Organization
+
+<AccordionGroup>
+  <Accordion title="Creating Teams">
+    **Organize members by function or project:**
+    ```yaml
+    team_structure:
+      engineering:
+        members: ["alice", "bob", "charlie"]
+        agents: ["@dev-agent", "@review-agent"]
+        permissions:
+          - code_repositories: "full"
+          - deployment: "staging_only"
+          
+      product:
+        members: ["diana", "eve"]
+        agents: ["@research-agent", "@analytics-agent"]
+        permissions:
+          - customer_data: "read_only"
+          - analytics: "full"
+          
+      marketing:
+        members: ["frank", "grace"]
+        agents: ["@content-agent", "@social-agent"]
+        shared_resources:
+          - brand_assets
+          - campaign_templates
+    ```
+  </Accordion>
+  
+  <Accordion title="Cross-Team Collaboration">
+    **Enable collaboration across team boundaries:**
+    ```yaml
+    collaboration_policies:
+      project_teams:
+        - name: "Mobile App Launch"
+          members_from: ["engineering", "product", "marketing"]
+          temporary_access: true
+          duration: "3 months"
+          
+      shared_agents:
+        - "@qa-agent": ["engineering", "product"]
+        - "@analytics-agent": ["product", "marketing"]
+        
+      information_sharing:
+        engineering_to_product: "feature_updates"
+        product_to_marketing: "roadmap_changes"
+        marketing_to_all: "campaign_results"
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Managing AI Agents
+
+### Agent Categories
+
+<CardGroup cols={3}>
+  <Card title="🏢 Organization Agents" icon="building">
+    **Available to all team members**
+    
+    - General-purpose assistants
+    - Company knowledge experts
+    - Standard workflow agents
+  </Card>
+  
+  <Card title="👥 Team Agents" icon="users">
+    **Department or project-specific**
+    
+    - Specialized for team functions
+    - Custom training data
+    - Team-specific tools and access
+  </Card>
+  
+  <Card title="👤 Personal Agents" icon="user">
+    **Individual customization**
+    
+    - Personal work preferences
+    - Individual learning history
+    - Private configurations
+  </Card>
+</CardGroup>
+
+### Agent Lifecycle Management
+
+<Steps>
+  <Step title="Agent Creation">
+    ```yaml
+    # Create new agent
+    agent_config:
+      name: "@customer-success-agent"
+      description: "Specialized in customer support and success"
+      
+      capabilities:
+        - customer_data_access
+        - ticket_management
+        - satisfaction_surveys
+        - escalation_handling
+        
+      training_data:
+        - customer_interaction_history
+        - product_documentation
+        - support_procedures
+        - company_policies
+        
+      access_level: "team"  # personal, team, organization
+      team_assignments: ["customer_success", "support"]
+    ```
+  </Step>
+  
+  <Step title="Agent Configuration">
+    ```yaml
+    # Configure agent behavior
+    behavior_settings:
+      personality:
+        tone: "professional_friendly"
+        expertise_level: "expert"
+        response_style: "concise_actionable"
+        
+      capabilities:
+        max_context_length: 32000
+        tools_enabled: ["crm_access", "ticket_creation", "email_sending"]
+        memory_access: ["customer_data", "support_procedures"]
+        
+      limitations:
+        cannot_access: ["financial_data", "employee_records"]
+        requires_approval: ["refund_processing", "account_deletion"]
+        daily_usage_limit: "1000_interactions"
+    ```
+  </Step>
+  
+  <Step title="Agent Deployment">
+    ```yaml
+    # Deploy to team
+    deployment:
+      rollout_strategy: "gradual"
+      initial_users: ["team_leads"]
+      full_rollout_after: "1_week"
+      
+      monitoring:
+        track_usage: true
+        collect_feedback: true
+        performance_metrics: true
+        
+      success_criteria:
+        user_satisfaction: "> 4.0/5.0"
+        response_accuracy: "> 90%"
+        response_time: "< 2 seconds"
+    ```
+  </Step>
+  
+  <Step title="Ongoing Management">
+    ```yaml
+    # Maintain and improve
+    maintenance:
+      training_updates: "weekly"
+      performance_reviews: "monthly"
+      capability_expansion: "quarterly"
+      
+      optimization:
+        - Monitor usage patterns
+        - Collect user feedback
+        - Update training data
+        - Refine tool permissions
+        
+      retirement_criteria:
+        - Low usage (< 10 interactions/week)
+        - Poor performance (< 3.0/5.0 rating)
+        - Superseded by better agent
+    ```
+  </Step>
+</Steps>
+
+## Permissions & Access Control
+
+### Role-Based Access Control (RBAC)
+
+<Tabs>
+  <Tab title="Human Member Permissions">
+    ```yaml
+    rbac_matrix:
+      owner:
+        members: ["create", "read", "update", "delete"]
+        agents: ["create", "read", "update", "delete"]
+        billing: ["read", "update"]
+        settings: ["read", "update"]
+        
+      admin:
+        members: ["create", "read", "update"]  # Cannot delete owners
+        agents: ["create", "read", "update", "delete"]
+        billing: ["read"]
+        settings: ["read", "update"]
+        
+      member:
+        members: ["read"]  # Own profile: update
+        agents: ["create_personal", "read", "use"]
+        billing: ["read_own"]
+        settings: ["read", "update_personal"]
+        
+      guest:
+        members: ["read_limited"]
+        agents: ["read", "use_assigned"]
+        billing: ["none"]
+        settings: ["read_public"]
+    ```
+  </Tab>
+  
+  <Tab title="Agent Permissions">
+    ```yaml
+    agent_access_control:
+      by_scope:
+        organization_agents:
+          accessible_to: "all_members"
+          managed_by: ["owner", "admin"]
+          
+        team_agents:
+          accessible_to: "team_members_only"
+          managed_by: ["team_lead", "admin", "owner"]
+          
+        personal_agents:
+          accessible_to: "creator_only"
+          managed_by: "creator"
+          
+      by_functionality:
+        data_access:
+          customer_data: ["customer_success_team"]
+          financial_data: ["finance_team", "owner"]
+          code_repositories: ["engineering_team"]
+          
+        tool_usage:
+          deployment_tools: ["senior_developers", "devops"]
+          billing_operations: ["finance", "admin", "owner"]
+          external_apis: ["api_access_role"]
+    ```
+  </Tab>
+</Tabs>
+
+### Dynamic Permissions
+
+```yaml
+# Context-aware permission system
+dynamic_permissions:
+  time_based:
+    - role: "on_call_engineer"
+      permissions: ["emergency_deployment", "system_alerts"]
+      active_hours: "outside_business_hours"
+      
+  project_based:
+    - project: "mobile_app_launch"
+      temporary_permissions: ["mobile_deployment", "app_store_access"]
+      expires: "2024-06-30"
+      
+  approval_workflows:
+    - action: "delete_agent"
+      requires_approval_from: ["team_lead", "admin"]
+      
+    - action: "access_financial_data"  
+      requires_approval_from: ["finance_manager"]
+      approval_expires: "24_hours"
+```
+
+## Collaboration Features
+
+### Cross-Member Collaboration
+
+<AccordionGroup>
+  <Accordion title="Shared Workspaces">
+    **Collaborate on projects and issues:**
+    ```yaml
+    shared_workspace_features:
+      real_time_collaboration:
+        - Shared document editing
+        - Live conversation participation
+        - Synchronized agent interactions
+        
+      resource_sharing:
+        - Memory bank access
+        - Agent sharing and delegation
+        - Tool and integration sharing
+        
+      progress_tracking:
+        - Shared issue boards
+        - Collaborative workflows
+        - Team performance metrics
+    ```
+  </Accordion>
+  
+  <Accordion title="Agent Delegation">
+    **Share agents across team members:**
+    ```python
+    # Delegate agent to team member
+    @dev_agent.delegate_to("alice@company.com")
+    async def code_review_task():
+        """Alice can now direct @dev-agent for code reviews"""
+        return await agent.review_pull_request(pr_number=123)
+    
+    # Temporary agent sharing
+    @research_agent.share_temporarily(
+        with_users=["bob@company.com"],
+        duration="2_hours",
+        purpose="market_research_project"
+    )
+    ```
+  </Accordion>
+  
+  <Accordion title="Knowledge Sharing">
+    **Distribute expertise across the organization:**
+    ```yaml
+    knowledge_sharing:
+      expert_matching:
+        - Connect members with relevant expertise
+        - AI-powered skill recommendations
+        - Cross-team knowledge transfer
+        
+      documentation:
+        - Auto-generate team wikis
+        - Capture decision-making processes
+        - Maintain institutional knowledge
+        
+      learning_paths:
+        - Personalized skill development
+        - Mentorship program integration
+        - Agent-assisted training
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Analytics & Insights
+
+### Team Performance Metrics
+
+<CardGroup cols={2}>
+  <Card title="📊 Productivity Metrics" icon="chart-line">
+    **Track team output and efficiency**
+    
+    - Issues completed per sprint
+    - Code review velocity
+    - Documentation coverage
+    - Goal achievement rates
+  </Card>
+  
+  <Card title="🤖 Agent Usage Analytics" icon="robot">
+    **Monitor AI agent effectiveness**
+    
+    - Agent interaction frequency
+    - Task success rates
+    - Cost per agent operation
+    - User satisfaction scores
+  </Card>
+  
+  <Card title="💬 Collaboration Patterns" icon="users">
+    **Understand team dynamics**
+    
+    - Cross-team communication
+    - Knowledge sharing frequency
+    - Mentorship relationships
+    - Bottleneck identification
+  </Card>
+  
+  <Card title="💰 Cost Attribution" icon="dollar-sign">
+    **Track resource usage and costs**
+    
+    - API usage by team/member
+    - Agent operational costs
+    - ROI on AI investments
+    - Budget optimization opportunities
+  </Card>
+</CardGroup>
+
+### Reporting Dashboard
+
+```yaml
+# Team management dashboard
+dashboard_widgets:
+  team_overview:
+    - active_members: 23
+    - active_agents: 12
+    - monthly_ai_spend: "$2,340"
+    - avg_satisfaction: 4.2/5.0
+    
+  recent_activity:
+    - new_member_onboarding: "Alice joined Frontend team"
+    - agent_deployment: "@qa-agent v2.1 released to Engineering"
+    - permission_change: "Bob promoted to Team Lead"
+    
+  performance_trends:
+    - productivity_increase: "+15% this quarter"
+    - agent_adoption: "87% of members using AI daily"
+    - collaboration_score: "8.3/10 (industry avg: 6.1)"
+```
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="👥 Human Member Management" icon="users">
+    **Effective team organization**
+    
+    - Regular role and permission audits
+    - Clear onboarding processes
+    - Cross-training and knowledge sharing
+    - Performance feedback loops
+  </Card>
+  
+  <Card title="🤖 Agent Management" icon="robot">
+    **Optimize AI agent deployment**
+    
+    - Start with organization-wide agents
+    - Gradually create specialized team agents
+    - Monitor usage and optimize regularly
+    - Retire unused or underperforming agents
+  </Card>
+  
+  <Card title="🔒 Security & Compliance" icon="shield">
+    **Maintain organizational security**
+    
+    - Principle of least privilege
+    - Regular access reviews
+    - Audit trail maintenance
+    - Compliance with industry standards
+  </Card>
+  
+  <Card title="📈 Continuous Improvement" icon="trending-up">
+    **Evolve team structure over time**
+    
+    - Regular team structure reviews
+    - Agent performance optimization
+    - Process improvement initiatives
+    - Technology adoption strategies
+  </Card>
+</CardGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Member Access Issues">
+    **Common Problems:**
+    - Cannot access certain features
+    - Permission denied errors
+    - Missing team assignments
+    
+    **Solutions:**
+    1. Verify role assignments and permissions
+    2. Check team membership status
+    3. Review recent permission changes
+    4. Contact admin for role escalation if needed
+  </Accordion>
+  
+  <Accordion title="Agent Performance Issues">
+    **Symptoms:**
+    - Slow agent responses
+    - Inaccurate or irrelevant answers
+    - High operational costs
+    
+    **Optimization:**
+    1. Review agent training data
+    2. Adjust tool permissions and access
+    3. Monitor usage patterns and costs
+    4. Update agent configurations based on feedback
+  </Accordion>
+  
+  <Accordion title="Collaboration Problems">
+    **Issues:**
+    - Poor cross-team communication
+    - Knowledge silos
+    - Duplicate work efforts
+    
+    **Improvements:**
+    1. Create shared workspaces for projects
+    2. Implement agent delegation strategies
+    3. Establish regular knowledge sharing sessions
+    4. Use analytics to identify collaboration gaps
+  </Accordion>
+</AccordionGroup>
+
+## Related Features
+
+- [Agent Configuration](/how-to/agents/create-custom-agent) - Create and customize AI agents
+- [Conversations](/how-to/communication/conversations) - Team communication and collaboration
+- [Payment Configuration](/how-to/settings/payment-configuration) - Manage team billing and costs
+- [Memory Bank](/how-to/memory/manage-memory-bank) - Shared organizational knowledge
+
+<Note>
+  Effective team management in Cagen requires balancing human expertise with AI capabilities. Start with clear roles and permissions, then gradually optimize based on usage patterns and team feedback.
+</Note>

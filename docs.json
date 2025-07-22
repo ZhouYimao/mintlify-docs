@@ -78,7 +78,7 @@
         "tab": "How-to Guides",
         "groups": [
           {
-            "group": "Interface",
+            "group": "Interface & Navigation",
             "pages": [
               "how-to/interface/command-launcher",
               "how-to/interface/inbox"
@@ -88,6 +88,48 @@
             "group": "Communication",
             "pages": [
               "how-to/communication/conversations"
+            ]
+          },
+          {
+            "group": "Work Management",
+            "pages": [
+              "how-to/work/issue-management"
+            ]
+          },
+          {
+            "group": "Memory Bank",
+            "pages": [
+              "how-to/memory/manage-memory-bank"
+            ]
+          },
+          {
+            "group": "Actions",
+            "pages": [
+              "how-to/actions/create-action"
+            ]
+          },
+          {
+            "group": "MCP Integration",
+            "pages": [
+              "how-to/mcp/mcp-integration"
+            ]
+          },
+          {
+            "group": "Team Management",
+            "pages": [
+              "how-to/members/team-management"
+            ]
+          },
+          {
+            "group": "Runtime Environment",
+            "pages": [
+              "how-to/runtime/runtime-environment"
+            ]
+          },
+          {
+            "group": "Store & Marketplace",
+            "pages": [
+              "how-to/store/store-management"
             ]
           },
           {
@@ -103,21 +145,9 @@
             ]
           },
           {
-            "group": "Work Management",
-            "pages": [
-              "how-to/work/issue-management"
-            ]
-          },
-          {
             "group": "Settings & Configuration",
             "pages": [
               "how-to/settings/payment-configuration"
-            ]
-          },
-          {
-            "group": "Memory Bank",
-            "pages": [
-              "how-to/memory/manage-memory-bank"
             ]
           }
         ]
