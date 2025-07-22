@@ -12,6 +12,7 @@
     "strict": true
   },
   "customCSS": ["emagen-theme.css"],
+  "js": ["custom/favicon-switcher.js"],
   "favicon": {
     "light": "/favicon-black.svg",
     "dark": "/favicon-white.svg"
