@@ -178,5 +178,32 @@
     "thumbsRating": true,
     "suggestEdit": true,
     "raiseIssue": true
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      {
+        "title": "Ask Cagen",
+        "description": "Ask Cagen AI about this documentation",
+        "icon": "robot",
+        "href": {
+          "base": "https://app.cagen.ai/chat",
+          "query": [
+            {
+              "key": "context",
+              "value": "$page"
+            },
+            {
+              "key": "source",
+              "value": "docs"
+            }
+          ]
+        }
+      }
+    ]
   }
 }
