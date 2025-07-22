@@ -30,7 +30,7 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Documentation",
+        "tab": "Get Started",
         "groups": [
           {
             "group": "Welcome",
@@ -39,19 +39,53 @@
             ]
           },
           {
-            "group": "Get Started",
+            "group": "Quick Start",
             "pages": [
               "quickstart"
             ]
           },
           {
-            "group": "Tutorials",
+            "group": "What's New",
+            "pages": [
+              "changelog"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Tutorials",
+        "groups": [
+          {
+            "group": "Getting Started",
             "pages": [
               "tutorials/getting-started/first-agent",
-              "tutorials/getting-started/first-workflow",
+              "tutorials/getting-started/first-workflow"
+            ]
+          },
+          {
+            "group": "Use Cases",
+            "pages": [
               "tutorials/use-cases/startup-guide"
             ]
           },
+          {
+            "group": "Advanced",
+            "pages": []
+          }
+        ]
+      },
+      {
+        "tab": "How-to Guides",
+        "groups": [
+          {
+            "group": "Coming Soon",
+            "pages": []
+          }
+        ]
+      },
+      {
+        "tab": "Concepts",
+        "groups": [
           {
             "group": "Core Concepts",
             "pages": [
@@ -59,10 +93,21 @@
             ]
           },
           {
-            "group": "Updates",
-            "pages": [
-              "changelog"
-            ]
+            "group": "System Architecture",
+            "pages": []
+          },
+          {
+            "group": "Best Practices",
+            "pages": []
+          }
+        ]
+      },
+      {
+        "tab": "Reference",
+        "groups": [
+          {
+            "group": "Coming Soon",
+            "pages": []
           }
         ]
       }
