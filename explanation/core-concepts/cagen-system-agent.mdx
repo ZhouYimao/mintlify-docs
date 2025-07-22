@@ -205,29 +205,32 @@ examples:
 ## Action 0: The Universal Executor
 
 <Info>
-  **Action 0** is Cagen's superpower—the ability to execute any action using Claude Code as the execution engine. Think of it as having a universal remote control for your entire development and business ecosystem.
+  **Action 0** is a foundational capability available to all AI agents in Cagen—the ability to execute any action using Claude Code as the execution engine. Think of it as giving every agent a universal remote control for your development and business ecosystem.
 </Info>
 
 ### What Makes Action 0 Special
 
-**Action 0** is fundamentally different from other actions:
+**Action 0** is fundamentally different from other predefined actions:
 
 - **Universal**: Can execute any task that Claude Code can handle
+- **Available to All Agents**: Every agent (including custom ones) can use Action 0
 - **Foundational**: All other actions are built on top of Action 0's capabilities  
 - **Intelligent**: Uses AI reasoning to understand and execute complex requests
 - **Safe**: Runs in sandboxed environments with proper security controls
 
 ### How Action 0 Works
 
-When you need to execute an action, you can:
+Any agent can use Action 0 in multiple ways:
 
-#### Method 1: Natural Language
+#### Method 1: Natural Language (Any Agent)
 ```
-"Cagen, please deploy the latest version to staging"
+"@dev-agent please deploy the latest version to staging"
+"@qa-agent run the test suite and generate a report"
+"@data-agent analyze last week's user engagement metrics"
 
-Cagen determines: 
-- What action is needed (deployment)
-- What parameters are required (target: staging, version: latest)
+Each agent determines: 
+- What action is needed based on the request
+- What parameters are required
 - Whether to execute immediately or ask for confirmation
 ```
 
@@ -241,7 +244,7 @@ In any input field:
 ```
 
 <Tip>
-  **Pro tip**: Shift+Tab is your secret weapon for instant action execution. No waiting, no confirmation—just immediate results.
+  **Pro tip**: Shift+Tab works with any agent context—whether you're talking to Cagen, a custom agent, or even in standalone mode. It's your universal action execution shortcut.
 </Tip>
 
 ### Claude Code as Execution Engine
