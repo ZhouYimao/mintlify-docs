@@ -25,7 +25,7 @@
   ],
   "topbarCtaButton": {
     "name": "Launch Cagen",
-    "url": "https://cagen.ai/app"
+    "url": "https://app.cagen.ai"
   },
   "navigation": {
     "tabs": [
@@ -78,6 +78,19 @@
         "tab": "How-to Guides",
         "groups": [
           {
+            "group": "Interface",
+            "pages": [
+              "how-to/interface/command-launcher",
+              "how-to/interface/inbox"
+            ]
+          },
+          {
+            "group": "Communication",
+            "pages": [
+              "how-to/communication/conversations"
+            ]
+          },
+          {
             "group": "Agents",
             "pages": [
               "how-to/agents/create-custom-agent"
@@ -87,6 +100,18 @@
             "group": "Workflows",
             "pages": [
               "how-to/workflows/setup-triggers"
+            ]
+          },
+          {
+            "group": "Work Management",
+            "pages": [
+              "how-to/work/issue-management"
+            ]
+          },
+          {
+            "group": "Settings & Configuration",
+            "pages": [
+              "how-to/settings/payment-configuration"
             ]
           },
           {
@@ -164,7 +189,7 @@
     "primary": {
       "type": "button",
       "label": "Launch Cagen",
-      "href": "https://cagen.ai/app"
+      "href": "https://app.cagen.ai"
     }
   },
   "footer": {
@@ -191,7 +216,7 @@
         "description": "Ask Cagen AI about this documentation",
         "icon": "robot",
         "href": {
-          "base": "https://cagen.ai/app/public/chat",
+          "base": "https://app.cagen.ai/public/chat",
           "query": [
             {
               "key": "context",

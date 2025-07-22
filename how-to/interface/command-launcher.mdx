@@ -1,0 +1,278 @@
+---
+title: "Command Launcher"
+description: "Use the Command Launcher (⌘K) to quickly navigate and execute actions in Cagen"
+sidebarTitle: "Command Launcher (⌘K)"
+---
+
+<Info>
+  Press `⌘K` (Cmd+K) on Mac or `Ctrl+K` on Windows/Linux to open the Command Launcher instantly from anywhere in Cagen.
+</Info>
+
+## What is Command Launcher?
+
+The Command Launcher is Cagen's universal search and action interface, similar to command palettes in VS Code or Notion. It provides instant access to:
+
+- **Navigation** - Jump to any page, conversation, or issue
+- **Actions** - Execute commands without clicking through menus  
+- **Search** - Find agents, memories, or conversations quickly
+- **Quick Operations** - Create new items or trigger workflows
+
+## Opening Command Launcher
+
+<CardGroup cols={3}>
+  <Card title="Keyboard Shortcut" icon="keyboard">
+    **⌘K** (Mac) or **Ctrl+K** (Windows/Linux)
+  </Card>
+  
+  <Card title="From Menu" icon="bars">
+    Click the **Command** button in the sidebar
+  </Card>
+  
+  <Card title="Always Available" icon="circle-check">
+    Works from any page within Cagen
+  </Card>
+</CardGroup>
+
+## Command Categories
+
+### Navigation Commands
+
+```
+Go to Dashboard          → /dashboard  
+Go to Conversations      → /conversations
+Go to Work Issues        → /work/issues
+Go to Memory Bank        → /memory
+Go to Agents             → /agents
+Go to Store              → /store
+```
+
+### Quick Actions
+
+```
+New Conversation         → Create new chat
+New Issue               → Create work issue  
+New Agent               → Add custom agent
+New Memory Document     → Add to memory bank
+Run Workflow            → Execute saved workflow
+```
+
+### Search Commands
+
+```
+Find Agent: [query]     → Search your agents
+Find Memory: [query]    → Search memory bank
+Find Issue: [query]     → Search work issues
+Find Person: [query]    → Search team members
+```
+
+## Usage Examples
+
+<Steps>
+  <Step title="Quick Navigation">
+    Press `⌘K` → Type "dash" → Press Enter
+    
+    Instantly jumps to your Dashboard
+  </Step>
+  
+  <Step title="Create New Items">
+    Press `⌘K` → Type "new issue" → Enter title
+    
+    Creates a new work issue and opens it
+  </Step>
+  
+  <Step title="Find Conversations">
+    Press `⌘K` → Type "chat with @alice"
+    
+    Opens existing conversation or creates new one
+  </Step>
+  
+  <Step title="Execute Actions">
+    Press `⌘K` → Type "run daily standup"
+    
+    Triggers your daily standup workflow
+  </Step>
+</Steps>
+
+## Advanced Features
+
+### Smart Search
+
+The Command Launcher uses intelligent matching:
+
+<Tabs>
+  <Tab title="Fuzzy Matching">
+    **Type:** `conv alice`
+    
+    **Finds:** "Conversation with Alice", "Alice's Project Channel", etc.
+  </Tab>
+  
+  <Tab title="Partial Words">
+    **Type:** `mem bank`
+    
+    **Finds:** "Memory Bank", "Bank Integration Memory", etc.
+  </Tab>
+  
+  <Tab title="Recent Items">
+    Recently accessed items appear at the top of results automatically
+  </Tab>
+</Tabs>
+
+### Context-Aware Commands
+
+Commands adapt based on where you are:
+
+| Current Page | Available Commands |
+|--------------|-------------------|
+| **Conversation** | Reply, Archive, Add Participants, Create Issue |
+| **Issue** | Assign, Change Status, Add Comment, Create Channel |
+| **Memory Bank** | Add Document, Create Collection, Search Similar |
+| **Agent Profile** | Edit, Duplicate, Share, Run Test |
+
+### Quick Command Syntax
+
+Use shortcuts for common actions:
+
+```bash
+# Create items
+/new issue [title]           → Create new issue
+/new chat @alice @bob        → Start group chat
+/new memory "Meeting Notes"  → Create memory document
+
+# Navigate
+/go dashboard               → Go to dashboard  
+/go @alice                  → Go to Alice's profile
+/go #project-alpha          → Go to project channel
+
+# Search
+?agents ml                  → Search agents containing "ml"
+?memory api docs            → Search memory for "api docs"  
+?issues bug                 → Search issues containing "bug"
+```
+
+## Keyboard Navigation
+
+<AccordionGroup>
+  <Accordion title="Arrow Keys">
+    **↑/↓** - Navigate through command results
+    **→** - Expand command details (if available)
+    **←** - Go back to main results
+  </Accordion>
+  
+  <Accordion title="Selection">
+    **Enter** - Execute selected command
+    **⌘Enter** - Execute in new tab/window (where applicable)
+    **Tab** - Autocomplete current suggestion
+  </Accordion>
+  
+  <Accordion title="Quick Actions">
+    **⌘1-9** - Jump to numbered results
+    **⌘Shift+P** - Show all available commands
+    **Escape** - Close Command Launcher
+  </Accordion>
+</AccordionGroup>
+
+## Customization
+
+### Adding Custom Commands
+
+You can create custom commands for frequently used actions:
+
+1. Go to **Settings** → **Commands**
+2. Click **Add Custom Command**
+3. Define your command:
+   ```yaml
+   name: "Daily Report"
+   trigger: "daily report"
+   action: "workflow:daily-report-generation"
+   shortcut: "⌘Shift+D"
+   ```
+
+### Command Aliases
+
+Set up aliases for complex commands:
+
+```yaml
+aliases:
+  "standup" → "run workflow daily-standup"
+  "deploy" → "run action deploy-to-production"
+  "review" → "go to work/issues?filter=needs-review"
+```
+
+## Integration with Other Features
+
+### Inbox Integration
+
+Commands can interact with your Inbox:
+
+- `inbox pending` - Show pending items
+- `inbox @alice` - Show items from Alice
+- `reply to latest` - Reply to most recent inbox item
+
+### Agent Integration
+
+Quickly interact with Agents:
+
+- `ask @research-agent about [topic]` - Start conversation with specific agent
+- `run @qa-agent on current issue` - Execute agent on current context
+- `create agent from template` - Use agent templates from Store
+
+### Workflow Integration
+
+Execute workflows instantly:
+
+- `run [workflow-name]` - Execute saved workflow
+- `schedule [workflow-name] daily` - Schedule recurring workflow  
+- `pause [workflow-name]` - Pause active workflow
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Use Descriptive Searches" icon="magnifying-glass">
+    Instead of "project", search "project alpha frontend" for better results
+  </Card>
+  
+  <Card title="Learn Command Patterns" icon="graduation-cap">
+    Most commands follow: `[action] [target] [details]` pattern
+  </Card>
+  
+  <Card title="Utilize Recent Items" icon="clock">
+    Command Launcher remembers your recent actions for quick access
+  </Card>
+  
+  <Card title="Create Custom Shortcuts" icon="bolt">
+    Set up aliases for your most frequent workflows and commands
+  </Card>
+</CardGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Command Launcher Won't Open">
+    **Solution:** Check if ⌘K is being intercepted by browser or system shortcuts
+    
+    **Alternative:** Use the Command button in sidebar or try Ctrl+K
+  </Accordion>
+  
+  <Accordion title="Commands Not Found">
+    **Solution:** Make sure you have proper permissions for the action
+    
+    **Check:** Some commands require specific roles or paid features
+  </Accordion>
+  
+  <Accordion title="Search Results Empty">
+    **Solution:** Try broader search terms or check if items exist
+    
+    **Tip:** Use partial matching - "conv" instead of "conversation"
+  </Accordion>
+</AccordionGroup>
+
+## Related Features
+
+- [Inbox (⌘J)](/how-to/interface/inbox) - Manage notifications and tasks
+- [Keyboard Shortcuts](/reference/keyboard-shortcuts) - Complete shortcut list  
+- [Custom Workflows](/how-to/workflows/create-workflow) - Automate command sequences
+- [Agent Integration](/how-to/agents/agent-interaction) - Work with AI agents efficiently
+
+<Note>
+  The Command Launcher is designed to be your primary interface for navigating Cagen efficiently. Master the common patterns and shortcuts to dramatically speed up your workflow.
+</Note>

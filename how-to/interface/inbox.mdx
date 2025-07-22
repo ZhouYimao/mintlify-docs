@@ -1,0 +1,389 @@
+---
+title: "Inbox Management"  
+description: "Use Inbox (⌘J) to manage notifications, mentions, and direct messages efficiently"
+sidebarTitle: "Inbox (⌘J)"
+---
+
+<Info>
+  Press `⌘J` (Cmd+J) on Mac or `Ctrl+J` on Windows/Linux to open your Inbox instantly from anywhere in Cagen.
+</Info>
+
+## What is Inbox?
+
+Inbox is your unified notification center that aggregates:
+
+- **Direct Messages** - Private conversations with team members
+- **Group Chat Messages** - Messages from group conversations
+- **Mentions** - When you're @mentioned in topics or channels
+- **Issue Updates** - Notifications from work issues you're involved in
+- **Agent Responses** - Replies from AI agents you've interacted with
+
+Think of it as your communication command center - everything that needs your attention comes here.
+
+## Opening Your Inbox
+
+<CardGroup cols={3}>
+  <Card title="Keyboard Shortcut" icon="keyboard">
+    **⌘J** (Mac) or **Ctrl+J** (Windows/Linux)
+  </Card>
+  
+  <Card title="From Sidebar" icon="inbox">
+    Click the **Inbox** icon with notification badge
+  </Card>
+  
+  <Card title="Always Accessible" icon="circle-check">
+    Works from any page within Cagen
+  </Card>
+</CardGroup>
+
+## Inbox States
+
+Your inbox items are organized into three states for efficient management:
+
+### Pending
+<Card title="📬 Pending Items" icon="clock">
+  New messages and notifications that haven't been processed yet.
+  
+  **Includes:**
+  - Unread direct messages
+  - New @mentions in topics
+  - Agent responses waiting for your review
+  - Issue assignments and updates
+</Card>
+
+### In Progress  
+<Card title="⚡ In Progress Items" icon="gear">
+  Items you've started working on but haven't completed.
+  
+  **Includes:**
+  - Conversations you've read but not replied to
+  - Issues you're actively working on
+  - Agent interactions awaiting your input
+  - Topics you're following up on
+</Card>
+
+### History
+<Card title="📚 History Items" icon="check-circle">
+  Completed or archived items for reference.
+  
+  **Includes:**
+  - Resolved conversations
+  - Completed issues
+  - Archived notifications
+  - Old agent interactions
+</Card>
+
+## Quick Actions
+
+### Filtering by State
+
+<Tabs>
+  <Tab title="View Pending">
+    **Shortcut:** `⌘J` → `P` or click **Pending** tab
+    
+    Shows all items needing immediate attention
+  </Tab>
+  
+  <Tab title="View In Progress">
+    **Shortcut:** `⌘J` → `I` or click **In Progress** tab
+    
+    Shows items you're currently working on
+  </Tab>
+  
+  <Tab title="View History">
+    **Shortcut:** `⌘J` → `H` or click **History** tab
+    
+    Browse completed and archived items
+  </Tab>
+</Tabs>
+
+### Managing Items
+
+<Steps>
+  <Step title="Mark as In Progress">
+    Click on any pending item to automatically move it to **In Progress**
+    
+    Or use keyboard shortcut `Space` while item is selected
+  </Step>
+  
+  <Step title="Quick Reply">
+    Press `R` while item is selected to reply instantly without leaving Inbox
+    
+    Your reply will be sent and item moves to appropriate state
+  </Step>
+  
+  <Step title="Complete Item">
+    Press `C` to mark item as completed and move to **History**
+    
+    Or click the checkmark icon next to the item
+  </Step>
+  
+  <Step title="Archive Item">
+    Press `A` to archive item without taking action
+    
+    Useful for notifications you've seen but don't need to act on
+  </Step>
+</Steps>
+
+## Message Types and Sources
+
+### Direct Messages
+```
+👤 Alice Johnson
+"Hey, can you review the API integration docs?"
+
+💬 Reply directly from inbox
+🔄 Auto-moves to In Progress when opened
+✅ Marks complete when conversation ends
+```
+
+### Group Messages
+```
+👥 #frontend-team (3 people)
+"@yourname the new component is ready for testing"
+
+💬 Reply to group from inbox
+📎 Jump to full conversation view
+🔔 Auto-follow thread when you respond
+```
+
+### Agent Mentions
+```
+🤖 @research-agent in #product-planning
+"Based on user feedback, I've found 3 key insights..."
+
+💭 View agent's full response
+💬 Continue conversation with agent  
+📌 Save insights to Memory Bank
+```
+
+### Issue Updates
+```
+🎯 Issue #123: "API Rate Limiting" 
+Status changed: In Progress → Review
+Assigned to you by Alice Johnson
+
+🔍 Jump to issue details
+💬 Add comment or status update
+👥 View related channel discussion
+```
+
+## Reply Functionality
+
+### Quick Reply Options
+
+<AccordionGroup>
+  <Accordion title="In-Inbox Reply">
+    **Usage:** Press `R` or click reply icon
+    
+    **Best for:** Short responses that don't need full context
+    
+    **Features:**
+    - Markdown support
+    - @mentions and reactions
+    - File attachments
+    - Auto-completion for names
+  </Accordion>
+  
+  <Accordion title="Full Context Reply">
+    **Usage:** Click item title or press `Enter`
+    
+    **Best for:** Complex responses needing conversation history
+    
+    **Features:**
+    - Full conversation thread
+    - Rich text editing
+    - Code blocks and formatting
+    - Integration with Memory Bank
+  </Accordion>
+  
+  <Accordion title="Agent Reply">
+    **Usage:** Press `@` to mention an agent in your reply
+    
+    **Best for:** Getting AI assistance with your response
+    
+    **Features:**
+    - Agent suggestions
+    - Context-aware responses
+    - Automatic fact-checking
+    - Style consistency
+  </Accordion>
+</AccordionGroup>
+
+## Advanced Features
+
+### Smart Filtering
+
+Filter your inbox with advanced queries:
+
+```bash
+# Filter by person
+from:alice                    # Messages from Alice
+to:me from:bob               # Direct messages from Bob
+
+# Filter by type  
+type:mention                 # Only @mentions
+type:dm                      # Only direct messages
+type:agent                   # Only agent responses
+
+# Filter by status
+status:pending               # Unread items
+status:in-progress          # Active items
+has:attachment              # Items with files
+
+# Combine filters
+from:alice type:mention status:pending
+```
+
+### Bulk Actions
+
+Select multiple items for batch operations:
+
+<CardGroup cols={2}>
+  <Card title="Mass Archive" icon="archive">
+    Select items → Press `A` → Archive all selected
+  </Card>
+  
+  <Card title="Mass Complete" icon="check">
+    Select items → Press `C` → Mark all as complete
+  </Card>
+  
+  <Card title="Mass Forward" icon="share">
+    Select items → Press `F` → Forward to agent/person
+  </Card>
+  
+  <Card title="Mass Tag" icon="tag">
+    Select items → Press `T` → Add labels for organization
+  </Card>
+</CardGroup>
+
+### Integration with Other Features
+
+#### Memory Bank Integration
+```
+📝 Any conversation can be saved to Memory Bank
+🔗 Link related conversations automatically  
+🧠 Agent suggestions based on memory context
+```
+
+#### Issue Integration  
+```
+🎯 Create issues directly from inbox messages
+🔄 Auto-sync issue updates to relevant conversations
+👥 Issue-related channels appear in inbox
+```
+
+#### Workflow Integration
+```
+⚡ Trigger workflows from inbox items
+🔄 Automated responses based on content
+📊 Analytics on response times and patterns
+```
+
+## Keyboard Shortcuts
+
+<AccordionGroup>
+  <Accordion title="Navigation">
+    **⌘J** - Open/close Inbox
+    **↑/↓** - Navigate items
+    **P/I/H** - Switch between Pending/In Progress/History
+    **/** - Focus search box
+  </Accordion>
+  
+  <Accordion title="Actions">
+    **Enter** - Open full item
+    **R** - Quick reply
+    **C** - Mark complete
+    **A** - Archive item
+    **Space** - Mark as in progress
+  </Accordion>
+  
+  <Accordion title="Selection">
+    **⌘A** - Select all visible items
+    **Shift+Click** - Select range
+    **⌘+Click** - Toggle individual selection
+    **Escape** - Clear selection
+  </Accordion>
+</AccordionGroup>
+
+## Notification Settings
+
+Customize what appears in your Inbox:
+
+### Message Types
+```yaml
+Direct Messages: ✅ Always notify
+Group Messages: ✅ Only when mentioned  
+Agent Responses: ✅ Always notify
+Issue Updates: ✅ When assigned or mentioned
+Topic Updates: ⚠️ Only when mentioned
+```
+
+### Notification Timing
+```yaml
+Real-time: ✅ Immediate for DMs and mentions
+Batched: ✅ Every 15 minutes for group updates
+Digest: ✅ Daily summary for low-priority items
+```
+
+### Do Not Disturb
+```yaml
+Focus Mode: 🔕 Block all except urgent
+Meeting Mode: 🔕 Queue notifications for later
+Time-based: 🔕 Auto-silence during set hours
+```
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Process Regularly" icon="refresh">
+    Check Inbox every 1-2 hours to prevent buildup
+  </Card>
+  
+  <Card title="Use States Effectively" icon="workflow">
+    Move items to In Progress when you start, Complete when done
+  </Card>
+  
+  <Card title="Quick Reply When Possible" icon="zap">
+    Use in-Inbox replies for simple responses to save time
+  </Card>
+  
+  <Card title="Archive Non-Essential" icon="archive">
+    Keep Inbox clean by archiving FYI messages
+  </Card>
+</CardGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Missing Notifications">
+    **Check:** Notification settings in Profile → Settings
+    
+    **Verify:** Browser permissions for notifications
+    
+    **Solution:** Enable push notifications and check spam filters
+  </Accordion>
+  
+  <Accordion title="Items Stuck in In Progress">
+    **Cause:** Items moved to In Progress but never completed
+    
+    **Solution:** Manually mark as complete or set up auto-complete rules
+  </Accordion>
+  
+  <Accordion title="Inbox Won't Load">
+    **Solution:** Refresh page or check network connection
+    
+    **Alternative:** Use ⌘J shortcut to force refresh
+  </Accordion>
+</AccordionGroup>
+
+## Related Features
+
+- [Command Launcher (⌘K)](/how-to/interface/command-launcher) - Quick navigation and actions
+- [Conversations](/how-to/communication/conversations) - Detailed chat management
+- [Work Issues](/how-to/work/issue-management) - Issue tracking integration
+- [Agent Interactions](/how-to/agents/agent-interaction) - Working with AI agents
+
+<Note>
+  Your Inbox is designed to be a zero-maintenance communication hub. The three-state system (Pending → In Progress → History) helps you stay organized without manual effort.
+</Note>

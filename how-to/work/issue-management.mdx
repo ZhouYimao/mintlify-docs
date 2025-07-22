@@ -1,0 +1,535 @@
+---
+title: "Issue Management"
+description: "Track and manage work issues with Linear-style efficiency and automated channel creation"
+sidebarTitle: "Issue Management"
+---
+
+<Info>
+  Cagen's Issue system is inspired by Linear's clean, efficient approach to project management, with AI-enhanced workflows and automatic team coordination.
+</Info>
+
+## What are Issues?
+
+Issues in Cagen are structured work items that represent:
+
+- **Features** - New functionality to build
+- **Bugs** - Problems to fix
+- **Tasks** - Work items to complete
+- **Improvements** - Enhancements to existing features
+- **Research** - Investigation or discovery work
+
+Each issue automatically creates a related discussion channel, keeping work and communication connected.
+
+## Issue Structure
+
+### Core Fields
+
+<CardGroup cols={2}>
+  <Card title="📝 Title" icon="heading">
+    Clear, descriptive summary of the work
+    
+    **Good:** "Add dark mode toggle to settings"
+    **Avoid:** "Fix the thing"
+  </Card>
+  
+  <Card title="📋 Description" icon="align-left">
+    Detailed explanation with context, requirements, and acceptance criteria
+    
+    Supports markdown, mentions, and file attachments
+  </Card>
+  
+  <Card title="👤 Assignee" icon="user">
+    Person responsible for completing the work
+    
+    Can be human team member or AI agent
+  </Card>
+  
+  <Card title="📊 Status" icon="chart-bar">
+    Current state of the issue
+    
+    **Backlog** → **Todo** → **In Progress** → **In Review** → **Done**
+  </Card>
+</CardGroup>
+
+### Additional Properties
+
+```yaml
+Priority: 🔴 Urgent, 🟡 High, 🔵 Medium, ⚪ Low
+Label: Frontend, Backend, Bug, Feature, etc.
+Milestone: Sprint goals or release targets
+Due Date: Optional deadline for completion
+Estimate: Story points or time estimate
+Parent Issue: For breaking down large work
+Related Issues: Connected or dependent work
+```
+
+## Creating Issues
+
+### Quick Creation
+
+<Tabs>
+  <Tab title="Command Launcher">
+    ```
+    ⌘K → "new issue [title]"
+    ⌘K → "create bug report"
+    ⌘K → "add feature request"
+    ```
+    
+    Fastest way to create issues without leaving your current context
+  </Tab>
+  
+  <Tab title="From Conversations">
+    In any conversation, use:
+    ```
+    /issue Create API rate limiting feature
+    @agent create issue from this discussion
+    ```
+    
+    Automatically pulls context from conversation
+  </Tab>
+  
+  <Tab title="Manual Creation">
+    1. Navigate to **Work** section
+    2. Click **New Issue**
+    3. Fill out issue details
+    4. Assign and set priority
+    5. Create (auto-generates discussion channel)
+  </Tab>
+</Tabs>
+
+### Issue Templates
+
+Speed up creation with predefined templates:
+
+<AccordionGroup>
+  <Accordion title="🐛 Bug Report Template">
+    ```markdown
+    ## Description
+    Brief description of the bug
+    
+    ## Steps to Reproduce
+    1. Go to...
+    2. Click on...
+    3. See error
+    
+    ## Expected Behavior
+    What should happen
+    
+    ## Actual Behavior
+    What actually happens
+    
+    ## Screenshots
+    [Attach screenshots if applicable]
+    
+    ## Environment
+    - Browser: 
+    - OS: 
+    - Version: 
+    ```
+  </Accordion>
+  
+  <Accordion title="✨ Feature Request Template">
+    ```markdown
+    ## Problem Statement
+    What problem does this solve?
+    
+    ## Proposed Solution
+    How should we solve it?
+    
+    ## User Story
+    As a [user type], I want [goal] so that [benefit]
+    
+    ## Acceptance Criteria
+    - [ ] Criteria 1
+    - [ ] Criteria 2
+    - [ ] Criteria 3
+    
+    ## Design Requirements
+    [Link to designs or wireframes]
+    ```
+  </Accordion>
+  
+  <Accordion title="🔍 Research Task Template">
+    ```markdown
+    ## Research Question
+    What do we need to find out?
+    
+    ## Context
+    Why is this research needed?
+    
+    ## Success Criteria
+    What constitutes a complete answer?
+    
+    ## Deliverable
+    - [ ] Research summary
+    - [ ] Recommendations
+    - [ ] Next steps
+    
+    ## Timeline
+    When do we need this by?
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Automatic Channel Creation
+
+When you create an issue, Cagen automatically:
+
+### 1. Creates Discussion Channel
+```
+Issue: "Add dark mode toggle to settings" (#123)
+↓
+Channel: "#issue-123-dark-mode-toggle"
+```
+
+### 2. Invites Relevant People
+- **Assignee** - Person responsible for the work
+- **Reporter** - Person who created the issue
+- **Stakeholders** - People mentioned in the issue
+- **Team Members** - Based on labels and project settings
+
+### 3. Links Issue ↔ Channel
+- Issue updates appear in channel
+- Channel discussions update issue
+- Status changes sync bidirectionally
+
+### 4. Sets Up Integrations
+- **Memory Bank** - Save important decisions
+- **Agent Access** - AI agents can participate
+- **Workflow Triggers** - Automated status updates
+
+## Issue Workflow States
+
+<Steps>
+  <Step title="📋 Backlog">
+    **New issues** waiting to be prioritized and planned
+    
+    - Issues are triaged here
+    - Priority and labels assigned
+    - Initial scoping and estimation
+  </Step>
+  
+  <Step title="📝 Todo">
+    **Ready to work** - fully defined and prioritized
+    
+    - Requirements are clear
+    - Assignee confirmed
+    - Dependencies resolved
+  </Step>
+  
+  <Step title="⚡ In Progress">
+    **Actively being worked on**
+    
+    - Work has started
+    - Regular updates expected
+    - Channel discussions active
+  </Step>
+  
+  <Step title="👀 In Review">
+    **Work complete, awaiting approval**
+    
+    - Code review in progress
+    - Testing and QA
+    - Stakeholder approval
+  </Step>
+  
+  <Step title="✅ Done">
+    **Work completed and deployed**
+    
+    - Feature is live
+    - Issue resolved
+    - Channel auto-archived
+  </Step>
+</Steps>
+
+## Working with Issues
+
+### Status Updates
+
+<CardGroup cols={2}>
+  <Card title="Quick Status Change" icon="zap">
+    **In Issue:** Click status dropdown and select new state
+    
+    **From Channel:** Type `/status in-progress` or `/status done`
+  </Card>
+  
+  <Card title="Bulk Updates" icon="list">
+    **Select multiple issues** and change status for all
+    
+    Useful for sprint planning and releases
+  </Card>
+</CardGroup>
+
+### Assignment & Collaboration
+
+```yaml
+Human Assignment: 
+  @alice → Assigns to team member Alice
+  
+Agent Assignment:
+  @dev-agent → AI agent takes on coding tasks
+  @qa-agent → AI agent handles testing
+  
+Multiple Assignment:
+  @alice @dev-agent → Collaborative work
+```
+
+### Comments & Updates
+
+<Tabs>
+  <Tab title="Progress Updates">
+    **In Issue Comments:**
+    - Share progress and blockers
+    - Upload work-in-progress screenshots  
+    - Link to related pull requests
+    
+    **In Discussion Channel:**
+    - Real-time collaboration
+    - Quick questions and answers
+    - Context sharing with team
+  </Tab>
+  
+  <Tab title="Stakeholder Communication">
+    **Automatic Notifications:**
+    - Status changes notify stakeholders
+    - Comments trigger relevant notifications
+    - @mentions bring people into discussion
+    
+    **Weekly Digests:**
+    - Summary of issue progress
+    - Blockers and risks highlighted
+    - Next steps and dependencies
+  </Tab>
+</Tabs>
+
+## AI Agent Integration
+
+### Agents as Issue Participants
+
+```yaml
+Code Generation:
+  @dev-agent implement user authentication
+  
+Code Review:
+  @review-agent analyze pull request #456
+  
+Testing:
+  @qa-agent create test cases for login flow
+  
+Documentation:
+  @docs-agent update API documentation
+```
+
+### Agent-Driven Workflows
+
+<Steps>
+  <Step title="Automatic Research">
+    Agent researches similar implementations and best practices
+  </Step>
+  
+  <Step title="Task Breakdown">
+    Agent breaks large issues into smaller, manageable tasks
+  </Step>
+  
+  <Step title="Progress Monitoring">
+    Agent tracks progress and identifies potential blockers
+  </Step>
+  
+  <Step title="Quality Assurance">
+    Agent reviews work and suggests improvements
+  </Step>
+</Steps>
+
+## Views & Organization
+
+### Issue Views
+
+<CardGroup cols={3}>
+  <Card title="📋 Board View" icon="columns">
+    Kanban-style board with drag & drop
+    
+    Great for sprint management
+  </Card>
+  
+  <Card title="📊 List View" icon="list">
+    Detailed table with all issue properties
+    
+    Best for detailed planning
+  </Card>
+  
+  <Card title="📈 Timeline View" icon="calendar">
+    Gantt-style timeline with dependencies
+    
+    Perfect for project planning
+  </Card>
+</CardGroup>
+
+### Filtering & Search
+
+```bash
+# Filter by status
+status:in-progress
+status:todo,in-progress
+
+# Filter by assignee  
+assignee:alice
+assignee:@dev-agent
+
+# Filter by label
+label:bug
+label:frontend,urgent
+
+# Filter by text
+title:"dark mode"
+description:"api"
+
+# Combine filters
+assignee:alice status:in-progress label:frontend
+```
+
+### Custom Views
+
+Create saved views for common scenarios:
+
+```yaml
+My Issues: assignee:@me status:todo,in-progress
+Team Bugs: label:bug assignee:team-frontend
+This Sprint: milestone:"Sprint 24" 
+Urgent Items: priority:urgent,high status:todo,in-progress
+```
+
+## Integration with Other Features
+
+### Memory Bank Integration
+
+```yaml
+Decisions: Save architectural decisions from issue discussions
+Research: Store investigation results and findings  
+Documentation: Link related docs and specifications
+Templates: Reuse patterns from previous similar issues
+```
+
+### Workflow Integration
+
+```yaml
+Automatic Status Updates: CI/CD pipeline updates issue status
+Deployment Triggers: Issue completion triggers deployment
+Notification Rules: Custom alerts for priority issues
+Integration Testing: Automated testing when status changes
+```
+
+### Analytics & Reporting
+
+<AccordionGroup>
+  <Accordion title="Team Performance">
+    - **Velocity tracking** - Issues completed per sprint
+    - **Cycle time** - Time from todo to done
+    - **Bottleneck identification** - Where work gets stuck
+    - **Workload distribution** - Balance across team members
+  </Accordion>
+  
+  <Accordion title="Project Health">
+    - **Burndown charts** - Progress toward milestones
+    - **Risk assessment** - Overdue and blocked issues
+    - **Quality metrics** - Bug rates and resolution time
+    - **Scope creep** - Changes to original estimates
+  </Accordion>
+</AccordionGroup>
+
+## API Key Usage & Billing
+
+When AI agents work on issues, API costs are managed through your [payment settings](/how-to/settings/payment-configuration):
+
+### Cost Tracking
+```yaml
+Per Issue: Track AI usage costs for each issue
+Per Agent: Monitor which agents use most resources
+Per Team Member: Allocate costs to different users
+Per Project: Budget tracking for different initiatives
+```
+
+### API Key Priority Order
+1. **Project-specific keys** - If issue has dedicated budget
+2. **Team shared keys** - Default for team collaboration  
+3. **Personal backup keys** - Fallback when team quota exceeded
+4. **Organization keys** - Final fallback for enterprise plans
+
+## Keyboard Shortcuts
+
+<AccordionGroup>
+  <Accordion title="Navigation">
+    **⌘K** then **"issues"** - Go to issues page
+    **I** - Create new issue (from issues page)
+    **/** - Focus search filter
+    **↑/↓** - Navigate through issues
+  </Accordion>
+  
+  <Accordion title="Issue Actions">
+    **Enter** - Open selected issue
+    **E** - Edit issue
+    **A** - Assign issue
+    **L** - Add label
+    **M** - Set milestone
+  </Accordion>
+  
+  <Accordion title="Status Changes">
+    **1** - Set to Backlog
+    **2** - Set to Todo  
+    **3** - Set to In Progress
+    **4** - Set to In Review
+    **5** - Set to Done
+  </Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Clear Descriptions" icon="file-text">
+    Include context, requirements, and acceptance criteria in every issue
+  </Card>
+  
+  <Card title="Proper Labeling" icon="tag">
+    Use consistent labels for easier filtering and organization
+  </Card>
+  
+  <Card title="Regular Updates" icon="refresh">
+    Keep issues current with progress updates and status changes
+  </Card>
+  
+  <Card title="Channel Participation" icon="users">
+    Actively use discussion channels for collaboration and context sharing
+  </Card>
+</CardGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Channel Not Created">
+    **Cause:** Issue creation may have failed partway through
+    
+    **Solution:** Edit issue and save again to trigger channel creation
+  </Accordion>
+  
+  <Accordion title="Missing Notifications">
+    **Check:** Notification settings and channel membership
+    
+    **Solution:** Ensure you're added to issue discussion channel
+  </Accordion>
+  
+  <Accordion title="Agent Not Responding">
+    **Check:** API key limits and agent availability
+    
+    **Solution:** Review billing settings and agent configuration
+  </Accordion>
+</AccordionGroup>
+
+## Related Features
+
+- [Conversations](/how-to/communication/conversations) - Discussion channels for issues
+- [Payment Configuration](/how-to/settings/payment-configuration) - Manage AI costs and API keys
+- [Memory Bank](/how-to/memory/manage-memory-bank) - Save decisions and research
+- [Agent Management](/how-to/agents/create-custom-agent) - Configure AI agents for issue work
+
+<Note>
+  Issues in Cagen bridge the gap between project management and team communication. The automatic channel creation ensures every piece of work has a dedicated space for collaboration, while AI agents can participate as full team members.
+</Note>
