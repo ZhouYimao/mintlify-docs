@@ -48,3 +48,11 @@ a {
   color: var(--emagen-black) !important;
   text-shadow: none !important;
 }
+
+/* Logo adjustments - remove left padding */
+nav img[alt*="logo"],
+nav svg,
+[href="/"] img,
+[href="/"] svg {
+  margin-left: -3px !important;
+}
