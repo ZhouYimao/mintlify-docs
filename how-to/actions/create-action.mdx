@@ -44,276 +44,245 @@ Beyond Action 0, you can create **custom actions**—specialized executable func
   </Card>
 </CardGroup>
 
-## Action Design Philosophy: Code vs Tools vs Orchestration
+## Action Design Philosophy: Natural Language vs Code Orchestration
 
 <Info>
-  **Best Practice**: Actions aren't just prompts—they're intelligent systems that can write and execute code, call APIs, or orchestrate complex workflows. The key is choosing the right approach for your specific needs.
+  **Best Practice**: Actions aren't just prompts—they're intelligent systems that can orchestrate workflows through natural language recipes OR write and execute code directly. Choose based on your needs for flexibility vs stability.
 </Info>
 
-### When to Use Direct Code Execution (Action 0)
+### When to Use Action Recipes (Natural Language Orchestration)
 
-**Best for**: Dynamic, one-off tasks requiring flexibility and rapid adaptation
+**Best for**: Stable, repeatable business processes that need coordination between multiple systems
 
 <CardGroup cols={2}>
-  <Card title="High Flexibility Scenarios" icon="code">
+  <Card title="Business Workflows" icon="workflow">
+    ```yaml
+    Use Cases:
+      - Order processing pipelines
+      - Customer onboarding flows
+      - Approval workflows
+      - Data processing chains
+      
+    Example Recipe:
+      "When new order received:
+       1. Validate payment via Stripe
+       2. Check inventory in warehouse system
+       3. Create shipping label
+       4. Send confirmation email
+       5. Update CRM with order status"
+    ```
+  </Card>
+  
+  <Card title="Standardized Operations" icon="checklist">
+    ```yaml
+    Use Cases:
+      - CI/CD deployment flows
+      - Incident response procedures
+      - Compliance reporting
+      - Multi-system updates
+      
+    Example Recipe:
+      "Deploy to production:
+       1. Run all tests
+       2. Build Docker image
+       3. Update staging environment
+       4. Run smoke tests
+       5. Deploy to production if passed
+       6. Notify team on Slack"
+    ```
+  </Card>
+</CardGroup>
+
+### When to Use Direct Code/Script Execution
+
+**Best for**: Dynamic, flexible tasks requiring custom logic and rapid adaptation
+
+<CardGroup cols={2}>
+  <Card title="Custom Analysis & Processing" icon="code">
     ```yaml
     Use Cases:
       - Data analysis with unknown structure
       - Custom integrations with unique APIs
-      - Debugging and troubleshooting
+      - Performance optimization
+      - Complex calculations
+      
+    Example:
+      "Analyze this sales data and find patterns"
+      → Agent writes Python/R code dynamically
+      → Adapts to any data format
+      → Generates custom visualizations
+    ```
+  </Card>
+  
+  <Card title="Development & Debugging" icon="bug">
+    ```yaml
+    Use Cases:
+      - Code generation and refactoring
+      - System troubleshooting
+      - Custom automation scripts
       - Rapid prototyping
       
     Example:
-      "Analyze this CSV and find anomalies"
-      → Agent writes Python code dynamically
-      → Handles any CSV structure
-      → Adapts analysis based on data
-    ```
-  </Card>
-  
-  <Card title="Development & Exploration" icon="search">
-    ```yaml
-    Use Cases:
-      - Code generation and testing
-      - File system operations
-      - Custom data transformations
-      - Investigation tasks
-      
-    Example:
-      "Fix the performance issue in this code"
-      → Agent reads, analyzes, modifies code
-      → Runs tests to verify fixes
-      → Iterates until optimal
+      "Fix the memory leak in this service"
+      → Agent analyzes code, identifies issues
+      → Writes optimized version
+      → Tests and validates fixes
     ```
   </Card>
 </CardGroup>
 
-### When to Use MCP Tool Calling
+## Decision Framework: Recipe vs Code
 
-**Best for**: Stable, well-defined integrations with external systems
-
-<CardGroup cols={2}>
-  <Card title="Reliable Integrations" icon="plug">
-    ```yaml
-    Use Cases:
-      - Standard API integrations
-      - Database operations
-      - File management systems
-      - Authentication workflows
-      
-    Example:
-      Slack MCP Tool
-      → Pre-configured, reliable
-      → Handles auth automatically
-      → Standardized parameters
-    ```
-  </Card>
-  
-  <Card title="Enterprise Systems" icon="building">
-    ```yaml
-    Use Cases:
-      - CRM integrations (Salesforce)
-      - HR systems (Workday)
-      - Financial systems (SAP)
-      - Monitoring tools (DataDog)
-      
-    Example:
-      Database MCP
-      → Connection pooling
-      → Query optimization
-      → Security compliance
-    ```
-  </Card>
-</CardGroup>
-
-### When to Use Action Recipe Orchestration
-
-**Best for**: Complex workflows requiring coordination between multiple systems
-
-<CardGroup cols={2}>
-  <Card title="Multi-Step Workflows" icon="workflow">
-    ```yaml
-    Use Cases:
-      - CI/CD pipelines
-      - Data processing chains
-      - Approval workflows
-      - Multi-system updates
-      
-    Example:
-      Deploy Pipeline
-      1. Run tests (MCP: GitHub)
-      2. Build image (Code: Docker)
-      3. Update config (MCP: K8s)
-      4. Notify team (MCP: Slack)
-    ```
-  </Card>
-  
-  <Card title="Business Processes" icon="briefcase">
-    ```yaml
-    Use Cases:
-      - Order processing
-      - Customer onboarding
-      - Invoice generation
-      - Compliance reporting
-      
-    Example:
-      New Customer Flow
-      1. Validate data (Code: validation)
-      2. Create account (MCP: CRM)
-      3. Send welcome (MCP: Email)
-      4. Schedule followup (Recipe: Calendar)
-    ```
-  </Card>
-</CardGroup>
-
-## Decision Framework: Choosing the Right Approach
-
-### Flexibility vs Stability Matrix
+### Business Requirements Matrix
 
 ```mermaid
 graph TD
-    A[Action Required] --> B{Stability Requirement}
-    B -->|High Stability| C{Complexity}
-    B -->|Low Stability| D[Direct Code Execution]
-    C -->|Simple Operation| E[MCP Tool Calling]
-    C -->|Complex Workflow| F[Action Recipe Orchestration]
+    A[Task Required] --> B{Process Standardization}
+    B -->|High - Repeatable Business Process| C[Action Recipe]
+    B -->|Low - Unique/Custom Requirements| D[Direct Code]
     
-    D --> D1["✓ Dynamic analysis<br/>✓ Custom logic<br/>✓ Rapid iteration"]
-    E --> E1["✓ Reliable integration<br/>✓ Standard protocols<br/>✓ Enterprise ready"]
-    F --> F1["✓ Multi-step processes<br/>✓ Error handling<br/>✓ State management"]
+    C --> C1["✓ Consistent execution<br/>✓ Easy to audit<br/>✓ Business user friendly<br/>✓ Error handling built-in"]
+    D --> D1["✓ Maximum flexibility<br/>✓ Custom logic<br/>✓ Rapid iteration<br/>✓ Handles edge cases"]
 ```
 
-### Performance & Concurrency Considerations
+### Performance & Complexity Considerations
 
 <Tabs>
-  <Tab title="Speed Requirements">
+  <Tab title="Speed & Concurrency">
     ```yaml
-    Ultra-fast (< 100ms):
-      → Pre-cached MCP tools
-      → Simple API calls
+    Action Recipes (Natural Language):
+      Speed: Moderate (2-30s per step)
+      Concurrency: High (100+ simultaneous workflows)
+      Best for: Coordinated multi-system operations
       
-    Fast (< 1s):
-      → Standard MCP tools
-      → Simple code execution
+    Direct Code Execution:
+      Speed: Variable (100ms to hours)
+      Concurrency: Medium (10-50 simultaneous)
+      Best for: CPU/memory intensive tasks
       
-    Moderate (1-10s):
-      → Complex code generation
-      → Multi-step recipes
+    Example - Processing 1000 customer orders:
+      Recipe: "For each order, validate → charge → fulfill → notify"
+      → Parallel execution across orders
+      → Consistent error handling
       
-    Batch (> 10s):
-      → Heavy data processing
-      → Long-running workflows
+      Code: Custom batch processing script
+      → Optimized for bulk operations
+      → Custom retry logic
     ```
   </Tab>
   
-  <Tab title="Concurrency Needs">
+  <Tab title="Maintenance & Scaling">
     ```yaml
-    High Concurrency (100+ simultaneous):
-      → MCP Tools (connection pooling)
-      → Stateless operations
+    Action Recipes:
+      Pros:
+        - Easy to modify workflow steps
+        - Non-technical users can understand
+        - Built-in monitoring and logging
+        - Automatic retry and error handling
       
-    Medium Concurrency (10-100):
-      → Action Recipes (queue management)
-      → Resource-aware execution
-      
-    Low Concurrency (< 10):
-      → Direct Code (full flexibility)
-      → Resource-intensive operations
-    ```
-  </Tab>
-  
-  <Tab title="Error Handling">
-    ```yaml
-    Critical Operations:
-      → Action Recipes (retry logic)
-      → Comprehensive error handling
-      
-    Standard Operations:
-      → MCP Tools (built-in retries)
-      → Standard error responses
-      
-    Experimental Operations:
-      → Direct Code (custom handling)
-      → Fail-fast with detailed logs
+      Cons:
+        - Limited to predefined operations
+        - May be slower for simple tasks
+        
+    Direct Code:
+      Pros:
+        - Unlimited customization
+        - Can optimize for specific use cases
+        - Direct integration with any API/system
+        
+      Cons:
+        - Requires technical maintenance
+        - Custom error handling needed
+        - Harder to audit and monitor
     ```
   </Tab>
 </Tabs>
 
-### Real-World Examples
+### Real-World Decision Examples
 
 <AccordionGroup>
+  <Accordion title="E-commerce Order Processing">
+    **Scenario**: Handle customer orders from payment to delivery
+    
+    **Choose Action Recipe Because:**
+    - Standard business process that repeats thousands of times
+    - Multiple systems need coordination (payment, inventory, shipping)
+    - Business users need to understand and modify the process
+    - Compliance and audit requirements
+    
+    ```yaml
+    Recipe Implementation:
+      "Order Processing Workflow:
+       1. Validate payment details with Stripe
+       2. Check product availability in inventory system
+       3. Reserve items for 15 minutes
+       4. Calculate shipping costs via UPS/FedEx APIs
+       5. If all valid: charge customer and create order
+       6. Generate shipping label and tracking number
+       7. Send order confirmation email
+       8. Update CRM with customer purchase history
+       9. Trigger fulfillment process
+       10. Schedule delivery notifications"
+    ```
+  </Accordion>
+  
+  <Accordion title="Performance Analysis & Optimization">
+    **Scenario**: Analyze application performance and suggest improvements
+    
+    **Choose Direct Code Because:**
+    - Each application has unique architecture and bottlenecks
+    - Requires custom analysis tools and metrics
+    - Need flexibility to drill down into specific issues
+    - Analysis approach varies based on findings
+    
+    ```python
+    Code Implementation:
+    # Agent writes custom analysis script
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    from profiling_tools import *
+    
+    # Load and analyze performance data
+    metrics = load_application_metrics(timeframe='7d')
+    
+    # Custom analysis based on data patterns
+    bottlenecks = identify_performance_bottlenecks(metrics)
+    
+    # Generate specific recommendations
+    recommendations = generate_optimization_plan(bottlenecks)
+    
+    # Create custom visualization
+    plot_performance_trends(metrics, save_path='analysis.png')
+    ```
+  </Accordion>
+  
   <Accordion title="Customer Support Automation">
-    **Scenario**: Automated ticket resolution system
+    **Scenario**: Automated ticket triage and resolution
+    
+    **Hybrid Approach - Use Both:**
     
     ```yaml
-    Initial Triage:
-      Method: Direct Code Execution
-      Why: Each ticket is unique, requires custom analysis
+    Step 1 - Ticket Analysis (Direct Code):
+      Why: Each ticket is unique, needs custom analysis
+      Implementation: Agent writes code to:
+      - Parse ticket content and attachments
+      - Classify issue type and severity
+      - Extract relevant technical details
       
-    Knowledge Base Search:
-      Method: MCP Tool (Vector DB)
-      Why: Stable, optimized search with consistent format
-      
-    Resolution Workflow:
-      Method: Action Recipe
-      Why: Multi-step process with human approval gates
-      
-    Implementation:
-      1. Agent analyzes ticket content with custom code
-      2. Searches knowledge base using MCP tool
-      3. Orchestrates resolution workflow with recipe
-      4. Updates CRM and notifies customer via MCP tools
-    ```
-  </Accordion>
-  
-  <Accordion title="DevOps Pipeline">
-    **Scenario**: Automated deployment and monitoring
-    
-    ```yaml
-    Code Analysis:
-      Method: Direct Code Execution
-      Why: Custom static analysis, security scanning
-      
-    Build & Test:
-      Method: MCP Tools (CI/CD platforms)
-      Why: Standardized, reliable build processes
-      
-    Deployment Orchestration:
-      Method: Action Recipe
-      Why: Complex multi-environment coordination
-      
-    Implementation:
-      1. Agent writes custom tests based on code changes
-      2. Triggers builds via GitHub Actions MCP
-      3. Orchestrates blue-green deployment recipe
-      4. Monitors via DataDog MCP, alerts via Slack MCP
-    ```
-  </Accordion>
-  
-  <Accordion title="Data Science Workflow">
-    **Scenario**: Automated data analysis and reporting
-    
-    ```yaml
-    Data Exploration:
-      Method: Direct Code Execution
-      Why: Unknown data structure, requires adaptive analysis
-      
-    Model Training:
-      Method: MCP Tools (ML platforms)
-      Why: Standardized training pipelines, resource management
-      
-    Report Generation:
-      Method: Action Recipe
-      Why: Multi-format outputs, approval workflows
-      
-    Implementation:
-      1. Agent writes Python code to explore dataset
-      2. Uses MLflow MCP for standardized model training
-      3. Orchestrates report generation and distribution recipe
-      4. Updates dashboard via BI tool MCP
+    Step 2 - Resolution Workflow (Action Recipe):
+      Why: Standard escalation and resolution process
+      Implementation: Recipe orchestrates:
+      "Based on ticket classification:
+       1. If Level 1: Auto-resolve with knowledge base
+       2. If Level 2: Assign to appropriate team
+       3. If Level 3: Escalate to senior engineer
+       4. Update customer with status and timeline
+       5. Schedule follow-up based on SLA"
     ```
   </Accordion>
 </AccordionGroup>
+
+## Action Types
 
 ## Action Types
 

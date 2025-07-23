@@ -58,6 +58,7 @@
           {
             "group": "Getting Started",
             "pages": [
+              "tutorials/getting-started/first-interaction",
               "tutorials/getting-started/first-agent",
               "tutorials/getting-started/first-workflow"
             ]
