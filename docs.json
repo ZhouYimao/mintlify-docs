@@ -42,7 +42,8 @@
             "group": "Getting Started",
             "pages": [
               "get-started",
-              "quickstart"
+              "quickstart",
+              "use-cases"
             ]
           },
           {
@@ -61,6 +62,18 @@
             "pages": [
               "paths/startup-founder",
               "paths/solopreneur"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Solutions",
+        "groups": [
+          {
+            "group": "By Department",
+            "pages": [
+              "use-cases/engineering",
+              "use-cases/customer-support"
             ]
           }
         ]
