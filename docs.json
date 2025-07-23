@@ -64,6 +64,19 @@
             ]
           },
           {
+            "group": "Week 1: Foundation",
+            "pages": [
+              "tutorials/week-1/connect-tools",
+              "tutorials/week-1/second-agent"
+            ]
+          },
+          {
+            "group": "Scaling Your AI Team",
+            "pages": [
+              "tutorials/scaling/first-month"
+            ]
+          },
+          {
             "group": "Use Cases",
             "pages": [
               "tutorials/use-cases/startup-guide"

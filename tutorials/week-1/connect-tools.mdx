@@ -1,0 +1,158 @@
+---
+title: "Day 3-4: Connect Your First Tool"
+description: "Turn your agent from smart to brilliant by connecting real tools"
+---
+
+You've got your first agent running. It's handling basic queries. Now let's give it superpowers by connecting it to your actual tools.
+
+## Why This Matters
+
+Without integrations, your agent is like a smart intern with no access to company systems. Connect one tool, and suddenly it can:
+- Pull real customer data
+- Update your CRM automatically
+- Send notifications when things need attention
+
+## Pick Your First Integration
+
+Based on 1,000+ users, here's what works best as integration #1:
+
+<Tabs>
+  <Tab title="Email (Gmail/Outlook)">
+    **Best for**: Customer support, sales teams
+    **Time to value**: 15 minutes
+    **Impact**: Auto-drafts responses, categorizes inquiries
+  </Tab>
+  
+  <Tab title="Slack">
+    **Best for**: Team coordination, internal ops
+    **Time to value**: 10 minutes
+    **Impact**: Agent joins conversations, answers questions 24/7
+  </Tab>
+  
+  <Tab title="CRM (HubSpot/Salesforce)">
+    **Best for**: Sales and success teams
+    **Time to value**: 30 minutes
+    **Impact**: Auto-logs interactions, updates deal stages
+  </Tab>
+</Tabs>
+
+## Real Example: Connecting Gmail
+
+Let's walk through Gmail since 60% of users start here.
+
+<Steps>
+  <Step title="Navigate to Integrations">
+    In your Cagen dashboard:
+    1. Click your agent's name
+    2. Select "Integrations" tab
+    3. Find Gmail in the list
+    
+    <Info>
+    If you don't see Gmail, you might be on the Starter plan. Upgrade to Growth for full integrations.
+    </Info>
+  </Step>
+
+  <Step title="Authorize Access">
+    Click "Connect Gmail" and you'll see Google's authorization screen.
+    
+    What permissions you're granting:
+    - Read emails (to understand context)
+    - Draft emails (not send - you control that)
+    - Apply labels (for organization)
+    
+    <Warning>
+    Cagen NEVER auto-sends emails without your explicit approval. Every draft requires human review.
+    </Warning>
+  </Step>
+
+  <Step title="Configure Smart Filters">
+    Now the smart part. Tell your agent what to watch for:
+    
+    ```
+    Handle emails that:
+    - Come to support@yourcompany.com
+    - Have "urgent" or "help" in subject
+    - Are from customers (not internal team)
+    ```
+    
+    Pro tip: Start narrow. You can always expand later.
+  </Step>
+
+  <Step title="Test with Real Email">
+    Send a test email to your support address. Within 30 seconds, you should see:
+    
+    1. Email appears in agent's queue
+    2. Agent drafts response based on your knowledge base
+    3. Draft appears in Gmail with [DRAFT] label
+    4. You review and send (or edit first)
+  </Step>
+
+  <Step title="Monitor and Adjust">
+    First 24 hours are crucial. Watch for:
+    
+    - **Good signs**: Accurate drafts, time saved
+    - **Red flags**: Misunderstood context, wrong tone
+    
+    Adjust filters and training based on what you see.
+  </Step>
+</Steps>
+
+## What Success Looks Like
+
+Here's data from a real user (e-commerce store, 500 emails/day):
+
+**Before Cagen**:
+- 3 hours daily on email
+- 24-hour response time
+- Inconsistent answers
+
+**After 1 Week**:
+- 45 minutes daily (just reviewing)
+- 2-hour response time
+- 100% consistent messaging
+
+## Common Gotchas (and Fixes)
+
+<AccordionGroup>
+  <Accordion title="Agent drafts are too formal/robotic">
+    **Fix**: Upload 10 of your best past responses. Agent learns your voice instantly.
+  </Accordion>
+  
+  <Accordion title="It's flagging internal emails">
+    **Fix**: Add filter rule: "Exclude emails from @yourcompany.com"
+  </Accordion>
+  
+  <Accordion title="Drafts are too long">
+    **Fix**: Add instruction: "Keep responses under 5 sentences unless complex issue"
+  </Accordion>
+  
+  <Accordion title="Missing important context">
+    **Fix**: Connect your knowledge base or CRM for full customer history
+  </Accordion>
+</AccordionGroup>
+
+## Your Next 24 Hours
+
+1. **Let it run**: Don't over-configure on day 1
+2. **Review everything**: But don't edit unless necessary
+3. **Note patterns**: What types of emails does it handle best?
+4. **Share wins**: Tell your team when it nails a response
+
+## Ready for Integration #2?
+
+Once Gmail is humming (usually by day 5), add your second tool. Most users go with:
+- Slack (if you chose email first)
+- Calendar (for scheduling automation)
+- CRM (for full customer context)
+
+<Card 
+  title="Next: Create Your Second Agent" 
+  icon="robot"
+  href="/tutorials/week-1/second-agent"
+>
+  Two agents working together is where the magic really happens
+</Card>
+
+<Note>
+**Reality check**: Your first integration won't be perfect on day 1. By day 3, it'll save you an hour. By day 7, you'll wonder how you lived without it.
+</Note>
