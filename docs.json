@@ -63,7 +63,10 @@
             "group": "Choose Your Path",
             "pages": [
               "paths/startup-founder",
-              "paths/solopreneur"
+              "paths/solopreneur",
+              "paths/small-business",
+              "paths/enterprise",
+              "paths/developer"
             ]
           }
         ]
@@ -75,7 +78,9 @@
             "group": "By Department",
             "pages": [
               "use-cases/engineering",
-              "use-cases/customer-support"
+              "use-cases/customer-support",
+              "use-cases/sales",
+              "use-cases/marketing"
             ]
           }
         ]
