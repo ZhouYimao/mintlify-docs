@@ -66,7 +66,8 @@
               "paths/solopreneur",
               "paths/small-business",
               "paths/enterprise",
-              "paths/developer"
+              "paths/developer",
+              "paths/agency"
             ]
           }
         ]
@@ -80,7 +81,9 @@
               "use-cases/engineering",
               "use-cases/customer-support",
               "use-cases/sales",
-              "use-cases/marketing"
+              "use-cases/marketing",
+              "use-cases/operations",
+              "use-cases/product-management"
             ]
           }
         ]
