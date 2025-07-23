@@ -43,7 +43,9 @@
             "pages": [
               "get-started",
               "quickstart",
-              "use-cases"
+              "use-cases",
+              "success-stories",
+              "transformation-matrix"
             ]
           },
           {
