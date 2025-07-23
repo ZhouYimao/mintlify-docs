@@ -470,274 +470,202 @@ graph TD
 
 ## Action Types
 
-### Built-in Actions
+### Built-in Action Categories
 
-Cagen comes with pre-configured actions for common tasks:
+Actions can be organized into common categories based on their purpose:
 
 <AccordionGroup>
-  <Accordion title="Communication">
-    ```yaml
-    send_email:
-      description: "Send email via configured provider"
-      parameters:
-        - to: string (required)
-        - subject: string (required)  
-        - body: string (required)
-        - attachments: array (optional)
-      
-    send_slack:
-      description: "Post message to Slack channel"
-      parameters:
-        - channel: string (required)
-        - message: string (required)
-        - thread_ts: string (optional)
-    ```
+  <Accordion title="Communication Actions">
+    **Typical communication Actions include:**
+    - Send notifications via various channels (email, Slack, Teams)
+    - Post updates to social media or internal channels
+    - Create and manage calendar events
+    - Send SMS or push notifications
+    
+    **Use cases:**
+    - Automated status updates to stakeholders
+    - Customer notification workflows
+    - Team coordination and alerts
+    - Marketing campaign execution
   </Accordion>
   
-  <Accordion title="File Operations">
-    ```yaml
-    create_file:
-      description: "Create new file with content"
-      parameters:
-        - path: string (required)
-        - content: string (required)
-        - encoding: string (optional)
-        
-    read_file:
-      description: "Read file content"
-      parameters:
-        - path: string (required)
-        - encoding: string (optional)
-        
-    upload_to_s3:
-      description: "Upload file to S3 bucket"
-      parameters:
-        - bucket: string (required)
-        - key: string (required)
-        - file: binary (required)
-    ```
+  <Accordion title="Data Management Actions">
+    **Common data operations:**
+    - Create, read, update, delete records in databases
+    - Process and transform data files
+    - Generate reports from multiple data sources
+    - Sync data between different systems
+    
+    **Use cases:**
+    - Customer data synchronization
+    - Automated reporting pipelines
+    - Data backup and archival
+    - Integration between business systems
   </Accordion>
   
-  <Accordion title="Development Tools">
-    ```yaml
-    create_github_issue:
-      description: "Create issue in GitHub repository"
-      parameters:
-        - repo: string (required)
-        - title: string (required)
-        - body: string (optional)
-        - labels: array (optional)
-        
-    run_git_command:
-      description: "Execute git command"
-      parameters:
-        - command: string (required)
-        - directory: string (optional)
-        
-    deploy_to_vercel:
-      description: "Trigger Vercel deployment"
-      parameters:
-        - project: string (required)
-        - branch: string (optional)
-    ```
+  <Accordion title="Development and Deployment">
+    **Developer workflow Actions:**
+    - Create and manage repository issues
+    - Trigger build and deployment processes
+    - Run automated tests and quality checks
+    - Update documentation and wikis
+    
+    **Use cases:**
+    - Continuous integration workflows
+    - Automated code quality checks
+    - Documentation updates
+    - Issue tracking and management
   </Accordion>
 </AccordionGroup>
 
-### Custom Actions
+### Creating Custom Actions
 
-Create your own actions for specific business needs:
+There are two main approaches to creating Actions in Cagen:
 
-<Steps>
-  <Step title="Define Action Schema">
-    ```yaml
-    # action_schema.yaml
-    name: "create_invoice"
-    description: "Generate invoice using accounting API"
+<Tabs>
+  <Tab title="Natural Language Actions">
+    **Describe the workflow in plain language:**
     
-    parameters:
-      client_id:
-        type: "string"
-        required: true
-        description: "Client identifier"
-        
-      amount:
-        type: "number"
-        required: true
-        description: "Invoice amount"
-        
-      due_date:
-        type: "string"
-        format: "date"
-        description: "Payment due date"
-        
-    returns:
-      invoice_id: "string"
-      invoice_url: "string"
     ```
-  </Step>
+    "When a new customer signs up:
+    1. Create a welcome email with their account details
+    2. Add them to our CRM system with 'new customer' tag
+    3. Schedule a follow-up call for next week
+    4. Send notification to the sales team"
+    ```
+    
+    **How it works:**
+    - Cagen interprets the natural language description
+    - Creates a structured workflow that executes each step
+    - Handles conditional logic and error scenarios
+    - Provides clear execution logs for each step
+    
+    **Best for:**
+    - Business process automation
+    - Multi-step workflows with conditional logic
+    - Processes that non-technical users need to understand
+    - Workflows that might need frequent adjustments
+  </Tab>
   
-  <Step title="Implement Action Logic">
+  <Tab title="Code-Based Actions">
+    **Write code that executes directly:**
+    
     ```python
-    # action_implementation.py
-    import requests
-    from datetime import datetime
-    
-    async def create_invoice(client_id: str, amount: float, due_date: str = None):
-        """Create invoice via accounting API"""
+    # Python example for data processing Action
+    def process_monthly_report(month, year):
+        # Connect to data sources
+        sales_data = fetch_sales_data(month, year)
+        customer_data = fetch_customer_data(month, year)
         
-        # Validate parameters
-        if amount <= 0:
-            raise ValueError("Amount must be positive")
-            
-        # Set default due date
-        if not due_date:
-            due_date = (datetime.now() + timedelta(days=30)).isoformat()
-            
-        # Call external API
-        response = requests.post(
-            "https://api.accounting.com/invoices",
-            headers={"Authorization": f"Bearer {ACCOUNTING_API_KEY}"},
-            json={
-                "client_id": client_id,
-                "amount": amount,
-                "due_date": due_date,
-                "currency": "USD"
-            }
-        )
+        # Process and analyze
+        report = {
+            'total_sales': sum(sales_data),
+            'new_customers': len(customer_data),
+            'avg_order_value': sum(sales_data) / len(sales_data)
+        }
         
-        if response.status_code == 201:
-            data = response.json()
-            return {
-                "invoice_id": data["id"],
-                "invoice_url": data["public_url"],
-                "success": True
-            }
-        else:
-            raise Exception(f"API Error: {response.text}")
+        # Generate output
+        create_report_file(report, f"report_{year}_{month}.pdf")
+        send_to_stakeholders(report)
+        
+        return report
     ```
-  </Step>
-  
-  <Step title="Register Action">
-    ```yaml
-    # Register in Cagen
-    POST /api/actions
     
-    {
-      "name": "create_invoice",
-      "schema_url": "https://your-server.com/schemas/create_invoice.yaml",
-      "implementation_url": "https://your-server.com/actions/create_invoice",
-      "authentication": {
-        "type": "api_key",
-        "header": "X-API-Key"
-      },
-      "timeout": 30000,
-      "retry_policy": {
-        "max_attempts": 3,
-        "backoff": "exponential"
-      }
-    }
-    ```
-  </Step>
-  
-  <Step title="Test Action">
-    ```yaml
-    # Test the action
-    POST /api/actions/create_invoice/test
-    
-    {
-      "parameters": {
-        "client_id": "client_123",
-        "amount": 1500.00,
-        "due_date": "2024-02-15"
-      }
-    }
-    ```
-  </Step>
-</Steps>
+    **Best for:**
+    - Complex data processing and analysis
+    - High-performance operations
+    - Integration with specific APIs or systems
+    - Tasks requiring precise control over execution
+  </Tab>
+</Tabs>
 
 ## Using Actions with Agents
 
 ### Agent Action Integration
 
-Actions become available to AI agents once configured:
+When you bind Actions to Agents, the Agents can automatically decide when and how to use them:
 
-```yaml
-# Agent can now use actions in conversations
-User: "Create an invoice for client ABC for $2,500"
-
-Agent: "I'll create that invoice for you."
-[Action: create_invoice]
-Parameters: {
-  "client_id": "ABC",
-  "amount": 2500.00,
-  "due_date": "2024-02-20"  
-}
-Result: {
-  "invoice_id": "INV-001",
-  "invoice_url": "https://accounting.com/invoice/INV-001"
-}
-
-Agent: "Invoice INV-001 created successfully! View it here: [Invoice Link]"
-```
+<Steps>
+  <Step title="Bind Actions to Agents">
+    Connect specific Actions to Agents based on their responsibilities:
+    
+    ```
+    Customer Support Agent:
+    - Bound Actions: "send_follow_up_email", "create_support_ticket", "escalate_issue"
+    
+    Sales Agent:
+    - Bound Actions: "update_crm_record", "schedule_demo", "send_proposal"
+    
+    Operations Agent:
+    - Bound Actions: "generate_report", "update_inventory", "process_order"
+    ```
+  </Step>
+  
+  <Step title="Agents Choose Actions Automatically">
+    Agents analyze the situation and select appropriate Actions:
+    
+    ```
+    User: "A customer is having trouble with their order"
+    
+    Support Agent: "I'll help with that customer issue."
+    [Executes: create_support_ticket]
+    [Executes: send_follow_up_email] 
+    
+    Support Agent: "I've created a support ticket and sent a follow-up 
+    email to the customer with next steps."
+    ```
+  </Step>
+  
+  <Step title="Actions Execute in Runtime Environment">
+    All Actions run securely in isolated containers with proper logging and monitoring
+  </Step>
+</Steps>
 
 ### Action Permissions
 
-Control which agents can use which actions:
+Control which Agents can use which Actions based on their roles and responsibilities:
 
-<Tabs>
-  <Tab title="Agent-Level Permissions">
-    ```yaml
-    agent_permissions:
-      @dev-agent:
-        allowed_actions:
-          - create_github_issue
-          - run_git_command
-          - deploy_to_vercel
-        denied_actions:
-          - delete_database
-          
-      @marketing-agent:
-        allowed_actions:
-          - send_email
-          - create_social_post
-          - analyze_metrics
-        rate_limits:
-          send_email: "10/hour"
+<AccordionGroup>
+  <Accordion title="Role-Based Access">
+    **Assign Actions based on Agent purpose:**
+    
     ```
-  </Tab>
+    Development Agents:
+    - Can use: code deployment, testing, repository management Actions
+    - Cannot use: customer communication, financial Actions
+    
+    Customer Service Agents:
+    - Can use: ticket creation, email sending, escalation Actions
+    - Cannot use: system administration, deployment Actions
+    
+    Management Agents:
+    - Can use: reporting, approval, oversight Actions
+    - Cannot use: day-to-day operational Actions
+    ```
+  </Accordion>
   
-  <Tab title="Role-Based Permissions">
-    ```yaml
-    role_permissions:
-      developer:
-        actions: ["development", "deployment"]
-        
-      marketing:
-        actions: ["communication", "analytics"]
-        
-      admin:
-        actions: ["*"]  # All actions
-        
-      intern:
-        actions: ["read_only"]
-        approval_required: true
-    ```
-  </Tab>
+  <Accordion title="Approval Requirements">
+    **Require human approval for sensitive Actions:**
+    
+    - Financial transactions above certain thresholds
+    - System deployments to production environments
+    - Customer data modifications
+    - External integrations that modify data
+    
+    **How it works:**
+    Agent requests Action → Human receives approval request → 
+    Approve/Deny → Action executes or is blocked
+  </Accordion>
   
-  <Tab title="Context-Based Permissions">
-    ```yaml
-    context_permissions:
-      - condition: "issue.priority == 'critical'"
-        allow: ["emergency_deployment", "alert_oncall"]
-        
-      - condition: "user.role == 'manager'"
-        allow: ["approve_expense", "generate_report"]
-        
-      - condition: "time.business_hours == false"
-        deny: ["deploy_to_production"]
-    ```
-  </Tab>
-</Tabs>
+  <Accordion title="Rate Limiting">
+    **Prevent Action abuse:**
+    
+    - Email Actions: Limited sends per hour to prevent spam
+    - API Actions: Respect external service rate limits
+    - Resource-intensive Actions: Queue to prevent system overload
+    - Cost-sensitive Actions: Budget controls and alerts
+  </Accordion>
+</AccordionGroup>
 
 ## Action Security & Reliability
 
@@ -859,71 +787,62 @@ action_reliability:
   </Step>
 </Steps>
 
-## Action Marketplace
+## Action Management
 
-### Using Store Actions
+### Organizing Your Actions
 
-Browse and install actions from the Cagen Store:
+As you create more Actions, organization becomes important:
 
-<Tabs>
-  <Tab title="Popular Actions">
-    ```yaml
-    store_actions:
-      salesforce_integration:
-        rating: 4.8/5
-        installs: 15.2k
-        price: "Free"
-        
-      advanced_analytics:
-        rating: 4.6/5
-        installs: 8.7k
-        price: "$15/month"
-        
-      document_generator:
-        rating: 4.9/5
-        installs: 22.1k
-        price: "$0.10/use"
-    ```
-  </Tab>
-  
-  <Tab title="Installation">
-    ```yaml
-    # Install from store
-    cagen action install salesforce_integration
+<Steps>
+  <Step title="Use Clear Naming">
+    Name Actions based on what they do, not how they work:
     
-    # Configure credentials
-    cagen action configure salesforce_integration \
-      --api-key="YOUR_SF_KEY" \
-      --instance-url="https://your-instance.salesforce.com"
-      
-    # Test installation
-    cagen action test salesforce_integration
     ```
-  </Tab>
-  
-  <Tab title="Publishing Actions">
-    Share your actions with the community:
-    ```yaml
-    # action_manifest.yaml
-    name: "advanced_email_parser"
-    version: "1.2.0"
-    description: "Parse complex email structures with AI"
+    Good names:
+    - "send_customer_welcome_email"
+    - "process_monthly_sales_report"
+    - "escalate_critical_support_ticket"
     
-    pricing:
-      model: "usage_based"
-      rate: "$0.05/parse"
-      
-    metadata:
-      category: "communication"
-      tags: ["email", "parsing", "ai"]
-      author: "your-company"
-      license: "MIT"
-      
-    # Publish to store
-    cagen action publish ./action_manifest.yaml
+    Poor names:
+    - "action_1"
+    - "email_thing"
+    - "monthly_task"
     ```
-  </Tab>
-</Tabs>
+  </Step>
+  
+  <Step title="Group by Function">
+    Organize Actions into logical categories:
+    
+    ```
+    Customer Operations:
+    - send_welcome_email, process_refund, escalate_support_ticket
+    
+    Sales Process:
+    - qualify_lead, schedule_demo, send_proposal, update_crm
+    
+    Internal Operations:
+    - generate_weekly_report, backup_data, sync_systems
+    ```
+  </Step>
+  
+  <Step title="Document Dependencies">
+    Keep track of what each Action needs:
+    
+    - External APIs or services
+    - Required credentials or permissions
+    - Memory Bank documents for reference
+    - Other Actions that might be called
+  </Step>
+  
+  <Step title="Monitor Performance">
+    Track how your Actions are performing:
+    
+    - Execution success rate
+    - Average completion time
+    - Error patterns and causes
+    - Usage frequency by different Agents
+  </Step>
+</Steps>
 
 ## Action Development Best Practices
 

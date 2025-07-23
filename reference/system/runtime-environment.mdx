@@ -1,698 +1,446 @@
 ---
 title: "Runtime Environment Reference"
-description: "Technical reference for Cagen's runtime execution environment, system architecture, and performance specifications"
+description: "Technical reference for Cagen's containerized runtime execution environment for Actions"
 sidebarTitle: "Runtime Environment"
 ---
 
 <Info>
-  Cagen's Runtime Environment provides a secure, scalable execution context where AI agents perform tasks, execute actions, and interact with external systems.
+  Cagen's Runtime Environment is an independent, secure containerized system where Actions execute safely and reliably, built on Google Cloud infrastructure.
 </Info>
 
-## Runtime Architecture
+## What is Runtime Environment?
 
-### Execution Environment Overview
+The Runtime Environment is Cagen's secure execution layer specifically designed for running Actions. It provides:
 
 <CardGroup cols={2}>
-  <Card title="🔒 Secure Sandboxes" icon="shield">
-    **Isolated execution environments**
+  <Card title="Secure Isolation" icon="shield">
+    **Independent containerized system**
     
-    Each agent and action runs in isolated containers with strict resource limits and security boundaries
+    Each Action runs in its own isolated container with strict security boundaries and no access to other processes
   </Card>
   
-  <Card title="⚡ Auto-scaling" icon="zap">
-    **Dynamic resource allocation**
+  <Card title="Google Cloud Foundation" icon="cloud">
+    **Enterprise-grade infrastructure**
     
-    Runtime automatically scales compute resources based on workload demands and performance requirements
+    Built on Google Cloud Platform with enterprise security, reliability, and global availability
   </Card>
   
-  <Card title="🌐 Multi-region" icon="globe">
-    **Global deployment**
+  <Card title="Zero Security Concerns" icon="lock">
+    **Built-in safety**
     
-    Runtime environments distributed across regions for low-latency execution and data compliance
+    You don't need to worry about security - the system handles isolation, permissions, and safe execution automatically
   </Card>
   
-  <Card title="📊 Monitoring & Observability" icon="chart-bar">
-    **Real-time insights**
+  <Card title="Action-Focused" icon="cog">
+    **Purpose-built for Actions**
     
-    Complete visibility into execution performance, resource usage, and error tracking
+    Optimized specifically for running Action code, whether natural language workflows or direct code execution
   </Card>
 </CardGroup>
 
-### Runtime Components
+## How Runtime Environment Works
+
+### Action Execution Flow
+
+When an Action is triggered (either by an Agent or directly by a user), here's what happens:
+
+<Steps>
+  <Step title="Action Trigger">
+    An Agent decides to execute an Action, or a user manually triggers one
+  </Step>
+  
+  <Step title="Container Provisioning">
+    Runtime Environment creates a fresh, isolated container for the Action execution
+  </Step>
+  
+  <Step title="Secure Execution">
+    The Action code runs inside the container with no access to other systems or processes
+  </Step>
+  
+  <Step title="Results Return">
+    Action completes and returns results to the requesting Agent or user
+  </Step>
+  
+  <Step title="Container Cleanup">
+    Container is automatically destroyed, ensuring no data persistence or security risks
+  </Step>
+</Steps>
+
+### Container Architecture
 
 ```mermaid
 graph TB
-    subgraph "Cagen Runtime Environment"
-        LB[Load Balancer]
-        
-        subgraph "Execution Layer"
-            AC[Agent Controller]
-            WE[Workflow Engine]
-            AS[Action Scheduler]
-        end
-        
-        subgraph "Compute Resources"
-            C1[Container 1<br/>@dev-agent]
-            C2[Container 2<br/>@research-agent]
-            C3[Container 3<br/>Action Runner]
-        end
-        
-        subgraph "Infrastructure"
-            RM[Resource Manager]
-            SM[Security Manager]
-            MM[Memory Manager]
-        end
+    subgraph "Cagen Platform"
+        Agent[Agent/User Request]
+        AR[Action Router]
     end
     
-    User[User Request] --> LB
-    LB --> AC
-    AC --> C1
-    AC --> C2
-    AS --> C3
+    subgraph "Runtime Environment (Google Cloud)"
+        subgraph "Container 1"
+            AC1[Action Code]
+            RL1[Resource Limits]
+            NP1[Network Policies]
+        end
+        
+        subgraph "Container 2"
+            AC2[Action Code]
+            RL2[Resource Limits]
+            NP2[Network Policies]
+        end
+        
+        SM[Security Manager]
+        RM[Resource Manager]
+    end
     
-    RM --> C1
-    RM --> C2
-    RM --> C3
-    
+    Agent --> AR
+    AR --> AC1
+    AR --> AC2
     SM --> RM
-    MM --> RM
+    RM --> AC1
+    RM --> AC2
 ```
 
-## Runtime Environments
+## Container Specifications
 
-### Agent Runtime
+### Runtime Resources
 
-<Tabs>
-  <Tab title="Agent Execution Context">
-    ```yaml
-    agent_runtime:
-      container_specs:
-        cpu: "2 cores"
-        memory: "4 GB"
-        disk: "10 GB SSD"
-        network: "isolated_vpc"
-        
-      security:
-        user: "non-root"
-        filesystem: "read-only (except /tmp)"
-        network_access: "restricted_egress"
-        system_calls: "filtered"
-        
-      runtime_limits:
-        execution_time: "300 seconds"
-        memory_usage: "3.5 GB"
-        network_requests: "1000/minute"
-        file_operations: "10000/hour"
-    ```
-  </Tab>
-  
-  <Tab title="Agent Lifecycle">
-    ```yaml
-    lifecycle_stages:
-      initialization:
-        - Load agent configuration
-        - Initialize model context
-        - Setup tool connections
-        - Verify permissions
-        
-      execution:
-        - Process user requests
-        - Execute actions and tools
-        - Maintain conversation state
-        - Handle errors gracefully
-        
-      scaling:
-        - Monitor resource usage
-        - Auto-scale based on demand
-        - Load balance across instances
-        - Optimize resource allocation
-        
-      termination:
-        - Save execution state
-        - Clean up resources
-        - Archive logs and metrics
-        - Release compute resources
-    ```
-  </Tab>
-</Tabs>
-
-### Action Runtime
-
-<AccordionGroup>
-  <Accordion title="Action Execution Environment">
-    ```yaml
-    action_runtime:
-      isolation_level: "container"
-      
-      resource_limits:
-        cpu: "1 core"
-        memory: "2 GB"
-        timeout: "60 seconds"
-        
-      network_policies:
-        outbound_allowed:
-          - "*.api.allowed-domains.com"
-          - "internal.services:8080-8090"
-        blocked_destinations:
-          - "169.254.169.254"  # AWS metadata
-          - "10.0.0.0/8"       # Internal networks
-          
-      filesystem_access:
-        read_write: ["/tmp", "/app/workspace"]
-        read_only: ["/app/config", "/usr/share"]
-        denied: ["/proc", "/sys", "/dev"]
-    ```
-  </Accordion>
-  
-  <Accordion title="Runtime Security">
-    ```yaml
-    security_measures:
-      code_signing:
-        enabled: true
-        certificate_validation: "strict"
-        
-      vulnerability_scanning:
-        container_images: "daily"
-        dependencies: "on_build"
-        runtime_monitoring: "continuous"
-        
-      access_controls:
-        rbac_enforcement: true
-        api_key_rotation: "automatic"
-        audit_logging: "comprehensive"
-        
-      data_protection:
-        encryption_at_rest: true
-        encryption_in_transit: true
-        secret_management: "vault_integration"
-    ```
-  </Accordion>
-</AccordionGroup>
-
-### Workflow Runtime
-
-<Steps>
-  <Step title="Workflow Orchestration">
-    ```yaml
-    workflow_engine:
-      scheduler: "kubernetes_jobs"
-      
-      execution_modes:
-        sequential: "step_by_step_execution"
-        parallel: "concurrent_task_execution" 
-        conditional: "branch_based_logic"
-        loop: "iterative_processing"
-        
-      state_management:
-        persistence: "redis_cluster"
-        checkpointing: "automatic"
-        recovery: "automatic_retry"
-    ```
-  </Step>
-  
-  <Step title="Resource Orchestration">
-    ```yaml
-    resource_management:
-      auto_scaling:
-        min_instances: 1
-        max_instances: 100
-        scale_metric: "cpu_utilization"
-        target_utilization: "70%"
-        
-      load_balancing:
-        algorithm: "least_connections"
-        health_checks: "every_30_seconds"
-        failover: "automatic"
-        
-      resource_pooling:
-        agent_pool: "warm_instances"
-        action_pool: "on_demand"
-        gpu_pool: "shared_scheduling"
-    ```
-  </Step>
-</Steps>
-
-## Performance & Optimization
-
-### Runtime Performance Metrics
-
-<CardGroup cols={3}>
-  <Card title="⚡ Execution Speed" icon="zap">
-    **Response time optimization**
-    
-    - Cold start: < 2 seconds
-    - Warm execution: < 200ms
-    - P99 latency: < 5 seconds
-  </Card>
-  
-  <Card title="🎯 Resource Efficiency" icon="target">
-    **Compute utilization**
-    
-    - CPU utilization: 60-80%
-    - Memory efficiency: > 85%
-    - Container density: Optimized
-  </Card>
-  
-  <Card title="📈 Scalability" icon="chart-line">
-    **Handling demand spikes**
-    
-    - Auto-scale: 0-1000 instances
-    - Scale-up time: < 30 seconds
-    - Cost optimization: Dynamic
-  </Card>
-</CardGroup>
-
-### Optimization Strategies
+Each Action container receives dedicated resources:
 
 <Tabs>
-  <Tab title="Cold Start Optimization">
+  <Tab title="Compute Resources">
     ```yaml
-    cold_start_mitigation:
-      warm_pools:
-        maintain_warm_instances: 10
-        agent_types: ["@dev-agent", "@support-agent"]
-        refresh_interval: "5_minutes"
-        
-      preloading:
-        model_weights: "cached"
-        dependencies: "prebundled"
-        configuration: "precompiled"
-        
-      optimization_techniques:
-        - "lazy_loading"
-        - "dependency_bundling"
-        - "jit_compilation"
-        - "memory_mapping"
+    container_specs:
+      cpu: "1-4 cores (based on Action complexity)"
+      memory: "512MB - 8GB (scalable)"
+      disk: "1GB ephemeral storage"
+      network: "Isolated subnet with controlled egress"
+      
+    execution_limits:
+      max_runtime: "15 minutes (configurable)"
+      memory_limit: "Enforced by container runtime"
+      network_timeout: "30 seconds per request"
+      file_system: "Read-only except /tmp"
     ```
   </Tab>
   
-  <Tab title="Resource Pooling">
+  <Tab title="Security Boundaries">
     ```yaml
-    resource_pools:
-      agent_pool:
-        type: "pre_warmed"
-        size: "dynamic"
-        max_idle_time: "10_minutes"
+    security_features:
+      isolation:
+        - "Completely isolated from other containers"
+        - "No shared file systems or memory"
+        - "Separate network namespace"
         
-      gpu_pool:
-        sharing_strategy: "time_slicing"
-        queue_management: "priority_based"
-        utilization_target: "90%"
-        
-      memory_pool:
-        shared_memory: "enabled"
-        garbage_collection: "generational"
-        memory_pressure_handling: "graceful_degradation"
-    ```
-  </Tab>
-  
-  <Tab title="Caching Strategies">
-    ```yaml
-    caching_layers:
-      model_cache:
-        strategy: "lru"
-        size: "10GB"
-        ttl: "24_hours"
-        
-      response_cache:
-        strategy: "semantic_similarity"
-        threshold: "0.95"
-        max_entries: "100000"
-        
-      dependency_cache:
-        level: "container_image"
-        replication: "multi_region"
-        compression: "enabled"
-    ```
-  </Tab>
-</Tabs>
-
-## Security & Compliance
-
-### Runtime Security Model
-
-<AccordionGroup>
-  <Accordion title="Container Security">
-    ```yaml
-    container_security:
-      base_images:
-        source: "official_distroless"
-        scanning: "continuous"
-        patching: "automated"
-        
-      runtime_protection:
-        seccomp: "enabled"
-        apparmor: "enforced"
-        selinux: "enabled"
-        capabilities: "minimal_set"
+      permissions:
+        - "Non-root user execution"
+        - "Minimal system capabilities"
+        - "No access to host system"
         
       network_security:
-        service_mesh: "istio"
-        mTLS: "enforced"
-        network_policies: "default_deny"
-    ```
-  </Accordion>
-  
-  <Accordion title="Data Protection">
-    ```yaml
-    data_security:
-      encryption:
-        at_rest: "AES-256"
-        in_transit: "TLS 1.3"
-        key_management: "hsm_backed"
-        
-      access_control:
-        authentication: "mTLS + RBAC"
-        authorization: "policy_based"
-        audit_trail: "comprehensive"
-        
-      data_handling:
-        pii_detection: "automatic"
-        data_masking: "dynamic"
-        retention_policies: "configurable"
-    ```
-  </Accordion>
-  
-  <Accordion title="Compliance Features">
-    ```yaml
-    compliance_support:
-      standards:
-        - "SOC 2 Type II"
-        - "GDPR"
-        - "HIPAA"
-        - "FedRAMP"
-        
-      features:
-        audit_logging: "immutable"
-        data_residency: "configurable"
-        access_controls: "granular"
-        encryption: "FIPS_140-2_Level_3"
-    ```
-  </Accordion>
-</AccordionGroup>
-
-### Runtime Monitoring
-
-<Steps>
-  <Step title="Health Monitoring">
-    ```yaml
-    health_checks:
-      runtime_health:
-        endpoint: "/health"
-        interval: "10s"
-        timeout: "5s"
-        
-      resource_monitoring:
-        cpu_usage: "continuous"
-        memory_usage: "continuous" 
-        disk_usage: "every_minute"
-        network_io: "continuous"
-        
-      agent_health:
-        response_time: "per_request"
-        error_rate: "real_time"
-        success_rate: "windowed"
-    ```
-  </Step>
-  
-  <Step title="Performance Monitoring">
-    ```yaml
-    performance_metrics:
-      execution_metrics:
-        - request_duration
-        - queue_depth
-        - throughput
-        - error_rate
-        
-      resource_metrics:
-        - cpu_utilization
-        - memory_usage
-        - disk_io
-        - network_bandwidth
-        
-      business_metrics:
-        - agent_interactions
-        - successful_completions
-        - user_satisfaction
-        - cost_per_operation
-    ```
-  </Step>
-  
-  <Step title="Alerting & Notifications">
-    ```yaml
-    alerting_rules:
-      critical_alerts:
-        - name: "runtime_down"
-          condition: "health_check_failures > 3"
-          notify: ["ops_team", "on_call"]
-          
-        - name: "high_error_rate"
-          condition: "error_rate > 5% for 2 minutes"
-          notify: ["dev_team"]
-          
-      warning_alerts:
-        - name: "high_latency"
-          condition: "p95_latency > 10s"
-          notify: ["performance_team"]
-          
-        - name: "resource_pressure"
-          condition: "cpu_usage > 80% for 5 minutes"
-          notify: ["ops_team"]
-    ```
-  </Step>
-</Steps>
-
-## Debugging & Troubleshooting
-
-### Runtime Debugging Tools
-
-<CardGroup cols={2}>
-  <Card title="🔍 Execution Tracing" icon="search">
-    **Detailed execution tracking**
-    
-    - Request flow visualization
-    - Performance bottleneck identification
-    - Resource usage analysis
-    - Error propagation tracking
-  </Card>
-  
-  <Card title="📊 Real-time Metrics" icon="chart-bar">
-    **Live performance monitoring**
-    
-    - Runtime performance dashboards
-    - Resource utilization graphs
-    - Error rate monitoring
-    - Alert management interface
-  </Card>
-  
-  <Card title="📝 Comprehensive Logging" icon="file-text">
-    **Structured log analysis**
-    
-    - Centralized log aggregation
-    - Searchable log interfaces
-    - Log correlation and analysis
-    - Custom log filtering and alerts
-  </Card>
-  
-  <Card title="🐛 Interactive Debugging" icon="bug">
-    **Development and testing tools**
-    
-    - Runtime environment simulation
-    - Step-through debugging
-    - Variable inspection
-    - Performance profiling
-  </Card>
-</CardGroup>
-
-### Common Issues & Solutions
-
-<AccordionGroup>
-  <Accordion title="Performance Issues">
-    **Symptoms:**
-    - Slow agent responses
-    - High latency in actions
-    - Resource exhaustion
-    - Timeout errors
-    
-    **Debugging:**
-    1. Check resource utilization metrics
-    2. Analyze execution traces
-    3. Review performance bottlenecks
-    4. Optimize resource allocation
-    
-    **Solutions:**
-    - Increase resource limits
-    - Optimize agent configurations
-    - Implement caching strategies
-    - Scale runtime resources
-  </Accordion>
-  
-  <Accordion title="Security Violations">
-    **Symptoms:**
-    - Access denied errors
-    - Security policy violations
-    - Unauthorized resource access
-    - Audit trail anomalies
-    
-    **Investigation:**
-    1. Review security audit logs
-    2. Check permission configurations
-    3. Verify authentication tokens
-    4. Analyze network access patterns
-    
-    **Remediation:**
-    - Update permission policies
-    - Rotate compromised credentials
-    - Implement additional security controls
-    - Enhance monitoring and alerting
-  </Accordion>
-  
-  <Accordion title="Scalability Problems">
-    **Symptoms:**
-    - Auto-scaling failures
-    - Resource allocation errors
-    - Load balancing issues
-    - Queue backlog buildup
-    
-    **Analysis:**
-    1. Monitor auto-scaling metrics
-    2. Review resource allocation policies
-    3. Check load balancer health
-    4. Analyze queue performance
-    
-    **Optimization:**
-    - Adjust scaling parameters
-    - Optimize resource allocation
-    - Implement load balancing improvements
-    - Enhance queue management
-  </Accordion>
-</AccordionGroup>
-
-## Configuration & Customization
-
-### Runtime Configuration
-
-<Tabs>
-  <Tab title="Environment Settings">
-    ```yaml
-    runtime_config:
-      environment: "production"  # development, staging, production
-      
-      resource_limits:
-        default_cpu: "2 cores"
-        default_memory: "4 GB"
-        max_execution_time: "300s"
-        
-      scaling_policy:
-        min_instances: 5
-        max_instances: 500
-        scale_factor: 1.5
-        cooldown_period: "60s"
-        
-      security_settings:
-        enforce_tls: true
-        require_authentication: true
-        audit_logging: "verbose"
+        - "Outbound requests only to approved endpoints"
+        - "No inbound network access"
+        - "TLS encryption for all external communication"
     ```
   </Tab>
   
-  <Tab title="Agent-Specific Settings">
+  <Tab title="Resource Monitoring">
     ```yaml
-    agent_runtime_overrides:
-      "@dev-agent":
-        cpu: "4 cores"
-        memory: "8 GB"
-        timeout: "600s"
-        tools_enabled: ["github", "slack", "aws"]
+    monitoring:
+      real_time_metrics:
+        - "CPU and memory usage"
+        - "Network I/O statistics"
+        - "Execution duration"
+        - "Error rates and types"
         
-      "@research-agent":
-        cpu: "2 cores"
-        memory: "16 GB"  # High memory for large context
-        timeout: "1200s"
-        gpu_enabled: true
-        
-      "@support-agent":
-        cpu: "1 core"
-        memory: "2 GB"
-        timeout: "60s"
-        response_caching: "aggressive"
-    ```
-  </Tab>
-  
-  <Tab title="Regional Deployment">
-    ```yaml
-    multi_region_config:
-      regions:
-        us_east_1:
-          primary: true
-          instance_types: ["c5.large", "c5.xlarge"]
-          availability_zones: 3
-          
-        eu_west_1:
-          backup: true
-          instance_types: ["c5.large"]
-          data_residency: "eu_only"
-          
-        ap_southeast_1:
-          edge: true
-          instance_types: ["t3.medium"]
-          latency_optimization: true
-          
-      routing_policy:
-        strategy: "latency_based"
-        failover: "automatic"
-        health_checks: "enabled"
+      logging:
+        - "All stdout/stderr captured"
+        - "Security events logged"
+        - "Performance metrics recorded"
+        - "Audit trail maintained"
     ```
   </Tab>
 </Tabs>
 
-## Best Practices
+## Action Types in Runtime
+
+### Natural Language Actions
+
+When you create Actions using natural language descriptions, the Runtime Environment:
 
 <CardGroup cols={2}>
-  <Card title="🚀 Performance Optimization" icon="rocket">
-    **Maximize execution efficiency**
+  <Card title="Workflow Execution" icon="list">
+    **Structured process execution**
     
-    - Use warm pools for frequently accessed agents
-    - Implement aggressive caching strategies
-    - Optimize resource allocation based on usage patterns
-    - Monitor and tune performance regularly
+    - Interprets natural language steps
+    - Executes each step in sequence
+    - Handles conditional logic and branching
+    - Maintains state between steps
   </Card>
   
-  <Card title="🔒 Security Best Practices" icon="shield">
-    **Maintain runtime security**
+  <Card title="Error Handling" icon="exclamation-triangle">
+    **Graceful failure management**
     
-    - Follow principle of least privilege
-    - Implement defense in depth
-    - Regular security audits and updates
-    - Monitor for anomalous behavior
-  </Card>
-  
-  <Card title="💰 Cost Optimization" icon="dollar-sign">
-    **Manage runtime costs effectively**
-    
-    - Right-size resource allocations
-    - Use spot instances where appropriate
-    - Implement auto-scaling policies
-    - Monitor cost attribution and optimization opportunities
-  </Card>
-  
-  <Card title="📊 Operational Excellence" icon="chart-line">
-    **Maintain reliable operations**
-    
-    - Comprehensive monitoring and alerting
-    - Regular performance testing
-    - Capacity planning and forecasting
-    - Incident response procedures
+    - Captures and reports execution errors
+    - Provides clear error messages
+    - Attempts automatic retry for transient failures
+    - Rolls back partial changes when possible
   </Card>
 </CardGroup>
+
+### Code-Based Actions
+
+For Actions that execute code directly, the Runtime Environment provides:
+
+<AccordionGroup>
+  <Accordion title="Language Support">
+    **Supported runtime environments:**
+    - Python 3.9+ with common libraries
+    - Node.js 18+ with npm packages
+    - Shell scripts with standard utilities
+    - Custom runtime environments as needed
+    
+    **Pre-installed packages:**
+    - HTTP clients (requests, axios)
+    - Data processing libraries (pandas, lodash)
+    - Cloud service SDKs (GCP, AWS, Azure clients)
+    - Common utilities and tools
+  </Accordion>
+  
+  <Accordion title="Execution Environment">
+    **Container setup:**
+    ```bash
+    # Container starts with minimal environment
+    USER: non-root-user
+    WORKDIR: /app/workspace
+    PATH: Standard system paths + /app/bin
+    
+    # Available directories:
+    /tmp          # Writable scratch space
+    /app/workspace # Action code execution directory
+    /app/config   # Read-only configuration files
+    ```
+    
+    **Environment variables available:**
+    - `ACTION_ID`: Unique identifier for this execution
+    - `CAGEN_API_BASE`: API endpoint for Cagen services
+    - `EXECUTION_TIMEOUT`: Maximum runtime in seconds
+  </Accordion>
+  
+  <Accordion title="External Access">
+    **Controlled external communication:**
+    - HTTP/HTTPS requests to approved domains
+    - API calls to configured third-party services
+    - No direct database connections (use Cagen APIs)
+    - No SSH, FTP, or other protocols
+    
+    **Authentication handling:**
+    - Secure credential injection for API calls
+    - Automatic token rotation and management
+    - No persistent credential storage
+  </Accordion>
+</AccordionGroup>
+
+## Security Features
+
+### Why You Don't Need to Worry
+
+The Runtime Environment handles security automatically:
+
+<Steps>
+  <Step title="Complete Isolation">
+    **No system access**
+    
+    Actions cannot access the host system, other containers, or Cagen's internal infrastructure
+  </Step>
+  
+  <Step title="Limited Permissions">
+    **Minimal privilege principle**
+    
+    Actions run with only the minimum permissions needed for their specific task
+  </Step>
+  
+  <Step title="Network Controls">
+    **Restricted communication**
+    
+    Only approved external services can be accessed, with all traffic monitored and logged
+  </Step>
+  
+  <Step title="Automatic Cleanup">
+    **No data persistence**
+    
+    All execution artifacts are automatically destroyed after Action completion
+  </Step>
+</Steps>
+
+### Google Cloud Security Benefits
+
+Built on Google Cloud Platform, the Runtime Environment inherits:
+
+- **Enterprise-grade infrastructure** with 99.9% uptime SLA
+- **Global security compliance** (SOC 2, ISO 27001, GDPR, HIPAA-ready)
+- **Automatic security updates** for base container images
+- **DDoS protection** and traffic filtering
+- **Geographic data residency** controls where required
+
+## Performance and Reliability
+
+### Execution Performance
+
+<CardGroup cols={3}>
+  <Card title="Fast Startup" icon="zap">
+    **Quick container provisioning**
+    
+    - Cold start: < 3 seconds
+    - Warm containers: < 500ms
+    - Optimized base images
+  </Card>
+  
+  <Card title="Scalable Resources" icon="chart-line">
+    **Automatic scaling**
+    
+    - Resources scale with demand
+    - No capacity planning needed
+    - Pay only for actual usage
+  </Card>
+  
+  <Card title="High Availability" icon="shield-check">
+    **Reliable execution**
+    
+    - 99.9% execution success rate
+    - Automatic retry for failures
+    - Multi-zone redundancy
+  </Card>
+</CardGroup>
+
+### Monitoring and Observability
+
+You get comprehensive visibility into Action execution:
+
+<Tabs>
+  <Tab title="Execution Logs">
+    **Complete execution history:**
+    ```
+    [2024-01-15 10:30:00] Action started: create-invoice-workflow
+    [2024-01-15 10:30:01] Step 1: Validating customer data
+    [2024-01-15 10:30:02] Step 2: Creating invoice in system
+    [2024-01-15 10:30:03] Step 3: Sending confirmation email
+    [2024-01-15 10:30:04] Action completed successfully
+    ```
+    
+    **Available through:**
+    - Cagen dashboard interface
+    - API for programmatic access
+    - Real-time streaming for development
+  </Tab>
+  
+  <Tab title="Performance Metrics">
+    **Detailed performance data:**
+    - Execution duration breakdown
+    - Resource utilization graphs
+    - Success/failure rates
+    - Error categorization
+    
+    **Metrics help you:**
+    - Optimize Action performance
+    - Identify bottlenecks
+    - Plan resource requirements
+    - Debug execution issues
+  </Tab>
+  
+  <Tab title="Error Tracking">
+    **Comprehensive error information:**
+    - Stack traces for code errors
+    - Network connectivity issues
+    - Timeout and resource limit hits
+    - External service failures
+    
+    **Error resolution support:**
+    - Suggested fixes for common issues
+    - Links to relevant documentation
+    - Retry mechanisms for transient failures
+  </Tab>
+</Tabs>
+
+## Troubleshooting
+
+### Common Issues
+
+<AccordionGroup>
+  <Accordion title="Action Timeouts">
+    **Symptoms:**
+    - Action stops executing after set time limit
+    - Partial results returned
+    - Timeout error in logs
+    
+    **Solutions:**
+    - Optimize Action code for efficiency
+    - Break long-running Actions into smaller steps
+    - Request increased timeout limits if needed
+    - Use asynchronous patterns for external API calls
+  </Accordion>
+  
+  <Accordion title="Resource Limits">
+    **Symptoms:**
+    - Out of memory errors
+    - CPU throttling warnings
+    - Disk space exhaustion
+    
+    **Solutions:**
+    - Optimize memory usage in Action code
+    - Process data in smaller chunks
+    - Clean up temporary files during execution
+    - Request increased resource limits for complex Actions
+  </Accordion>
+  
+  <Accordion title="Network Access Issues">
+    **Symptoms:**
+    - Cannot connect to external services
+    - SSL/TLS certificate errors
+    - Request timeout failures
+    
+    **Solutions:**
+    - Verify external service is in approved domains list
+    - Check service status and availability
+    - Implement proper error handling and retries
+    - Contact support to add new approved domains
+  </Accordion>
+</AccordionGroup>
+
+### Best Practices
+
+<Steps>
+  <Step title="Design for Isolation">
+    **Action design principles:**
+    - Don't rely on persistent storage
+    - Handle network failures gracefully
+    - Keep execution time reasonable
+    - Log important state changes
+  </Step>
+  
+  <Step title="Optimize Performance">
+    **Efficiency tips:**
+    - Minimize external API calls
+    - Use efficient data structures
+    - Clean up resources during execution
+    - Cache results when appropriate
+  </Step>
+  
+  <Step title="Handle Errors Well">
+    **Error management:**
+    - Implement comprehensive error handling
+    - Provide clear error messages
+    - Log sufficient context for debugging
+    - Design for graceful degradation
+  </Step>
+</Steps>
 
 ## Related Features
 
-- [Agent Management](/how-to/agents/create-custom-agent) - Configure agents for optimal runtime performance
-- [Action Management](/how-to/actions/create-action) - Deploy actions in the runtime environment
-- [MCP Integration](/how-to/mcp/mcp-integration) - Connect external services to runtime
-- [Workflow Automation](/how-to/workflows/setup-triggers) - Execute workflows in runtime environment
+- [Action Management](/how-to/actions/create-action) - Creating and configuring Actions
+- [Agent Management](/how-to/agents/create-custom-agent) - Agents that trigger Actions
+- [MCP Tools](/how-to/mcp/mcp-integration) - External tools available to Actions
+- [Issue Management](/how-to/work/issue-management) - Actions in issue workflows
 
 <Note>
-  The Runtime Environment is designed for security, performance, and scalability. Understanding its architecture and capabilities helps you optimize agent performance and ensure reliable operation of your AI-native organization.
+  The Runtime Environment is designed to be completely transparent to you as a user. Focus on building great Actions - the system handles all the complexity of secure, scalable execution automatically.
 </Note>

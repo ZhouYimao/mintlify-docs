@@ -89,42 +89,6 @@
         ]
       },
       {
-        "tab": "Tutorials",
-        "groups": [
-          {
-            "group": "Getting Started",
-            "pages": [
-              "tutorials/getting-started/first-interaction",
-              "tutorials/getting-started/first-agent",
-              "tutorials/getting-started/first-workflow"
-            ]
-          },
-          {
-            "group": "Week 1: Foundation",
-            "pages": [
-              "tutorials/week-1/connect-tools",
-              "tutorials/week-1/second-agent"
-            ]
-          },
-          {
-            "group": "Scaling Your AI Team",
-            "pages": [
-              "tutorials/scaling/first-month"
-            ]
-          },
-          {
-            "group": "Use Cases",
-            "pages": [
-              "tutorials/use-cases/startup-guide"
-            ]
-          },
-          {
-            "group": "Advanced",
-            "pages": []
-          }
-        ]
-      },
-      {
         "tab": "How-to Guides",
         "groups": [
           {
@@ -158,29 +122,11 @@
             ]
           },
           {
-            "group": "Store & Marketplace",
-            "pages": [
-              "how-to/store/store-management"
-            ]
-          },
-          {
             "group": "Agents",
             "pages": [
               "how-to/agents/create-custom-agent"
             ]
           },
-          {
-            "group": "Workflows",
-            "pages": [
-              "how-to/workflows/setup-triggers"
-            ]
-          },
-          {
-            "group": "Settings & Configuration",
-            "pages": [
-              "how-to/settings/payment-configuration"
-            ]
-          }
         ]
       },
       {

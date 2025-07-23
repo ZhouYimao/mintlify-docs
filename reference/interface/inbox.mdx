@@ -1,6 +1,6 @@
 ---
-title: "Inbox Reference"  
-description: "Complete reference for the Inbox (⌘J) interface, notification states, and management features"
+title: "Inbox Reference"
+description: "Complete guide to managing notifications, messages, and tasks in your Cagen Inbox"
 sidebarTitle: "Inbox"
 ---
 
@@ -8,382 +8,370 @@ sidebarTitle: "Inbox"
   Press `⌘J` (Cmd+J) on Mac or `Ctrl+J` on Windows/Linux to open your Inbox instantly from anywhere in Cagen.
 </Info>
 
-## What is Inbox?
+## What is the Inbox?
 
-Inbox is your unified notification center that aggregates:
+Your Inbox is the central hub for all notifications and messages requiring your attention in Cagen. It aggregates messages from three main sources:
 
-- **Direct Messages** - Private conversations with team members
-- **Group Chat Messages** - Messages from group conversations
-- **Mentions** - When you're @mentioned in topics or channels
-- **Issue Updates** - Notifications from work issues you're involved in
-- **Agent Responses** - Replies from AI agents you've interacted with
+- **Issue-Related Notifications** - When you're mentioned in issue progression or stage items are assigned to you
+- **Private Agent Messages** - Direct communications from AI agents, including scheduled tasks and responses
+- **Channel Activity** - When you're mentioned or added to group conversations and channels
 
-Think of it as your communication command center - everything that needs your attention comes here.
+## Message Sources
 
-## Opening Your Inbox
+### Issue-Related Notifications
 
-<CardGroup cols={3}>
-  <Card title="Keyboard Shortcut" icon="keyboard">
-    **⌘J** (Mac) or **Ctrl+J** (Windows/Linux)
+When an issue moves from backlog to in-progress status, Cagen automatically creates a dedicated channel containing all relevant people (issue creator, assignees, mentioned users). You'll receive inbox notifications when:
+
+<CardGroup cols={2}>
+  <Card title="Stage Assignment" icon="user-check">
+    When a specific stage item in an issue workflow is assigned to you, you'll be @ mentioned and receive an inbox notification
+    
+    **Actions Available:**
+    - Jump to the issue channel
+    - View stage details and requirements
+    - Update stage progress
+    - Communicate with issue stakeholders
   </Card>
   
-  <Card title="From Sidebar" icon="inbox">
-    Click the **Inbox** icon with notification badge
-  </Card>
-  
-  <Card title="Always Accessible" icon="circle-check">
-    Works from any page within Cagen
+  <Card title="Issue Mentions" icon="at">
+    When you're mentioned in issue discussions or comments
+    
+    **Actions Available:**
+    - Jump to related channel
+    - Reply in context
+    - View full issue thread
+    - Mark notification as handled
   </Card>
 </CardGroup>
 
-## Inbox States
+### Private Agent Communications
 
-Your inbox items are organized into three states for efficient management:
-
-### Pending
-<Card title="📬 Pending Items" icon="clock">
-  New messages and notifications that haven't been processed yet.
-  
-  **Includes:**
-  - Unread direct messages
-  - New @mentions in topics
-  - Agent responses waiting for your review
-  - Issue assignments and updates
-</Card>
-
-### In Progress  
-<Card title="⚡ In Progress Items" icon="gear">
-  Items you've started working on but haven't completed.
-  
-  **Includes:**
-  - Conversations you've read but not replied to
-  - Issues you're actively working on
-  - Agent interactions awaiting your input
-  - Topics you're following up on
-</Card>
-
-### History
-<Card title="📚 History Items" icon="check-circle">
-  Completed or archived items for reference.
-  
-  **Includes:**
-  - Resolved conversations
-  - Completed issues
-  - Archived notifications
-  - Old agent interactions
-</Card>
-
-## Quick Actions
-
-### Filtering by State
+Direct messages between you and AI agents, including:
 
 <Tabs>
-  <Tab title="View Pending">
-    **Shortcut:** `⌘J` → `P` or click **Pending** tab
+  <Tab title="Scheduled Agent Tasks">
+    **Automated messages from agents with scheduled tasks:**
+    ```
+    @research-agent: Daily market analysis complete
+    @scheduler-agent: Meeting reminder: Team standup in 15 minutes  
+    @monitor-agent: Server usage alert: CPU at 85%
+    ```
     
-    Shows all items needing immediate attention
+    **Response Options:**
+    - Reply to continue conversation
+    - Acknowledge and dismiss
+    - Create follow-up task
+    - Forward to team member
   </Tab>
   
-  <Tab title="View In Progress">
-    **Shortcut:** `⌘J` → `I` or click **In Progress** tab
+  <Tab title="Agent Responses">
+    **Replies to your previous messages to agents:**
+    ```
+    You: "Analyze competitor pricing for Q2"
+    @research-agent: "Analysis complete. Found 15% average price increase..."
     
-    Shows items you're currently working on
+    You: "Schedule team meeting for project review"
+    @scheduler-agent: "Meeting scheduled for Thursday 2pm..."
+    ```
+    
+    **Conversation Flow:**
+    - Continue private conversation
+    - Share results with team
+    - Create tasks from agent recommendations
+    - Archive completed exchanges
   </Tab>
   
-  <Tab title="View History">
-    **Shortcut:** `⌘J` → `H` or click **History** tab
+  <Tab title="Proactive Agent Messages">
+    **Unsolicited messages when agents detect important events:**
+    ```
+    @security-agent: "Unusual login detected from new location"
+    @budget-agent: "Project Alpha approaching 90% budget limit"
+    @qa-agent: "New code deployment ready for review"
+    ```
     
-    Browse completed and archived items
+    **Immediate Actions:**
+    - Investigate alert details
+    - Take recommended actions
+    - Set up monitoring rules
+    - Escalate to relevant team
   </Tab>
 </Tabs>
 
-### Managing Items
+### Channel and Group Activity
+
+Notifications from group conversations and project channels:
+
+<AccordionGroup>
+  <Accordion title="Channel Mentions">
+    When you're @ mentioned in group channels or project discussions
+    
+    **Context Provided:**
+    - Who mentioned you
+    - Which channel/thread
+    - Conversation preview
+    - Related issue or project
+    
+    **Quick Actions:**
+    - Jump to channel conversation
+    - Reply without leaving inbox
+    - React with emoji
+    - Mute channel notifications
+  </Accordion>
+  
+  <Accordion title="Channel Additions">
+    When you're added to new channels (often automatically when issues progress)
+    
+    **Information Shown:**
+    - Channel purpose and context
+    - Current participants
+    - Recent conversation history
+    - Related issues or projects
+    
+    **Onboarding Options:**
+    - Read channel backlog
+    - Introduce yourself
+    - Set notification preferences
+    - Leave channel if not relevant
+  </Accordion>
+</AccordionGroup>
+
+## Inbox Interface
+
+### Message States and Actions
+
+<CardGroup cols={4}>
+  <Card title="Unread" icon="circle" color="#ef4444">
+    New messages requiring attention
+    
+    **Actions:** Read, Reply, Archive
+  </Card>
+  
+  <Card title="Read" icon="circle-check" color="#22c55e">
+    Messages you've viewed but not archived
+    
+    **Actions:** Reply, Archive, Snooze
+  </Card>
+  
+  <Card title="Snoozed" icon="clock" color="#f59e0b">
+    Messages hidden until specified time
+    
+    **Actions:** Unsnooze, Archive
+  </Card>
+  
+  <Card title="Archived" icon="archive" color="#6b7280">
+    Completed or resolved messages
+    
+    **Actions:** Unarchive, Delete
+  </Card>
+</CardGroup>
+
+### Navigation Between Inbox and Channels
+
+The Inbox provides seamless navigation to full conversations:
 
 <Steps>
-  <Step title="Mark as In Progress">
-    Click on any pending item to automatically move it to **In Progress**
-    
-    Or use keyboard shortcut `Space` while item is selected
+  <Step title="View in Inbox">
+    See notification summary and preview
   </Step>
   
-  <Step title="Quick Reply">
-    Press `R` while item is selected to reply instantly without leaving Inbox
-    
-    Your reply will be sent and item moves to appropriate state
+  <Step title="Jump to Context">
+    Click "View in Channel" to see full conversation thread
   </Step>
   
-  <Step title="Complete Item">
-    Press `C` to mark item as completed and move to **History**
-    
-    Or click the checkmark icon next to the item
+  <Step title="Reply in Context">
+    Participate in the full channel discussion
   </Step>
   
-  <Step title="Archive Item">
-    Press `A` to archive item without taking action
-    
-    Useful for notifications you've seen but don't need to act on
+  <Step title="Return to Inbox">
+    Use ⌘J or navigate back to process other notifications
   </Step>
 </Steps>
 
-## Message Types and Sources
+## Notification Management
 
-### Direct Messages
-```
-👤 Alice Johnson
-"Hey, can you review the API integration docs?"
+### Quick Actions
 
-💬 Reply directly from inbox
-🔄 Auto-moves to In Progress when opened
-✅ Marks complete when conversation ends
-```
+Hover over any inbox message for instant actions:
 
-### Group Messages
-```
-👥 #frontend-team (3 people)
-"@yourname the new component is ready for testing"
+| Action | Shortcut | Description |
+|--------|----------|-------------|
+| **Reply** | `R` | Respond directly or jump to channel |
+| **Archive** | `A` | Mark as handled and remove from inbox |
+| **Snooze** | `S` | Hide until specified time |
+| **Mark Read** | `M` | Toggle read status |
+| **Go to Channel** | `G` | Jump to related conversation |
 
-💬 Reply to group from inbox
-📎 Jump to full conversation view
-🔔 Auto-follow thread when you respond
-```
+### Bulk Operations
 
-### Agent Mentions
-```
-🤖 @research-agent in #product-planning
-"Based on user feedback, I've found 3 key insights..."
+Process multiple notifications efficiently:
 
-💭 View agent's full response
-💬 Continue conversation with agent  
-📌 Save insights to Memory Bank
-```
+<Tabs>
+  <Tab title="Selection">
+    - **Click checkboxes** to select individual messages
+    - **Shift+Click** to select ranges
+    - **⌘A** to select all visible messages
+  </Tab>
+  
+  <Tab title="Bulk Actions">
+    Available actions for selected messages:
+    - Mark all as read/unread  
+    - Archive selected notifications
+    - Snooze all until tomorrow
+    - Mute notifications from specific sources
+  </Tab>
+</Tabs>
 
-### Issue Updates
-```
-🎯 Issue #123: "API Rate Limiting" 
-Status changed: In Progress → Review
-Assigned to you by Alice Johnson
+### Filtering and Search
 
-🔍 Jump to issue details
-💬 Add comment or status update
-👥 View related channel discussion
-```
-
-## Reply Functionality
-
-### Quick Reply Options
-
-<AccordionGroup>
-  <Accordion title="In-Inbox Reply">
-    **Usage:** Press `R` or click reply icon
+<Tabs>
+  <Tab title="Source Filters">
+    ```
+    🎯 Issue Updates     - Notifications from issue progression
+    🤖 Agent Messages    - Private communications with agents  
+    💬 Channel Activity  - Group mentions and channel additions
+    🔔 System Alerts     - Platform and security notifications
+    ```
+  </Tab>
+  
+  <Tab title="Search Syntax">
+    ```bash
+    # Search by source
+    from:@research-agent
+    channel:#project-alpha
+    issue:234
     
-    **Best for:** Short responses that don't need full context
+    # Search by type  
+    type:mention
+    type:assignment
+    type:alert
     
-    **Features:**
-    - Markdown support
-    - @mentions and reactions
-    - File attachments
-    - Auto-completion for names
-  </Accordion>
-  
-  <Accordion title="Full Context Reply">
-    **Usage:** Click item title or press `Enter`
+    # Search by date
+    today
+    yesterday
+    last_week
     
-    **Best for:** Complex responses needing conversation history
-    
-    **Features:**
-    - Full conversation thread
-    - Rich text editing
-    - Code blocks and formatting
-    - Integration with Memory Bank
-  </Accordion>
-  
-  <Accordion title="Agent Reply">
-    **Usage:** Press `@` to mention an agent in your reply
-    
-    **Best for:** Getting AI assistance with your response
-    
-    **Features:**
-    - Agent suggestions
-    - Context-aware responses
-    - Automatic fact-checking
-    - Style consistency
-  </Accordion>
-</AccordionGroup>
-
-## Advanced Features
-
-### Smart Filtering
-
-Filter your inbox with advanced queries:
-
-```bash
-# Filter by person
-from:alice                    # Messages from Alice
-to:me from:bob               # Direct messages from Bob
-
-# Filter by type  
-type:mention                 # Only @mentions
-type:dm                      # Only direct messages
-type:agent                   # Only agent responses
-
-# Filter by status
-status:pending               # Unread items
-status:in-progress          # Active items
-has:attachment              # Items with files
-
-# Combine filters
-from:alice type:mention status:pending
-```
-
-### Bulk Actions
-
-Select multiple items for batch operations:
-
-<CardGroup cols={2}>
-  <Card title="Mass Archive" icon="archive">
-    Select items → Press `A` → Archive all selected
-  </Card>
-  
-  <Card title="Mass Complete" icon="check">
-    Select items → Press `C` → Mark all as complete
-  </Card>
-  
-  <Card title="Mass Forward" icon="share">
-    Select items → Press `F` → Forward to agent/person
-  </Card>
-  
-  <Card title="Mass Tag" icon="tag">
-    Select items → Press `T` → Add labels for organization
-  </Card>
-</CardGroup>
-
-### Integration with Other Features
-
-#### Memory Bank Integration
-```
-📝 Any conversation can be saved to Memory Bank
-🔗 Link related conversations automatically  
-🧠 Agent suggestions based on memory context
-```
-
-#### Issue Integration  
-```
-🎯 Create issues directly from inbox messages
-🔄 Auto-sync issue updates to relevant conversations
-👥 Issue-related channels appear in inbox
-```
-
-#### Workflow Integration
-```
-⚡ Trigger workflows from inbox items
-🔄 Automated responses based on content
-📊 Analytics on response times and patterns
-```
-
-## Keyboard Shortcuts
-
-<AccordionGroup>
-  <Accordion title="Navigation">
-    **⌘J** - Open/close Inbox
-    **↑/↓** - Navigate items
-    **P/I/H** - Switch between Pending/In Progress/History
-    **/** - Focus search box
-  </Accordion>
-  
-  <Accordion title="Actions">
-    **Enter** - Open full item
-    **R** - Quick reply
-    **C** - Mark complete
-    **A** - Archive item
-    **Space** - Mark as in progress
-  </Accordion>
-  
-  <Accordion title="Selection">
-    **⌘A** - Select all visible items
-    **Shift+Click** - Select range
-    **⌘+Click** - Toggle individual selection
-    **Escape** - Clear selection
-  </Accordion>
-</AccordionGroup>
-
-## Notification Settings
-
-Customize what appears in your Inbox:
-
-### Message Types
-```yaml
-Direct Messages: ✅ Always notify
-Group Messages: ✅ Only when mentioned  
-Agent Responses: ✅ Always notify
-Issue Updates: ✅ When assigned or mentioned
-Topic Updates: ⚠️ Only when mentioned
-```
-
-### Notification Timing
-```yaml
-Real-time: ✅ Immediate for DMs and mentions
-Batched: ✅ Every 15 minutes for group updates
-Digest: ✅ Daily summary for low-priority items
-```
-
-### Do Not Disturb
-```yaml
-Focus Mode: 🔕 Block all except urgent
-Meeting Mode: 🔕 Queue notifications for later
-Time-based: 🔕 Auto-silence during set hours
-```
+    # Content search
+    "budget review" AND urgent
+    ```
+  </Tab>
+</Tabs>
 
 ## Best Practices
 
+### Efficient Inbox Management
+
+<Steps>
+  <Step title="Regular Processing">
+    Check inbox 2-3 times daily rather than constantly monitoring
+  </Step>
+  
+  <Step title="Immediate Action Rule">
+    If a notification requires less than 2 minutes, handle it immediately
+  </Step>
+  
+  <Step title="Context Switching">
+    Use "Jump to Channel" for complex discussions, return to inbox for quick actions
+  </Step>
+  
+  <Step title="Archive Aggressively">
+    Keep inbox clean by archiving handled notifications immediately
+  </Step>
+</Steps>
+
+### Notification Preferences
+
+Configure notifications to match your workflow:
+
 <CardGroup cols={2}>
-  <Card title="Process Regularly" icon="refresh">
-    Check Inbox every 1-2 hours to prevent buildup
+  <Card title="Issue Notifications" icon="clipboard-list">
+    **Recommended Settings:**
+    - Enable for issues you created or are assigned to
+    - Disable for issues you're only mentioned in occasionally
+    - Set digest mode for low-priority project updates
   </Card>
   
-  <Card title="Use States Effectively" icon="workflow">
-    Move items to In Progress when you start, Complete when done
+  <Card title="Agent Communications" icon="robot">
+    **Recommended Settings:**
+    - Immediate notifications for scheduled reports
+    - Enable push notifications for critical alerts
+    - Batch non-urgent agent responses
   </Card>
   
-  <Card title="Quick Reply When Possible" icon="zap">
-    Use in-Inbox replies for simple responses to save time
+  <Card title="Channel Activity" icon="comments">
+    **Recommended Settings:**
+    - Always notify for direct @ mentions
+    - Digest mode for high-volume channels
+    - Mute channels after you've contributed
   </Card>
   
-  <Card title="Archive Non-Essential" icon="archive">
-    Keep Inbox clean by archiving FYI messages
+  <Card title="Quiet Hours" icon="moon">
+    **Recommended Settings:**
+    - Set work hours (9am-6pm) for regular notifications
+    - Allow critical alerts outside hours
+    - Weekend digest mode unless urgent
   </Card>
 </CardGroup>
+
+## Integration with Cagen Features
+
+### Issue Workflow Integration
+
+Your inbox reflects the natural flow of issue progression:
+
+1. **Issue Creation** → Notification to stakeholders
+2. **Backlog to In-Progress** → Channel created, participants notified
+3. **Stage Assignment** → Assignee receives inbox notification
+4. **Stage Completion** → Next assignee notified, stakeholders updated
+5. **Issue Resolution** → Final notifications, channel archived
+
+### Agent Communication Flow
+
+Seamless integration between inbox and agent interactions:
+
+```mermaid
+graph LR
+    A[You send message to Agent] --> B[Agent processes request]
+    B --> C[Agent replies to Inbox]
+    C --> D[You respond from Inbox]
+    D --> E[Conversation continues]
+    E --> F[Archive when complete]
+```
 
 ## Troubleshooting
 
 <AccordionGroup>
   <Accordion title="Missing Notifications">
-    **Check:** Notification settings in Profile → Settings
+    **Check notification settings** for the specific message type
     
-    **Verify:** Browser permissions for notifications
+    **Verify channel membership** - you must be in a channel to receive notifications
     
-    **Solution:** Enable push notifications and check spam filters
+    **Review muted conversations** - you may have accidentally muted important channels
   </Accordion>
   
-  <Accordion title="Items Stuck in In Progress">
-    **Cause:** Items moved to In Progress but never completed
+  <Accordion title="Too Many Notifications">
+    **Adjust issue notification settings** - only get notified for issues you actively work on
     
-    **Solution:** Manually mark as complete or set up auto-complete rules
+    **Use agent notification scheduling** - batch non-urgent agent messages
+    
+    **Mute high-volume channels** after you've participated
   </Accordion>
   
-  <Accordion title="Inbox Won't Load">
-    **Solution:** Refresh page or check network connection
+  <Accordion title="Can't Find Context">
+    **Use "Jump to Channel"** to see full conversation history
     
-    **Alternative:** Use ⌘J shortcut to force refresh
+    **Check related issues** - notifications often reference broader project context
+    
+    **Ask for clarification** using reply feature
   </Accordion>
 </AccordionGroup>
 
 ## Related Features
 
-- [Command Launcher (⌘K)](/how-to/interface/command-launcher) - Quick navigation and actions
-- [Conversations](/how-to/communication/conversations) - Detailed chat management
-- [Work Issues](/how-to/work/issue-management) - Issue tracking integration
-- [Agent Interactions](/how-to/agents/agent-interaction) - Working with AI agents
+- [Command Launcher (⌘K)](/reference/interface/command-launcher) - Quick navigation and actions
+- [Issue Management](/how-to/work/issue-management) - Understanding issue workflows  
+- [Agent Communication](/how-to/agents/create-custom-agent) - Working with AI agents
+- [Channel Conversations](/reference/communication/conversations) - Group discussion features
 
 <Note>
-  Your Inbox is designed to be a zero-maintenance communication hub. The three-state system (Pending → In Progress → History) helps you stay organized without manual effort.
+  The Inbox is designed around actual work patterns - issue progression, agent collaboration, and team communication. Focus on processing notifications that require your specific input or action.
 </Note>

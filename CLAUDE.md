@@ -31,6 +31,10 @@
 - Language tags on all code blocks
 - Alt text on all images
 - Relative paths for internal links
+- NO EMOJIS in documentation - maintain professional tone
+- Focus on specific features and functionality, not generic marketing
+- Create practical tutorials based on actual product capabilities
+- Design realistic customer scenarios based on product features
 
 ## Git workflow
 - NEVER use --no-verify when committing

@@ -1,378 +1,561 @@
 ---
-title: "How to Create a Custom Agent"
-description: "Build an agent that solves your specific business problem"
+title: "Creating and Managing Agents"
+description: "How to create, configure, and manage AI agents in Cagen"
 sidebarTitle: "Create Custom Agent"
 ---
 
-Last week, a SaaS founder created a custom agent that qualifies leads while he sleeps. It books 3x more demos than their previous process. Here's exactly how to build your own.
+<Info>
+  Agents in Cagen are AI assistants powered by Claude Code that can be customized for specific tasks, bound to Memory Banks, Actions, and MCP tools to automate your workflows.
+</Info>
 
-## Before You Start
+## What are Agents?
 
-**Time needed**: 30-45 minutes  
-**Skill level**: If you can describe your process to a human, you can build this agent
+Agents are AI assistants that execute tasks using Claude Code as their core processing engine. Each Agent consists of three key components:
 
-### What you need:
-- Cagen account (free trial works)
-- One repetitive task that's eating your time
-- Examples of how you currently handle that task
+<CardGroup cols={3}>
+  <Card title="Duty" icon="clipboard-list">
+    **Public description of the Agent's role**
+    
+    Visible to both the Agent itself and other users/agents for routing and collaboration
+  </Card>
+  
+  <Card title="System Prompt" icon="cog">
+    **Internal instructions and behavior**
+    
+    Only visible to the Agent itself, contains specific instructions and personality
+  </Card>
+  
+  <Card title="Description" icon="info">
+    **External-facing summary**
+    
+    Visible to others for understanding what the Agent does and when to use it
+  </Card>
+</CardGroup>
 
-## Real Example: Lead Qualification Agent
+## Creating Your First Agent
 
-Let's build something real. We'll create an agent that:
-- Reads incoming leads from your CRM
-- Scores them based on your criteria
-- Drafts personalized follow-ups
-- Books calls with hot leads
+### Method 1: Natural Language Description
 
-### Step 1: Start with Your Biggest Time-Waster
+The simplest way to create an Agent is by describing what you need in natural language:
 
-Go to **Team > Agents** and click **Create Agent**.
+<Steps>
+  <Step title="Describe Your Need">
+    Go to **Agents** and describe what you want:
+    
+    ```
+    "I need an agent that monitors our GitHub issues, 
+    categorizes them by priority, and notifies the 
+    relevant team members in Slack"
+    ```
+  </Step>
+  
+  <Step title="Cagen Analyzes and Suggests">
+    Cagen will analyze your description and suggest:
+    - Appropriate Agent configuration
+    - Required Memory Bank connections
+    - Necessary Actions to create
+    - MCP tools to bind
+  </Step>
+  
+  <Step title="Review and Customize">
+    Review the suggested configuration and customize:
+    - Refine the Duty description
+    - Adjust System Prompt instructions
+    - Modify Description for clarity
+  </Step>
+  
+  <Step title="Deploy and Test">
+    Save the Agent and test it with real scenarios
+  </Step>
+</Steps>
 
-<Tip>
-Most successful agents solve a problem you face daily. Think: "What did I do 10+ times this week?"
-</Tip>
+### Method 2: Manual Configuration
 
-### Step 2: Pick Your Path
+For more control, configure each component manually:
 
 <Tabs>
-  <Tab title="Use a Template (Recommended)">
-    **Lead Qualifier Template** includes:
-    - Pre-built scoring system
-    - Email templates that convert
-    - CRM integration setup
+  <Tab title="1. Basic Information">
+    ```yaml
+    Agent Configuration:
+      name: "GitHub Issue Triager"
+      
+      duty: "Monitor GitHub issues, categorize by priority and team, 
+             notify appropriate team members via Slack"
+      
+      description: "Automatically processes new GitHub issues, 
+                   assigns priority levels, and routes to correct teams"
+      
+      system_prompt: |
+        You are a GitHub issue triage specialist. When you receive 
+        new issues, analyze them for:
+        1. Severity (Critical/High/Medium/Low)
+        2. Component affected (Frontend/Backend/DevOps/Design)
+        3. Estimated effort (Small/Medium/Large)
+        
+        Always be thorough but concise in your analysis.
+    ```
+  </Step>
+  
+  <Tab title="2. Memory Bank Binding">
+    Connect relevant Memory Banks for context:
     
-    **Success rate**: 89% of users get results in week 1
+    ```yaml
+    memory_connections:
+      - bank: "Team Structure"
+        load_mode: "description_only"  # or "full_text"
+        purpose: "Understanding team responsibilities"
+        
+      - bank: "Issue Templates"
+        load_mode: "full_text"
+        purpose: "Recognizing issue patterns"
+        
+      - bank: "Priority Guidelines"
+        load_mode: "full_text"
+        purpose: "Consistent priority assignment"
+    ```
   </Tab>
   
-  <Tab title="Start Fresh">
-    Build exactly what you need when templates don't fit.
+  <Tab title="3. Action Binding">
+    Bind Actions the Agent can execute:
     
-    **Example**: A law firm built a contract reviewer that catches issues their template couldn't handle.
+    ```yaml
+    bound_actions:
+      - action: "send_slack_notification"
+        purpose: "Notify team members of new issues"
+        
+      - action: "update_github_labels"
+        purpose: "Apply priority and team labels"
+        
+      - action: "create_jira_ticket"
+        purpose: "Create tickets for high-priority issues"
+    ```
   </Tab>
   
-  <Tab title="Copy & Modify">
-    Already have a support agent? Clone it and teach it sales.
+  <Tab title="4. MCP Tool Binding">
+    Connect MCP tools for external system access:
     
-    **Pro tip**: This is how most users build agent #3 and beyond.
+    ```yaml
+    mcp_tools:
+      - tool: "github_api"
+        purpose: "Read and update GitHub issues"
+        
+      - tool: "slack_api"
+        purpose: "Send notifications to channels"
+        
+      - tool: "jira_api"
+        purpose: "Create and update Jira tickets"
+    ```
   </Tab>
 </Tabs>
 
-### Step 3: Name It Something Obvious
+## Agent Components Deep Dive
 
-Don't overthink this:
+### Understanding Duty
 
-```yaml
-Good names:
-  - "Lead Scorer"
-  - "Demo Booker"
-  - "Customer Success Bot"
-  
-Bad names:
-  - "Agent 1"
-  - "Test"
-  - "AI Assistant"
-```
-
-<Warning>
-In 2 weeks you'll have 5+ agents. Make names self-explanatory or you'll waste time figuring out which does what.
-</Warning>
-
-### Step 4: Tell It What It Can Touch
-
-For our lead qualification agent:
-
-```yaml
-What it can read:
-  - CRM contacts and companies
-  - Email history
-  - Your pricing page
-  - Competitor info (public)
-
-What it can write:
-  - Lead scores in CRM
-  - Draft emails (not send!)
-  - Internal notes
-  - Slack notifications
-
-What it can do:
-  - Calculate lead scores
-  - Generate follow-up sequences
-  - Schedule tasks
-  - Alert sales team
-```
-
-<Info>
-Start with minimal permissions. You can always add more. It's harder to take away.
-</Info>
-
-### 5. Set Up Memory Access
-
-Configure what information the Agent can access:
-
-<Steps>
-  <Step>
-    **Define Memory Scope**
-    ```yaml
-    memory_access:
-      team_documents: true
-      user_specific: false
-      external_sources:
-        - industry_reports
-        - competitor_websites
-    ```
-  </Step>
-  
-  <Step>
-    **Set Retention Policy**
-    ```yaml
-    retention:
-      conversation_history: 30_days
-      generated_content: permanent
-      temporary_data: 7_days
-    ```
-  </Step>
-</Steps>
-
-### 6. Configure Model and Performance
-
-Choose the AI model and performance settings:
-
-```yaml
-Model Configuration:
-  model: "gpt-4-turbo"  # or "claude-3-opus", "gemini-pro"
-  
-  performance:
-    response_time: "balanced"  # fast, balanced, or thorough
-    creativity: 0.7  # 0.0 to 1.0
-    consistency: 0.9  # 0.0 to 1.0
-    
-  resource_limits:
-    max_tokens_per_request: 4000
-    max_requests_per_hour: 100
-    max_memory_usage: "1GB"
-```
-
-### Step 5: Write Instructions Like Training a New Hire
-
-Here's what actually works:
-
-```markdown
-## Your Job
-
-You qualify leads for our B2B SaaS product ($500-5000/mo plans).
-
-## How to Score Leads
-
-High Intent (80-100 points):
-- Company size: 50-500 employees
-- Asked about pricing or demos
-- Mentioned specific pain points we solve
-- Decision maker title (VP, Director, C-level)
-
-Medium Intent (50-79 points):
-- Company size: 10-49 or 500+ employees  
-- General interest questions
-- Individual contributor asking
-- Longer sales cycle industries
-
-Low Intent (0-49 points):
-- Company size: <10 employees
-- Just "exploring options"
-- Student or job seeker
-- Competitor fishing for info
-
-## What to Do
-
-- Score 80+: Alert sales team immediately + draft warm follow-up
-- Score 50-79: Add to nurture sequence + weekly check-in
-- Score <50: Send helpful resources + check back in 3 months
-```
-
-<Tip>
-Include real examples from your business. The agent learns from specifics, not generalizations.
-</Tip>
-
-### Step 6: Test with Real Scenarios
-
-Don't use fake data. Test with actual examples:
-
-<Steps>
-  <Step title="Throw it a softball">
-    Test with an obvious good lead:
-    ```
-    "Hi, we're a 200-person SaaS company. Current solution 
-    costs us $50k/year and missing key features. Can we 
-    see a demo this week?"
-    ```
-    
-    Agent should score 95+ and draft eager response.
-  </Step>
-  
-  <Step title="Try an edge case">
-    Test with something tricky:
-    ```
-    "We're a startup (team of 8) but just raised $10M. 
-    Planning to hire 50 people this year. What's pricing?"
-    ```
-    
-    Agent should recognize growth potential despite small size.
-  </Step>
-  
-  <Step title="Test a tire kicker">
-    ```
-    "Just doing research for a blog post. Can you share 
-    your features list?"
-    ```
-    
-    Agent should score low but still be helpful.
-  </Step>
-</Steps>
-
-<Warning>
-If the agent fails these tests, it'll fail in production. Fix now, not later.
-</Warning>
-
-### 9. Set Up Monitoring
-
-Configure how to track Agent performance:
-
-```yaml
-Monitoring:
-  metrics:
-    - task_completion_rate
-    - average_response_time
-    - user_satisfaction_score
-    - resource_utilization
-    
-  alerts:
-    - type: "performance_degradation"
-      threshold: "20% below baseline"
-      notify: "admin@company.com"
-      
-    - type: "error_rate"
-      threshold: "> 5%"
-      notify: "team_slack_channel"
-```
-
-### 10. Deploy and Iterate
-
-<Steps>
-  <Step>
-    Click **Save and Deploy** to activate your Agent
-  </Step>
-  
-  <Step>
-    Monitor initial performance closely
-  </Step>
-  
-  <Step>
-    Gather feedback from users
-  </Step>
-  
-  <Step>
-    Iterate based on real-world usage
-  </Step>
-</Steps>
-
-## What Successful Users Do Differently
+The Duty is a natural language description that serves multiple purposes:
 
 <AccordionGroup>
-  <Accordion title="They start with one clear task">
-    **Wrong**: "Handle all sales and marketing"
-    **Right**: "Score leads from contact form"
+  <Accordion title="For the Agent Itself">
+    The Agent can see its own Duty and uses it to understand its role and boundaries
     
-    You can always expand later. Focused agents work better.
+    **Example Duty:**
+    ```
+    "Process customer support tickets, determine urgency level, 
+    provide initial responses for common issues, and escalate 
+    complex problems to human agents"
+    ```
   </Accordion>
   
-  <Accordion title="They feed it real examples">
-    Upload 20 of your best sales emails. Show it actual conversations that led to closed deals. Real data beats instructions every time.
+  <Accordion title="For Cagen's Routing System">
+    Cagen uses the Duty to route requests to appropriate Agents
+    
+    **How it works:**
+    - User asks: "Can someone help with this support ticket?"
+    - Cagen reviews all Agent Duties
+    - Routes to Agent with matching Duty
   </Accordion>
   
-  <Accordion title="They iterate based on misses">
-    Week 1: Agent scores a good lead as "low"
-    Action: Add that scenario to instructions
-    Week 2: Agent catches similar leads correctly
+  <Accordion title="For Other Agents">
+    Agents can see each other's Duties for collaboration
     
-    Every mistake is a teaching opportunity.
-  </Accordion>
-  
-  <Accordion title="They measure what matters">
-    Track:
-    - Leads scored per week
-    - Score accuracy (manually check 10%)
-    - Demos booked from agent leads
-    - Time saved (honestly)
-    
-    One user discovered their agent saved 12 hours/week. That's $50k/year at their hourly rate.
+    **Collaboration example:**
+    - Agent A handles initial support
+    - Identifies technical issue
+    - Routes to Agent B with Duty "Handle technical troubleshooting"
   </Accordion>
 </AccordionGroup>
 
-## Common Pitfalls to Avoid
+### Crafting System Prompts
 
-- **Over-permissioning**: Only grant necessary access
-- **Vague instructions**: Be specific about expected behaviors
-- **Ignoring feedback**: User complaints often reveal improvement opportunities
-- **Set and forget**: Agents need maintenance and optimization
+The System Prompt contains internal instructions only the Agent can see:
 
-## Advanced Configurations
+<Steps>
+  <Step title="Define Personality and Tone">
+    ```
+    You are a professional but friendly customer support specialist.
+    Always be empathetic and solution-focused. Use clear, jargon-free 
+    language that customers can easily understand.
+    ```
+  </Step>
+  
+  <Step title="Specify Task Procedures">
+    ```
+    When processing support tickets:
+    1. Read the full ticket description and any attached files
+    2. Check the customer's account status and history
+    3. Classify urgency: Critical/High/Medium/Low
+    4. For common issues, provide immediate solution
+    5. For complex issues, gather additional information before escalating
+    ```
+  </Step>
+  
+  <Step title="Set Boundaries and Limitations">
+    ```
+    You cannot:
+    - Make refunds over $500 without manager approval
+    - Access customer payment information directly
+    - Promise features that aren't in development
+    
+    When unsure, always escalate to human support.
+    ```
+  </Step>
+  
+  <Step title="Include Examples">
+    ```
+    Example response for login issues:
+    "I understand you're having trouble logging in. Let me help you with that.
+    First, please try resetting your password using the 'Forgot Password' 
+    link on the login page. If that doesn't work, I'll check your account 
+    status..."
+    ```
+  </Step>
+</Steps>
 
-### Multi-Model Strategy
+### Writing Effective Descriptions
 
-For complex Agents, use different models for different tasks:
+The Description helps others understand when to use this Agent:
 
-```yaml
-multi_model:
-  research_tasks: "gpt-4-turbo"
-  summarization: "claude-3-haiku"
-  data_analysis: "gemini-pro"
+<CardGroup cols={2}>
+  <Card title="Good Description" icon="check">
+    **Clear and specific:**
+    
+    "Handles customer support tickets for billing issues, account problems, and general product questions. Can process refunds up to $500 and escalate complex technical issues."
+  </Card>
+  
+  <Card title="Poor Description" icon="x">
+    **Vague and unhelpful:**
+    
+    "AI assistant that helps with various customer support tasks and other general assistance as needed."
+  </Card>
+</CardGroup>
+
+## Binding Resources to Agents
+
+### Memory Bank Integration
+
+Connect Memory Banks to give Agents context and knowledge:
+
+<Tabs>
+  <Tab title="Description Mode">
+    **When to use:** Large Memory Banks where you only need summaries
+    
+    ```yaml
+    memory_binding:
+      bank: "Customer Knowledge Base"
+      load_mode: "description_only"
+      
+    # Agent sees only the bank's description:
+    # "Contains 500+ articles about product features, 
+    #  troubleshooting guides, and FAQ responses"
+    ```
+    
+    **Benefits:**
+    - Faster Agent initialization
+    - Lower memory usage
+    - Good for awareness without full content access
+  </Tab>
+  
+  <Tab title="Full Text Mode">
+    **When to use:** Smaller, critical Memory Banks with essential information
+    
+    ```yaml
+    memory_binding:
+      bank: "Company Policies"
+      load_mode: "full_text"
+      
+    # Agent loads complete contents of all documents
+    # in the Memory Bank for direct reference
+    ```
+    
+    **Benefits:**
+    - Complete access to all information
+    - Can quote directly from documents
+    - Best for critical reference material
+    
+    **Considerations:**
+    - Slower initialization with large banks
+    - Higher memory usage
+  </Tab>
+</Tabs>
+
+### Action Integration
+
+Bind Actions to give Agents capabilities:
+
+<AccordionGroup>
+  <Accordion title="Automatic Action Discovery">
+    When creating an Agent with natural language, Cagen can automatically suggest Actions:
+    
+    ```
+    User: "Create an agent that sends weekly reports"
+    
+    Cagen suggests:
+    - Create Action: "generate_weekly_report" 
+    - Create Action: "send_email_report"
+    - Bind both Actions to the new Agent
+    ```
+  </Accordion>
+  
+  <Accordion title="Manual Action Binding">
+    Bind existing Actions to Agents:
+    
+    ```yaml
+    action_bindings:
+      - action_name: "create_jira_ticket"
+        trigger_conditions: 
+          - "when user mentions 'bug report'"
+          - "when issue classified as 'technical'"
+          
+      - action_name: "send_slack_alert"
+        trigger_conditions:
+          - "when issue priority is 'critical'"
+          - "when customer is on enterprise plan"
+    ```
+  </Accordion>
+  
+  <Accordion title="Action Permissions">
+    Control when and how Agents can use Actions:
+    
+    ```yaml
+    permissions:
+      create_jira_ticket:
+        requires_confirmation: false  # Agent can execute directly
+        max_uses_per_hour: 10        # Rate limiting
+        
+      send_email:
+        requires_confirmation: true   # Must ask user first
+        allowed_recipients: ["@company.com"]  # Domain restrictions
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### MCP Tool Access
+
+MCP tools provide Agents with external system capabilities:
+
+<Steps>
+  <Step title="Available MCP Tools">
+    Common MCP tools include:
+    - **GitHub**: Repository and issue management
+    - **Slack**: Channel and direct messaging
+    - **Google Drive**: Document access and creation
+    - **Postgres**: Database queries and updates
+    - **Web Search**: Internet search capabilities
+  </Step>
+  
+  <Step title="Tool Binding">
+    ```yaml
+    mcp_bindings:
+      - tool: "github"
+        permissions: ["read_issues", "create_issues", "update_labels"]
+        repositories: ["company/main-product", "company/docs"]
+        
+      - tool: "slack"
+        permissions: ["send_messages", "read_channels"]
+        channels: ["#support", "#dev-team", "#alerts"]
+    ```
+  </Step>
+  
+  <Step title="Security Considerations">
+    MCP tools run with limited permissions:
+    - Only specified operations allowed
+    - Access restricted to designated resources
+    - All actions logged for audit
+  </Step>
+</Steps>
+
+## Agent Management
+
+### Monitoring Agent Performance
+
+<CardGroup cols={2}>
+  <Card title="Usage Metrics" icon="chart-bar">
+    **Track key performance indicators:**
+    - Number of interactions per day
+    - Average response time
+    - Success rate of task completion
+    - User satisfaction ratings
+  </Card>
+  
+  <Card title="Resource Utilization" icon="cpu">
+    **Monitor resource consumption:**
+    - Claude Code execution time
+    - Memory Bank access frequency
+    - Action execution count
+    - MCP tool usage patterns
+  </Card>
+</CardGroup>
+
+### Updating Agents
+
+<Steps>
+  <Step title="Iterative Improvement">
+    Based on usage patterns and feedback:
+    - Refine System Prompt instructions
+    - Add new Memory Bank connections
+    - Bind additional Actions as needed
+    - Adjust MCP tool permissions
+  </Step>
+  
+  <Step title="Version Control">
+    Cagen automatically tracks Agent changes:
+    - Previous configurations saved
+    - Easy rollback if updates cause issues
+    - Compare performance between versions
+  </Step>
+  
+  <Step title="A/B Testing">
+    Test different configurations:
+    - Run multiple versions with different users
+    - Compare performance metrics
+    - Gradually migrate to better-performing version
+  </Step>
+</Steps>
+
+## Best Practices
+
+### Agent Design Principles
+
+<AccordionGroup>
+  <Accordion title="Single Responsibility">
+    **Good:** Agent that handles password reset requests
+    **Bad:** Agent that handles "all customer issues"
+    
+    Focused Agents perform better and are easier to maintain.
+  </Accordion>
+  
+  <Accordion title="Clear Communication">
+    Write Duties and Descriptions as if explaining to a new team member:
+    - Use specific, actionable language
+    - Include examples where helpful
+    - Avoid technical jargon in Descriptions
+  </Accordion>
+  
+  <Accordion title="Progressive Enhancement">
+    Start simple and add complexity gradually:
+    1. Basic Agent with core functionality
+    2. Add Memory Bank connections
+    3. Bind essential Actions
+    4. Connect MCP tools as needed
+  </Accordion>
+</AccordionGroup>
+
+### Common Pitfalls to Avoid
+
+<CardGroup cols={2}>
+  <Card title="Over-complexity" icon="exclamation-triangle">
+    **Problem:** Trying to build one Agent that does everything
+    
+    **Solution:** Create specialized Agents that collaborate
+  </Card>
+  
+  <Card title="Vague Instructions" icon="question">
+    **Problem:** System Prompts that are too general
+    
+    **Solution:** Include specific examples and procedures
+  </Card>
+  
+  <Card title="Permission Overload" icon="shield">
+    **Problem:** Giving Agents access to everything "just in case"
+    
+    **Solution:** Grant minimal permissions, expand as needed
+  </Card>
+  
+  <Card title="No Feedback Loop" icon="refresh">
+    **Problem:** Creating Agents and never updating them
+    
+    **Solution:** Regular review and optimization based on usage
+  </Card>
+</CardGroup>
+
+## Advanced Agent Patterns
+
+### Agent Collaboration
+
+Agents can work together on complex tasks:
+
+```mermaid
+graph LR
+    A[Intake Agent] --> B[Classification Agent]
+    B --> C[Processing Agent]
+    C --> D[Response Agent]
+    
+    B --> E[Escalation Agent]
+    E --> F[Human Handoff]
 ```
 
-### Conditional Behaviors
+### Conditional Behavior
 
-Create Agents that adapt based on context:
+Agents can adapt their behavior based on context:
 
 ```yaml
 conditional_logic:
-  - if: "urgent_request"
+  - if: "customer_tier == 'enterprise'"
     then: 
-      model: "gpt-4-turbo"
-      response_time: "fast"
+      response_time: "immediate"
+      escalation_threshold: "low"
       
-  - if: "detailed_analysis"
+  - if: "issue_type == 'billing'"
     then:
-      model: "claude-3-opus"
-      response_time: "thorough"
+      required_memory_banks: ["billing_policies", "pricing_tiers"]
+      required_actions: ["check_payment_status", "process_refund"]
 ```
 
-## Your Next 48 Hours
+## Troubleshooting
 
-**Day 1**: Get your agent scoring leads (even if imperfectly)  
-**Day 2**: Connect it to your CRM  
-**Week 1**: Fine-tune based on real results  
-**Week 2**: Add agent #2 to handle follow-ups  
+<AccordionGroup>
+  <Accordion title="Agent Not Responding">
+    **Check:**
+    - System Prompt clarity and completeness
+    - Memory Bank connections are working
+    - Required Actions are properly bound
+    - MCP tools have correct permissions
+  </Accordion>
+  
+  <Accordion title="Unexpected Behavior">
+    **Debugging steps:**
+    - Review recent interactions in Agent logs
+    - Check if System Prompt conflicts with Memory Bank content
+    - Verify Action permissions and rate limits
+    - Test with simpler scenarios to isolate issues
+  </Accordion>
+  
+  <Accordion title="Performance Issues">
+    **Optimization approaches:**
+    - Switch large Memory Banks to description-only mode
+    - Reduce number of bound Actions if not all are needed
+    - Check MCP tool response times
+    - Consider splitting complex Agents into specialized ones
+  </Accordion>
+</AccordionGroup>
 
-## Common Week 1 Problems (and Fixes)
+## Related Features
 
-**"It's scoring everyone too high"**  
-Tighten your criteria. Better to miss a few than flood sales with junk.
-
-**"It's too formal/robotic"**  
-Upload 10 of YOUR actual emails. It'll match your voice.
-
-**"It's not catching obvious good leads"**  
-You probably made instructions too complex. Simplify.
-
-**"I don't know if it's working"**  
-Manually check 10 scores. Are 8+ correct? You're good.
-
-<Card 
-  title="See how others built their agents" 
-  icon="users"
-  href="/tutorials/use-cases/agent-gallery"
->
-  Real examples from sales, support, marketing, and ops teams
-</Card>
+- [Memory Bank Management](/how-to/memory/manage-memory-bank) - Store knowledge for Agents
+- [Action Creation](/how-to/actions/create-action) - Build capabilities for Agents  
+- [MCP Integration](/how-to/mcp/mcp-integration) - Connect external tools
+- [Issue Management](/how-to/work/issue-management) - Agents in workflow automation
 
 <Note>
-**30 days from now**: You'll wonder how you ever worked without this. But only if you start today.
+  Remember: Agents are powered by Claude Code and excel at tasks that benefit from intelligent reasoning and decision-making. Start with clear, focused responsibilities and expand capabilities based on real usage patterns.
 </Note>

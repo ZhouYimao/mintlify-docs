@@ -1,425 +1,502 @@
 ---
 title: "Memory Bank Management"
-description: "Store, organize, and retrieve organizational knowledge with AI-powered memory management"
+description: "Store, organize, and manage documents and knowledge for your Agents and Actions"
 sidebarTitle: "Memory Bank"
 ---
 
 <Info>
-  Memory Bank is Cagen's intelligent knowledge repository that learns from your organization's information and provides contextual insights when you need them.
+  Memory Bank is Cagen's document storage and knowledge management system. Documents stored here can be connected to Agents and Actions to provide them with context and information.
 </Info>
 
-## Understanding Memory Bank Components
+## What is Memory Bank?
 
-Your Memory Bank consists of three main types:
+Memory Bank is a document management system where you store information that your Agents and Actions need to access. It serves as the knowledge foundation for your AI-powered workflows.
 
-<Cards>
-  <Card title="Documents" icon="file">
-    Explicit knowledge you upload
-    - PDFs, docs, spreadsheets
-    - Code repositories
-    - Design files
+### Key Features
+
+<CardGroup cols={2}>
+  <Card title="Document Storage" icon="file">
+    **Store various document types**
+    
+    Upload PDFs, text files, spreadsheets, and other documents that contain important information
   </Card>
   
-  <Card title="External Sources" icon="globe">
-    Connected external data
-    - CRM systems
-    - Wikis and knowledge bases
-    - API integrations
+  <Card title="Agent Access" icon="robot">
+    **Connect to Agents**
+    
+    Agents can access Memory Bank documents to get context and information for their tasks
   </Card>
   
-  <Card title="Internal Memory" icon="brain">
-    AI-generated insights
-    - Conversation summaries
-    - Pattern recognition
-    - User profiles
+  <Card title="Description Summaries" icon="info">
+    **Smart organization**
+    
+    Each document has a Description that Agents can see without loading the full content
   </Card>
-</Cards>
+  
+  <Card title="Flexible Loading" icon="settings">
+    **Load modes**
+    
+    Choose whether Agents see only descriptions or load full document text
+  </Card>
+</CardGroup>
 
-## Adding Content to Memory Bank
+## How Memory Bank Works
 
-### Upload Documents
+### Best Practice: Action Resource Management
+
+The most effective use of Memory Bank is to store reference materials that your Actions need to query:
 
 <Steps>
-  <Step title="Navigate to Memory Bank">
-    Go to **Memory Bank > Documents** in the sidebar
-  </Step>
-  
-  <Step title="Click Upload">
-    Select files or drag and drop. Supported formats:
-    - Text: `.txt`, `.md`, `.mdx`
-    - Documents: `.pdf`, `.docx`, `.xlsx`
-    - Code: All programming languages
-    - Data: `.csv`, `.json`, `.xml`
-  </Step>
-  
-  <Step title="Configure Processing">
-    ```yaml
-    processing_options:
-      extract_text: true
-      generate_embeddings: true
-      detect_entities: true
-      
-      chunking:
-        strategy: "semantic"  # semantic, fixed_size, or paragraph
-        max_chunk_size: 1000
-        overlap: 200
+  <Step title="Identify Action Needs">
+    When creating an Action, identify what information it needs:
+    
+    ```
+    Example: Customer onboarding Action needs:
+    - Company policies document
+    - Onboarding checklist template  
+    - Contact directory for team assignments
     ```
   </Step>
   
-  <Step title="Set Metadata">
-    Add tags and categories for better retrieval:
-    ```yaml
-    metadata:
-      category: "product_docs"
-      tags: ["api", "reference", "v2"]
-      access_level: "team"
-      expires: "never"  # or specific date
+  <Step title="Store Documents">
+    Upload these documents to Memory Bank with clear, descriptive names
+  </Step>
+  
+  <Step title="Add Descriptions">
+    Write clear descriptions that explain what each document contains:
+    
+    ```
+    Description: "Company HR policies including vacation time, 
+    remote work guidelines, and employee benefits. Updated Q1 2024."
+    ```
+  </Step>
+  
+  <Step title="Link to Actions">
+    Connect the Memory Bank documents to your Actions so they can reference this information
+  </Step>
+</Steps>
+
+### Customer Relationship Management Example
+
+Memory Bank excels at managing customer data and relationships:
+
+<Tabs>
+  <Tab title="Customer Profiles">
+    **Store customer information documents:**
+    ```
+    Document: "Enterprise_Customer_ABC_Corp.md"
+    Description: "Complete profile for ABC Corp including contact 
+    history, current contract terms, technical requirements, 
+    and key stakeholder information"
+    ```
+    
+    **Agent Access:**
+    - Sales agents can reference this for personalized outreach
+    - Support agents can understand customer context quickly
+    - Account managers can track relationship history
+  </Tab>
+  
+  <Tab title="Project Documentation">
+    **Organize project-related documents:**
+    ```
+    Document: "Project_Alpha_Requirements.pdf"
+    Description: "Technical and business requirements for Project Alpha,
+    including timeline, budget constraints, and success criteria"
+    ```
+    
+    **Action Integration:**
+    - Project status update Actions can reference current requirements
+    - Meeting preparation Actions can pull relevant context
+    - Progress tracking Actions can check against original goals
+  </Tab>
+  
+  <Tab title="Process Documentation">
+    **Document your standard procedures:**
+    ```
+    Document: "Customer_Support_Escalation_Process.md"
+    Description: "Step-by-step escalation procedures for customer 
+    support issues, including criteria for each escalation level 
+    and responsible team contacts"
+    ```
+    
+    **Usage:**
+    - Support Agents follow consistent escalation procedures
+    - Training Actions can reference official processes
+    - Quality assurance Actions can check compliance
+  </Tab>
+</Tabs>
+
+## Adding Documents to Memory Bank
+
+### Supported File Types
+
+<AccordionGroup>
+  <Accordion title="Text Documents">
+    **Formats:** `.txt`, `.md`, `.mdx`, `.rtf`
+    
+    **Best for:** Policies, procedures, knowledge articles, notes
+    
+    **Processing:** Direct text extraction, full searchability
+  </Accordion>
+  
+  <Accordion title="Office Documents">
+    **Formats:** `.pdf`, `.docx`, `.xlsx`, `.pptx`
+    
+    **Best for:** Reports, presentations, spreadsheets, contracts
+    
+    **Processing:** Text extraction with format preservation
+  </Accordion>
+  
+  <Accordion title="Data Files">
+    **Formats:** `.csv`, `.json`, `.xml`
+    
+    **Best for:** Structured data, configuration files, exports
+    
+    **Processing:** Structure-aware parsing for better organization
+  </Accordion>
+  
+  <Accordion title="Code Files">
+    **Formats:** Most programming languages supported
+    
+    **Best for:** Technical documentation, API references, configuration
+    
+    **Processing:** Syntax-aware processing with code structure recognition
+  </Accordion>
+</AccordionGroup>
+
+### Upload Process
+
+<Steps>
+  <Step title="Navigate to Memory Bank">
+    Go to **Memory Bank** in the Cagen interface
+  </Step>
+  
+  <Step title="Upload Files">
+    Click **Upload** or drag and drop files into the upload area
+  </Step>
+  
+  <Step title="Add Document Information">
+    For each document, provide:
+    
+    **Name:** Clear, descriptive filename
+    ```
+    Good: "Q4_2024_Product_Roadmap.pdf"
+    Bad: "document_final_v2.pdf"
+    ```
+    
+    **Description:** Summary of what the document contains
+    ```
+    "Product roadmap for Q4 2024 including planned features, 
+    resource allocation, and key milestones. Updated Nov 2024."
+    ```
+  </Step>
+  
+  <Step title="Organize with Tags">
+    Add relevant tags for easy discovery:
+    ```
+    Tags: ["roadmap", "product", "q4-2024", "planning"]
     ```
   </Step>
 </Steps>
 
-### Connect External Sources
+## Document Descriptions
+
+The Description is crucial for how Agents understand and use your documents:
+
+### Writing Effective Descriptions
+
+<CardGroup cols={2}>
+  <Card title="Good Description" icon="check">
+    **Clear and specific**
+    
+    "Customer support knowledge base covering common technical issues, troubleshooting steps, and escalation procedures. Includes solutions for login problems, billing questions, and feature requests."
+  </Card>
+  
+  <Card title="Poor Description" icon="x">
+    **Vague and unhelpful**
+    
+    "Support documentation and various helpful information about customer issues and other related topics."
+  </Card>
+</CardGroup>
+
+### Description Best Practices
+
+<Steps>
+  <Step title="Start with Purpose">
+    Begin with what the document is for:
+    ```
+    "Employee onboarding checklist for new engineering hires..."
+    "API documentation for the customer data integration..."
+    "Budget planning template for quarterly expense forecasting..."
+    ```
+  </Step>
+  
+  <Step title="Include Key Contents">
+    Mention the main topics or sections:
+    ```
+    "...covering first-day setup, development environment configuration, 
+    team introductions, and 30-60-90 day goals"
+    ```
+  </Step>
+  
+  <Step title="Add Context">
+    Include when it was created or last updated:
+    ```
+    "...Updated January 2024 to reflect new remote work policies"
+    ```
+  </Step>
+  
+  <Step title="Note Special Information">
+    Highlight any unique or critical details:
+    ```
+    "...Includes emergency contact procedures and after-hours escalation"
+    ```
+  </Step>
+</Steps>
+
+## Connecting Memory Bank to Agents
+
+### Description-Only Mode
+
+When connecting a Memory Bank document to an Agent in description-only mode:
 
 <Tabs>
-  <Tab title="Via MCP">
-    ```yaml
-    mcp_connection:
-      provider: "notion"
-      
-      auth:
-        type: "oauth2"
-        client_id: "${NOTION_CLIENT_ID}"
-        client_secret: "${NOTION_CLIENT_SECRET}"
-        
-      sync:
-        frequency: "hourly"
-        pages: ["workspace/*"]
-        
-      mapping:
-        title: "$.properties.title"
-        content: "$.content"
-        last_updated: "$.last_edited_time"
+  <Tab title="What the Agent Sees">
     ```
+    Memory Bank Document: "Customer_Support_Knowledge_Base.pdf"
+    Description: "Comprehensive guide covering common customer issues, 
+    troubleshooting steps, and escalation procedures. Includes solutions 
+    for technical problems, billing questions, and feature requests. 
+    Updated Q3 2024."
+    ```
+    
+    The Agent knows this document exists and what it contains, but doesn't have the full text loaded.
   </Tab>
   
-  <Tab title="Via Webhook">
-    ```yaml
-    webhook_source:
-      endpoint: "https://api.cagen.ai/memory/webhook/[id]"
-      
-      authentication:
-        type: "bearer"
-        token: "${WEBHOOK_TOKEN}"
-        
-      validation:
-        signature_header: "X-Signature"
-        secret: "${WEBHOOK_SECRET}"
-    ```
+  <Tab title="When to Use">
+    **Good for:**
+    - Large documents that would consume too much Agent memory
+    - Reference materials that are needed occasionally
+    - Overview documents where summary is sufficient
+    - Documents with sensitive information that shouldn't be fully loaded
+    
+    **Benefits:**
+    - Faster Agent initialization
+    - Lower memory usage
+    - Agent can still understand what resources are available
+  </Tab>
+</Tabs>
+
+### Full Text Mode
+
+When connecting a Memory Bank document in full text mode:
+
+<Tabs>
+  <Tab title="What the Agent Sees">
+    The Agent has complete access to all content in the document and can:
+    - Quote directly from the text
+    - Reference specific sections or details
+    - Use the information to make detailed decisions
+    - Cross-reference information across the document
   </Tab>
   
-  <Tab title="Via API">
-    ```python
-    # Python example
-    import cagen
+  <Tab title="When to Use">
+    **Good for:**
+    - Critical reference documents that Agents need complete access to
+    - Smaller documents (under 50 pages)
+    - Policy documents that require exact compliance
+    - Templates or examples that need to be followed precisely
     
-    client = cagen.Client(api_key="your_key")
-    
-    # Add to memory
-    client.memory.add(
-        content="Product roadmap for Q2",
-        metadata={
-            "type": "document",
-            "category": "planning",
-            "tags": ["roadmap", "q2", "product"]
-        }
-    )
-    ```
+    **Considerations:**
+    - Slower Agent initialization for large documents
+    - Higher memory usage
+    - May need to balance number of full-text documents per Agent
   </Tab>
 </Tabs>
 
 ## Organizing Your Memory Bank
 
-### Create Smart Collections
+### Folder Structure
 
-Group related memories for easier access:
-
-```yaml
-collection:
-  name: "Customer Feedback"
-  
-  rules:
-    include:
-      - tags: ["feedback", "customer", "review"]
-      - source: ["intercom", "surveys"]
-      - date_range: "last_90_days"
-      
-    exclude:
-      - tags: ["internal", "draft"]
-      
-  auto_update: true
-  visibility: "team"
-```
-
-### Implement Folder Structure
+Organize documents logically to make them easy to find and manage:
 
 ```
 Memory Bank/
-├── Company Knowledge/
-│   ├── Policies/
-│   ├── Processes/
-│   └── Templates/
-├── Product/
-│   ├── Documentation/
-│   ├── Roadmaps/
-│   └── User Research/
-├── Customer Data/
-│   ├── Feedback/
-│   ├── Support Tickets/
-│   └── Success Stories/
-└── Market Intelligence/
-    ├── Competitor Analysis/
-    ├── Industry Reports/
-    └── Trends/
+├── Company_Policies/
+│   ├── HR_Handbook_2024.pdf
+│   ├── Remote_Work_Guidelines.md
+│   └── Code_of_Conduct.pdf
+├── Customer_Data/
+│   ├── Enterprise_Accounts/
+│   │   ├── ABC_Corp_Profile.md
+│   │   └── XYZ_Industries_History.pdf
+│   └── Support_Documentation/
+│       ├── Common_Issues_FAQ.md
+│       └── Escalation_Procedures.pdf
+├── Product_Documentation/
+│   ├── API_Reference_v2.1.pdf
+│   ├── Feature_Specifications/
+│   └── User_Guides/
+└── Templates/
+    ├── Email_Templates.md
+    ├── Project_Proposal_Template.docx
+    └── Meeting_Notes_Template.md
 ```
 
-## Optimizing Retrieval
+### Naming Conventions
 
-### Configure Search Settings
+Use consistent naming patterns:
 
-```yaml
-search_config:
-  algorithm: "hybrid"  # keyword, semantic, or hybrid
+<CardGroup cols={2}>
+  <Card title="Date-Based" icon="calendar">
+    **For time-sensitive documents:**
+    ```
+    2024-Q4-Product-Roadmap.pdf
+    2024-01-15-Board-Meeting-Minutes.md
+    Weekly-Report-2024-03-01.docx
+    ```
+  </Card>
   
-  weights:
-    keyword_match: 0.3
-    semantic_similarity: 0.5
-    recency: 0.2
-    
-  boosting:
-    - field: "title"
-      boost: 2.0
-    - field: "tags"
-      boost: 1.5
-      
-  filters:
-    default:
-      - access_level: ["public", "team"]
-      - status: "active"
-```
+  <Card title="Category-Based" icon="folder">
+    **For reference documents:**
+    ```
+    HR-Policy-Remote-Work.pdf
+    API-Documentation-Payment-Gateway.md
+    Template-Customer-Onboarding-Email.txt
+    ```
+  </Card>
+</CardGroup>
 
-### Set Up Smart Indexing
+## Managing Document Updates
+
+### Version Control
+
+When updating documents in Memory Bank:
 
 <Steps>
-  <Step title="Enable Auto-Tagging">
-    ```yaml
-    auto_tagging:
-      enabled: true
-      
-      providers:
-        - nlp_entities
-        - topic_modeling
-        - sentiment_analysis
-        
-      confidence_threshold: 0.8
+  <Step title="Update the Document">
+    Upload the new version with a clear version indicator in the filename:
+    ```
+    Original: "API_Documentation.pdf"
+    Updated: "API_Documentation_v2.1.pdf"
     ```
   </Step>
   
-  <Step title="Configure Relationships">
-    ```yaml
-    relationship_detection:
-      enabled: true
-      
-      types:
-        - similar_content
-        - references
-        - updates_previous
-        - contradicts
+  <Step title="Update the Description">
+    Modify the description to reflect changes:
     ```
+    Old: "API documentation for payment processing. Created March 2024."
+    New: "API documentation for payment processing including new webhook 
+    endpoints and authentication methods. Updated November 2024."
+    ```
+  </Step>
+  
+  <Step title="Review Agent Connections">
+    Check which Agents use this document and verify they still work correctly with the updated version
+  </Step>
+  
+  <Step title="Archive Old Versions">
+    Move or delete outdated versions to avoid confusion, but keep them temporarily in case rollback is needed
   </Step>
 </Steps>
 
-## Managing Storage and Costs
+### Change Notifications
 
-### Monitor Usage
+When important documents are updated:
 
-Check your Memory Bank statistics:
-
-```yaml
-GET /api/memory/stats
-
-Response:
-{
-  "storage": {
-    "used": "8.5 GB",
-    "limit": "10 GB",
-    "percentage": 85
-  },
-  "documents": {
-    "count": 15420,
-    "by_type": {
-      "pdf": 8200,
-      "text": 5100,
-      "other": 2120
-    }
-  },
-  "queries": {
-    "last_30_days": 45200,
-    "avg_response_time": "120ms"
-  }
-}
-```
-
-### Implement Retention Policies
-
-<Warning>
-  Always backup important data before implementing retention policies
-</Warning>
-
-```yaml
-retention_policy:
-  default: "1 year"
-  
-  rules:
-    - type: "conversation_logs"
-      retain: "90 days"
-      
-    - type: "temporary_analysis"
-      retain: "30 days"
-      
-    - type: "compliance_documents"
-      retain: "7 years"
-      
-  actions:
-    before_deletion:
-      - create_summary
-      - notify_owner
-      - archive_metadata
-```
-
-### Optimize Storage
-
-<Tabs>
-  <Tab title="Deduplication">
-    Remove duplicate content:
-    ```yaml
-    deduplication:
-      strategy: "content_hash"
-      similarity_threshold: 0.95
-      
-      action: "merge"  # merge, keep_newest, keep_oldest
-      preserve_metadata: true
-    ```
-  </Tab>
-  
-  <Tab title="Compression">
-    Compress older content:
-    ```yaml
-    compression:
-      after_days: 90
-      
-      exclude:
-        - frequently_accessed
-        - marked_important
-        
-      algorithm: "zstd"
-      level: 3
-    ```
-  </Tab>
-  
-  <Tab title="Archival">
-    Move to cold storage:
-    ```yaml
-    archival:
-      after_days: 365
-      
-      criteria:
-        access_count: "< 5"
-        last_accessed: "> 180 days"
-        
-      destination: "cold_storage"
-      maintain_index: true
-    ```
-  </Tab>
-</Tabs>
-
-## Security and Access Control
-
-### Set Permissions
-
-```yaml
-permissions:
-  levels:
-    - name: "public"
-      description: "Everyone in organization"
-      
-    - name: "team"
-      description: "Specific team members"
-      
-    - name: "private"
-      description: "Owner only"
-      
-  inheritance: true
-  
-  audit_trail:
-    enabled: true
-    retention: "2 years"
-```
-
-### Enable Encryption
-
-```yaml
-encryption:
-  at_rest:
-    enabled: true
-    algorithm: "AES-256-GCM"
-    
-  in_transit:
-    enabled: true
-    min_tls_version: "1.3"
-    
-  field_level:
-    sensitive_fields: ["ssn", "credit_card", "api_key"]
-    algorithm: "RSA-4096"
-```
+1. **Document the changes** in the Description
+2. **Notify relevant team members** who work with connected Agents
+3. **Test affected Agents** to ensure they work with updated information
+4. **Update any related Actions** that might reference the changed content
 
 ## Best Practices
 
+### Document Quality
+
 <AccordionGroup>
-  <Accordion title="Regular Maintenance">
-    - Weekly: Review and tag new content
-    - Monthly: Clean up duplicates and outdated content
-    - Quarterly: Audit access permissions and usage patterns
+  <Accordion title="Clear Structure">
+    **Well-organized documents work better:**
+    - Use headings and sections
+    - Include table of contents for long documents
+    - Use bullet points and numbered lists
+    - Keep paragraphs focused and concise
   </Accordion>
   
-  <Accordion title="Naming Conventions">
-    Use consistent naming:
-    - `YYYY-MM-DD_document_name`
-    - `project_category_version`
-    - `team_type_description`
+  <Accordion title="Accurate Information">
+    **Keep information current:**
+    - Regular review schedule for time-sensitive documents
+    - Clear dates on when information was last verified
+    - Remove or update outdated information
+    - Note when information might become stale
   </Accordion>
   
-  <Accordion title="Quality Control">
-    - Verify accuracy before adding to Memory Bank
-    - Regular reviews of AI-generated summaries
-    - Maintain source attribution
+  <Accordion title="Searchable Content">
+    **Make documents easy to find:**
+    - Use common terminology your team knows
+    - Include synonyms and alternative terms
+    - Add relevant keywords naturally in the text
+    - Cross-reference related documents
   </Accordion>
 </AccordionGroup>
 
+### Access Management
+
+<Steps>
+  <Step title="Organize by Access Level">
+    Group documents by who should have access:
+    - Public: Everyone in organization
+    - Team: Specific departments or projects
+    - Private: Restricted to specific individuals
+  </Step>
+  
+  <Step title="Regular Access Reviews">
+    Periodically review who has access to what documents and adjust as needed
+  </Step>
+  
+  <Step title="Document Sensitivity">
+    Be careful with sensitive information in Memory Bank documents since Agents may reference this content
+  </Step>
+</Steps>
+
 ## Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| Slow searches | Rebuild search index, optimize query filters |
-| Storage full | Implement retention policies, upgrade plan |
-| Can't find documents | Check permissions, improve tagging |
-| Sync failures | Verify API credentials, check rate limits |
+<AccordionGroup>
+  <Accordion title="Agent Can't Find Information">
+    **Check:**
+    - Document is properly connected to the Agent
+    - Description clearly explains what the document contains
+    - Document is in the correct load mode (description vs. full text)
+    - Information exists in the document and isn't buried in complex formatting
+  </Accordion>
+  
+  <Accordion title="Agent Gives Outdated Information">
+    **Solutions:**
+    - Update the document with current information
+    - Check if Agent is connected to old version of document
+    - Verify document description reflects current content
+    - Test Agent after updating documents
+  </Accordion>
+  
+  <Accordion title="Document Upload Failures">
+    **Common causes:**
+    - File size too large (check plan limits)
+    - Unsupported file format
+    - Corrupted file
+    - Network connectivity issues
+    
+    **Solutions:**
+    - Try uploading smaller files or compress large documents
+    - Convert to supported format
+    - Try uploading from different network
+  </Accordion>
+</AccordionGroup>
 
-## Next Steps
+## Related Features
 
-- [Configure Context Pool](/how-to/memory/context-pool)
-- [Set Up Knowledge Graphs](/how-to/memory/knowledge-graphs)
-- [Memory Analytics](/how-to/memory/analytics)
+- [Agent Management](/how-to/agents/create-custom-agent) - Connect Memory Bank to Agents
+- [Action Creation](/how-to/actions/create-action) - Use Memory Bank documents in Actions
+- [Issue Management](/how-to/work/issue-management) - Reference documents in issue workflows
 
 <Note>
-  **Remember**: A well-organized Memory Bank is the foundation of effective AI-native work. Invest time in organization—it pays dividends in productivity.
+  Memory Bank is most effective when documents are well-organized, clearly described, and regularly maintained. Think of it as building a knowledge foundation that your Agents and Actions can reliably use to make better decisions.
 </Note>

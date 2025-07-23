@@ -1,616 +1,528 @@
 ---
-title: "MCP Integration"
-description: "Connect external tools and services using Model Context Protocol for seamless AI agent interactions"
-sidebarTitle: "MCP Integration"
+title: "MCP Tools"
+description: "Use Model Context Protocol tools to extend Agent and Action capabilities with external services"
+sidebarTitle: "MCP Tools"
 ---
 
 <Info>
-  MCP (Model Context Protocol) enables AI agents to securely access and interact with external tools, databases, and services in a standardized way.
+  MCP (Model Context Protocol) tools provide Agents and Actions with secure access to external systems like GitHub, databases, and APIs through a standardized interface.
 </Info>
 
-## What is MCP?
+## What are MCP Tools?
 
-**Model Context Protocol (MCP)** is an open standard that allows AI agents to:
+MCP tools are external capabilities that you can bind to your Agents and Actions to extend their functionality. Each MCP tool provides a secure, standardized way to interact with specific external systems:
 
 <CardGroup cols={2}>
-  <Card title="🔗 External Connections" icon="link">
-    Connect to databases, APIs, and third-party services
+  <Card title="GitHub" icon="github">
+    **Repository operations**
     
-    **Examples:** Slack, GitHub, Google Workspace, CRM systems
+    Create issues, manage pull requests, search code, trigger workflows
   </Card>
   
-  <Card title="🛠️ Tool Access" icon="wrench">
-    Use external tools and utilities safely
+  <Card title="Databases" icon="database">
+    **Data operations**
     
-    **Examples:** Code editors, terminal access, file systems
+    Query PostgreSQL, MySQL, read/write records, generate reports
   </Card>
   
-  <Card title="📊 Data Sources" icon="database">
-    Access structured and unstructured data
+  <Card title="File Systems" icon="folder">
+    **File operations**
     
-    **Examples:** SQL databases, document stores, search indexes
+    Read, write, organize files within secure directory boundaries
   </Card>
   
-  <Card title="⚡ Real-time Integration" icon="zap">
-    Stream data and events from external systems
+  <Card title="Web Services" icon="globe">
+    **API integration**
     
-    **Examples:** Live metrics, notifications, webhooks
+    Slack messaging, Google Drive, Stripe payments, custom APIs
   </Card>
 </CardGroup>
 
-## MCP Architecture
+## How MCP Tools Work in Cagen
 
-### Protocol Components
+### Tool Binding Architecture
 
 ```mermaid
 graph TB
-    Agent[AI Agent] --> MCP[MCP Client]
-    MCP --> Server1[MCP Server 1]
-    MCP --> Server2[MCP Server 2]
-    MCP --> Server3[MCP Server 3]
-    
-    Server1 --> DB[(Database)]
-    Server2 --> API[External API]
-    Server3 --> FS[File System]
-    
-    subgraph "MCP Servers"
-        Server1
-        Server2
-        Server3
+    subgraph "Cagen Platform"
+        Agent[Agent]
+        Action[Action]
     end
     
-    subgraph "External Resources"
-        DB
-        API
-        FS
+    subgraph "MCP Tools"
+        GitHub[GitHub Tool]
+        Database[Database Tool]
+        Filesystem[Filesystem Tool]
+        Slack[Slack Tool]
     end
+    
+    subgraph "External Systems"
+        GH[GitHub API]
+        DB[(Database)]
+        FS[File System]
+        SL[Slack API]
+    end
+    
+    Agent --> GitHub
+    Agent --> Database
+    Action --> Filesystem
+    Action --> Slack
+    
+    GitHub --> GH
+    Database --> DB
+    Filesystem --> FS
+    Slack --> SL
 ```
 
-### Core Concepts
+### Understanding MCP Tool Binding
+
+When you bind MCP tools to Agents or Actions, you're giving them specific capabilities:
 
 <AccordionGroup>
-  <Accordion title="MCP Client">
-    **Built into Cagen agents** - handles protocol communication
+  <Accordion title="Agent Tool Binding">
+    **Agents can use MCP tools for intelligent decision-making:**
     ```yaml
-    client_features:
-      - Resource discovery
-      - Tool invocation
-      - Prompt templates
-      - Sampling requests
-      - Progress tracking
+    Example: Customer Support Agent
+    Bound MCP Tools:
+      - github: Create issues for bug reports
+      - database: Look up customer account information
+      - slack: Notify team members about escalations
+    
+    Workflow:
+      User: "I found a bug in the login flow"
+      Agent: Uses GitHub tool to create detailed issue
+      Agent: Uses Slack tool to notify development team
     ```
   </Accordion>
   
-  <Accordion title="MCP Server">
-    **External service provider** - exposes capabilities via MCP
+  <Accordion title="Action Tool Usage">
+    **Actions use MCP tools for specific operations:**
     ```yaml
-    server_responsibilities:
-      - Authenticate requests
-      - Validate permissions
-      - Execute operations
-      - Return structured responses
-      - Handle errors gracefully
+    Example: Weekly Report Action
+    Required MCP Tools:
+      - database: Query metrics from last week
+      - filesystem: Save report to shared folder
+      - slack: Send report to stakeholders
+    
+    Execution:
+      1. Database tool: SELECT metrics FROM analytics WHERE...
+      2. Filesystem tool: Write formatted report
+      3. Slack tool: Send notification with file link
     ```
   </Accordion>
   
-  <Accordion title="Resources">
-    **Data and content** available through MCP servers
+  <Accordion title="Tool Permissions">
+    **Fine-grained control over what each tool can do:**
     ```yaml
-    resource_types:
-      - Files and documents
-      - Database records
-      - API responses
-      - Live streams
-      - Generated content
-    ```
-  </Accordion>
-  
-  <Accordion title="Tools">
-    **Functions and operations** agents can perform
-    ```yaml
-    tool_categories:
-      - Data operations (read, write, update)
-      - External API calls
-      - File system operations
-      - System commands
-      - Custom business logic
+    Security Model:
+      - Tools only access what you explicitly allow
+      - Different permissions for different Agents/Actions
+      - All tool usage is logged and auditable
+      - Rate limiting prevents abuse
     ```
   </Accordion>
 </AccordionGroup>
 
-## Setting Up MCP Integrations
+## Adding MCP Tools to Your Workspace
 
-### Installing MCP Servers
+### Available MCP Tools
 
-<Tabs>
-  <Tab title="From Cagen Store">
-    **Popular MCP Servers:**
-    ```bash
-    # Install from Cagen Store
-    cagen mcp install github-integration
-    cagen mcp install slack-connector
-    cagen mcp install postgresql-server
-    cagen mcp install filesystem-server
+MCP tools are ready-to-use capabilities you can immediately bind to your Agents and Actions:
+
+<AccordionGroup>
+  <Accordion title="Core Development Tools">
+    **GitHub Integration**
+    - Create and manage issues
+    - Review and comment on pull requests
+    - Search repositories and code
+    - Trigger workflows and actions
     
-    # View available servers
-    cagen mcp browse
-    ```
-  </Tab>
+    **File System Access**
+    - Read and write files securely
+    - List directory contents
+    - Monitor file changes
+    - Organize project files
+    
+    **Database Operations**
+    - Query PostgreSQL, MySQL databases
+    - Execute safe read/write operations
+    - Generate reports from data
+    - Monitor database performance
+  </Accordion>
   
-  <Tab title="Official MCP Servers">
-    ```bash
-    # Install official MCP servers
-    npm install -g @modelcontextprotocol/server-filesystem
-    npm install -g @modelcontextprotocol/server-github
-    npm install -g @modelcontextprotocol/server-postgres
-    npm install -g @modelcontextprotocol/server-slack
+  <Accordion title="Communication Tools">
+    **Slack Integration**
+    - Send messages to channels
+    - Create channels for projects
+    - Schedule reminders
+    - Monitor team activity
     
-    # Start servers
-    mcp-server-filesystem --port 3001 --root-path /workspace
-    mcp-server-github --port 3002 --token $GITHUB_TOKEN
-    ```
-  </Tab>
+    **Email Operations**
+    - Send formatted emails
+    - Process incoming mail
+    - Manage email lists
+    - Track email engagement
+  </Accordion>
   
-  <Tab title="Custom MCP Servers">
-    Create your own MCP server:
-    ```python
-    # custom_mcp_server.py
-    from mcp.server import Server
-    from mcp.types import Resource, Tool
+  <Accordion title="Business System Tools">
+    **CRM Systems**
+    - Create and update customer records
+    - Track interaction history
+    - Generate sales reports
+    - Manage lead pipelines
     
-    app = Server("custom-business-server")
-    
-    @app.list_resources()
-    async def list_resources():
-        return [
-            Resource(
-                uri="crm://contacts",
-                name="Customer Contacts",
-                description="Access to CRM contacts"
-            )
-        ]
-    
-    @app.read_resource()
-    async def read_resource(uri: str):
-        if uri == "crm://contacts":
-            return await get_crm_contacts()
-        
-    @app.list_tools()
-    async def list_tools():
-        return [
-            Tool(
-                name="create_lead",
-                description="Create new sales lead",
-                inputSchema={
-                    "type": "object",
-                    "properties": {
-                        "name": {"type": "string"},
-                        "email": {"type": "string"},
-                        "company": {"type": "string"}
-                    }
-                }
-            )
-        ]
-    
-    @app.call_tool()
-    async def call_tool(name: str, arguments: dict):
-        if name == "create_lead":
-            return await create_sales_lead(**arguments)
-    
-    if __name__ == "__main__":
-        app.run(port=3003)
-    ```
-  </Tab>
-</Tabs>
+    **Analytics Platforms**  
+    - Query business metrics
+    - Generate custom reports
+    - Create data visualizations
+    - Monitor KPIs and alerts
+  </Accordion>
+</AccordionGroup>
 
-### Configuring MCP Connections
+### Binding Tools to Agents and Actions
 
 <Steps>
-  <Step title="Register MCP Server">
-    ```yaml
-    # config/mcp_servers.yaml
-    servers:
-      github:
-        transport: "stdio"
-        command: "mcp-server-github"
-        args: ["--token", "${GITHUB_TOKEN}"]
-        env:
-          GITHUB_API_URL: "https://api.github.com"
-          
-      filesystem:
-        transport: "http"
-        url: "http://localhost:3001"
-        auth:
-          type: "bearer"
-          token: "${FILESYSTEM_TOKEN}"
-          
-      database:
-        transport: "stdio" 
-        command: "mcp-server-postgres"
-        args: ["--connection", "${DATABASE_URL}"]
-        timeout: 30000
+  <Step title="Navigate to Agent/Action Configuration">
+    When creating or editing an Agent or Action, go to the **Tools** section
+  </Step>
+  
+  <Step title="Select Available MCP Tools">
+    Choose from the list of available MCP tools:
+    ```
+    ✓ GitHub - Repository and issue management
+    ✓ Database - PostgreSQL query operations  
+    ✓ File System - Secure file read/write access
+    ✓ Slack - Team communication and notifications
+    ✓ Web Search - Internet search capabilities
     ```
   </Step>
   
-  <Step title="Configure Agent Access">
+  <Step title="Configure Tool Permissions">
+    Set what each tool can do:
     ```yaml
-    # agent_mcp_config.yaml
-    agent_permissions:
-      @dev-agent:
-        allowed_servers: ["github", "filesystem"]
-        allowed_tools: 
-          github: ["create_issue", "create_pr", "search_repos"]
-          filesystem: ["read_file", "write_file", "list_directory"]
-          
-      @data-agent:
-        allowed_servers: ["database"]
-        allowed_tools:
-          database: ["query", "insert", "update"]
-        rate_limits:
-          database: "100/hour"
-          
-      @support-agent:
-        allowed_servers: ["crm", "slack"]
-        allowed_tools: ["read_only"]
+    GitHub Tool Permissions:
+      ✓ Read repositories
+      ✓ Create issues
+      ✗ Delete repositories (not allowed)
+      ✗ Manage organization settings (not allowed)
+    
+    Database Tool Permissions:
+      ✓ SELECT queries
+      ✓ INSERT new records
+      ✗ DROP tables (not allowed)
+      ✗ ALTER schema (not allowed)
     ```
   </Step>
   
-  <Step title="Test Connectivity">
-    ```bash
-    # Test MCP server connection
-    cagen mcp test github
-    cagen mcp test filesystem --verbose
-    
-    # Test agent access
-    cagen agent test @dev-agent --mcp github
-    
-    # View available resources
-    cagen mcp resources github
-    cagen mcp tools filesystem
-    ```
+  <Step title="Test Tool Binding">
+    Use the built-in test interface to verify the tool works correctly with your Agent or Action
   </Step>
 </Steps>
 
-## Common MCP Use Cases
+## Real-World MCP Tool Usage
 
-### Development Tools Integration
+### Agent Tool Examples
 
 <AccordionGroup>
-  <Accordion title="GitHub Integration">
+  <Accordion title="Customer Support Agent with Multiple Tools">
+    **Agent Configuration:**
     ```yaml
-    # Enable agents to work with GitHub
-    use_cases:
-      - Create issues from conversation
-      - Review and comment on PRs
-      - Search codebase for context
-      - Trigger CI/CD workflows
-      - Generate release notes
-      
-    example_conversation:
-      User: "Create an issue for the login bug we discussed"
-      Agent: "I'll create a GitHub issue with the details from our conversation"
-      
-      [MCP Tool: github.create_issue]
-      Parameters:
-        title: "Fix login validation bug"
-        body: "Based on conversation with user..."
-        labels: ["bug", "authentication"]
-        assignees: ["dev-team-lead"]
+    Agent: @customer-support
+    Bound MCP Tools:
+      - github: Create bug reports from customer issues
+      - database: Look up customer account information
+      - slack: Notify engineering team of critical issues
+    ```
+    
+    **Real Conversation:**
+    ```
+    Customer: "I can't log into my account, getting error 500"
+    
+    Agent: "Let me help you with that login issue."
+    [Uses database tool to check account status]
+    
+    Agent: "I see your account is active. This looks like a server error."
+    [Uses github tool to create issue with error details]
+    
+    Agent: "I've created issue #1247 for our engineering team."
+    [Uses slack tool to notify #engineering channel]
+    
+    Agent: "Engineering has been notified. You should receive an 
+    email update within 2 hours when this is resolved."
     ```
   </Accordion>
   
-  <Accordion title="Database Operations">
+  <Accordion title="Development Agent with Code Access">
+    **Agent Configuration:**
     ```yaml
-    # Direct database access for agents
-    capabilities:
-      - Query customer data for support
-      - Generate analytics reports
-      - Update records based on conversations
-      - Monitor data quality issues
-      
-    example_usage:
-      User: "How many users signed up last month?"
-      Agent: "Let me check our user database..."
-      
-      [MCP Tool: postgres.query]
-      Query: |
-        SELECT COUNT(*) as new_users 
-        FROM users 
-        WHERE created_at >= date_trunc('month', CURRENT_DATE - INTERVAL '1 month')
-        AND created_at < date_trunc('month', CURRENT_DATE)
-      
-      Agent: "We had 1,247 new user signups last month."
+    Agent: @dev-assistant  
+    Bound MCP Tools:
+      - github: Repository operations and code search
+      - filesystem: Read/write project files
+      - database: Query application database for context
     ```
-  </Accordion>
-  
-  <Accordion title="File System Access">
-    ```yaml
-    # Safe file operations
-    operations:
-      - Read project documentation
-      - Update configuration files  
-      - Process uploaded files
-      - Generate reports and exports
-      
-    security_controls:
-      - Restricted to specific directories
-      - File type validation
-      - Size limits enforced
-      - Audit logging enabled
-      
-    example_workflow:
-      User: "Update the API documentation with the new endpoints"
-      Agent: "I'll read the current docs and add the new endpoints"
-      
-      [MCP Tool: filesystem.read_file]
-      Path: "/docs/api/endpoints.md"
-      
-      [MCP Tool: filesystem.write_file] 
-      Path: "/docs/api/endpoints.md"
-      Content: [updated documentation]
+    
+    **Real Workflow:**
+    ```
+    User: "Help me debug why user registrations are failing"
+    
+    Agent: "I'll investigate the registration flow for you."
+    [Uses filesystem tool to read registration code]
+    
+    Agent: "Looking at the registration handler, I see it connects to the users table."
+    [Uses database tool to check recent registration attempts]
+    
+    Agent: "Found the issue - there are 15 failed registrations with 
+    'email_unique_constraint' errors in the last hour."
+    [Uses github tool to search for recent changes to email validation]
+    
+    Agent: "The bug was introduced in commit abc123f. The email 
+    validation is now case-sensitive but the database constraint isn't."
     ```
   </Accordion>
 </AccordionGroup>
 
-### Business System Integration
+### Action Tool Examples
 
 <CardGroup cols={2}>
-  <Card title="📧 Communication Platforms" icon="message-circle">
-    **Slack, Teams, Email**
-    - Send notifications and updates
-    - Create channels for new projects
-    - Schedule messages and reminders
-    - Monitor team communication
+  <Card title="Weekly Report Action" icon="file-text">
+    **Bound Tools:** Database, File System, Slack
+    
+    **Process:**
+    1. Database tool queries weekly metrics
+    2. File System tool saves formatted report
+    3. Slack tool sends to stakeholders
   </Card>
   
-  <Card title="📊 Analytics & Reporting" icon="bar-chart">
-    **BI Tools, Dashboards**  
-    - Generate custom reports
-    - Query business metrics
-    - Create data visualizations
-    - Alert on anomalies
+  <Card title="Bug Triage Action" icon="bug">
+    **Bound Tools:** GitHub, Database, Slack
+    
+    **Process:**
+    1. GitHub tool reads new issues
+    2. Database tool checks similar past issues
+    3. Slack tool notifies appropriate team
   </Card>
   
-  <Card title="💼 CRM & Sales" icon="users">
-    **Salesforce, HubSpot**
-    - Create and update leads
-    - Track customer interactions  
-    - Generate sales reports
-    - Automate follow-ups
+  <Card title="Customer Onboarding Action" icon="user-plus">
+    **Bound Tools:** Database, Email, File System
+    
+    **Process:**
+    1. Database tool creates customer record
+    2. Email tool sends welcome sequence
+    3. File System tool generates account folder
   </Card>
   
-  <Card title="⚙️ Operations Tools" icon="cog">
-    **Monitoring, Deployment**
-    - Check system health
-    - Deploy applications
-    - Manage infrastructure
-    - Handle incident response
+  <Card title="Code Review Action" icon="code">
+    **Bound Tools:** GitHub, Slack, Database
+    
+    **Process:**
+    1. GitHub tool analyzes pull request
+    2. Database tool checks code quality metrics
+    3. Slack tool requests reviews from team
   </Card>
 </CardGroup>
 
-## Security & Best Practices
+## MCP Tool Security
 
-### Authentication & Authorization
+### Built-in Safety Features
+
+Cagen handles MCP tool security automatically, so you can focus on building great Agents and Actions:
+
+<CardGroup cols={2}>
+  <Card title="Permission Control" icon="shield-check">
+    **Automatic restrictions**
+    
+    - Tools only access what you explicitly allow
+    - No ability to exceed granted permissions
+    - Rate limiting prevents abuse
+    - All tool usage logged for audit
+  </Card>
+  
+  <Card title="Secure Execution" icon="lock">
+    **Isolated operations**
+    
+    - Each tool call runs in secure container
+    - No persistent access to external systems
+    - Credentials managed automatically
+    - Network access strictly controlled
+  </Card>
+</CardGroup>
+
+### Setting Tool Permissions
+
+When binding tools to Agents or Actions, you control exactly what they can do:
 
 <Tabs>
-  <Tab title="Server Authentication">
+  <Tab title="Read-Only Access">
+    **Safe for most Agents:**
     ```yaml
-    # MCP Server security
-    authentication:
-      required: true
-      methods:
-        - api_key
-        - oauth2
-        - jwt
-        - mutual_tls
-        
-    authorization:
-      rbac_enabled: true
-      roles:
-        - admin: ["*"]
-        - developer: ["read", "write:code"]
-        - analyst: ["read:data", "query:database"]
-        
-    audit_logging:
-      enabled: true
-      include: ["tool_calls", "resource_access", "auth_events"]
-      retention: "90 days"
-    ```
-  </Tab>
-  
-  <Tab title="Agent Permissions">
-    ```yaml
-    # Fine-grained agent access
-    permission_model:
-      default: "deny_all"
+    GitHub Tool - Read Only:
+      ✓ Read repository contents
+      ✓ Search issues and pull requests
+      ✓ View commit history
+      ✗ Create or modify anything
       
-      grants:
-        by_agent:
-          "@dev-agent":
-            servers: ["github", "filesystem"]
-            max_requests_per_hour: 1000
-            
-        by_tool:
-          "database.query":
-            allowed_agents: ["@data-agent"]
-            require_approval: false
-            
-        by_resource:
-          "filesystem://secrets/":
-            denied_agents: ["*"]
-            require_admin: true
+    Database Tool - Query Only:
+      ✓ SELECT queries for reports
+      ✓ Read customer data for support
+      ✗ INSERT, UPDATE, or DELETE
+      ✗ Schema modifications
     ```
   </Tab>
   
-  <Tab title="Network Security">
+  <Tab title="Limited Write Access">
+    **For specific Actions:**
     ```yaml
-    # Network-level protection
-    network_security:
-      mcp_servers:
-        - bind_interface: "127.0.0.1"  # Local only
-        - use_tls: true
-        - client_cert_required: true
-        
-      firewall_rules:
-        - allow_port: 3000-3010
-        - source_restriction: "internal_network"
-        
-      monitoring:
-        - connection_logging: true
-        - rate_limit_alerts: true
-        - anomaly_detection: enabled
+    GitHub Tool - Issue Management:
+      ✓ Create issues from bug reports
+      ✓ Comment on existing issues
+      ✓ Update issue labels
+      ✗ Delete issues or repositories
+      ✗ Manage repository settings
+      
+    Database Tool - Safe Updates:
+      ✓ INSERT new customer records
+      ✓ UPDATE specific fields
+      ✗ DELETE any records
+      ✗ DROP or ALTER tables
     ```
   </Tab>
 </Tabs>
 
-### Error Handling & Reliability
+### Automatic Error Handling
 
-```yaml
-reliability_measures:
-  retry_policy:
-    max_attempts: 3
-    backoff: "exponential"
-    jitter: true
-    
-  timeout_handling:
-    default: 30000  # 30 seconds
-    long_operations: 300000  # 5 minutes
-    
-  circuit_breaker:
-    failure_threshold: 5
-    recovery_timeout: 60000
-    
-  fallback_strategies:
-    - graceful_degradation: true
-    - cached_responses: "when_available"  
-    - human_escalation: "on_critical_failure"
-    
-  health_checks:
-    interval: 30000
-    endpoints: ["/health", "/status"]
-    auto_disable_unhealthy: true
-```
-
-## Monitoring & Observability
-
-### MCP Metrics Dashboard
+Cagen manages tool reliability automatically:
 
 <Steps>
-  <Step title="Connection Health">
-    Monitor MCP server connectivity:
-    ```yaml
-    health_metrics:
-      - server_uptime
-      - connection_count
-      - response_time_p95
-      - error_rate
-      - request_volume
-    ```
+  <Step title="Automatic Retries">
+    **Failed tool calls are retried automatically**
+    - Network timeouts: 3 retries with exponential backoff
+    - Rate limiting: Intelligent delay and retry
+    - Service unavailable: Circuit breaker with graceful fallback
   </Step>
   
-  <Step title="Usage Analytics">
-    Track tool and resource usage:
-    ```yaml
-    usage_metrics:
-      - tools_called_per_hour
-      - most_used_resources
-      - agent_activity_patterns
-      - cost_per_operation
-    ```
+  <Step title="Graceful Degradation">
+    **When tools are unavailable**
+    - Agents explain what they can't do
+    - Actions pause and wait for tool recovery
+    - Alternative approaches suggested when possible
   </Step>
   
-  <Step title="Performance Monitoring">
-    Optimize MCP operations:
-    ```yaml
-    performance_metrics:
-      - tool_execution_time
-      - resource_fetch_latency
-      - concurrent_connections
-      - memory_usage
-      - cpu_utilization
-    ```
+  <Step title="Error Reporting">
+    **Clear feedback on tool issues**
+    - User-friendly error messages
+    - Detailed logs for debugging
+    - Automatic escalation for critical failures
   </Step>
 </Steps>
 
-### Alerting Rules
+## Monitoring Tool Usage
 
-```yaml
-alerts:
-  high_error_rate:
-    condition: "error_rate > 5% for 5 minutes"
-    severity: "warning"
-    notify: ["ops-team"]
-    
-  server_down:
-    condition: "server_uptime == 0"
-    severity: "critical"  
-    notify: ["ops-team", "on-call"]
-    escalate_after: "2 minutes"
-    
-  slow_responses:
-    condition: "p95_response_time > 10s"
-    severity: "warning"
-    notify: ["performance-team"]
-    
-  quota_exceeded:
-    condition: "requests_per_hour > quota * 0.9"
-    severity: "info"
-    notify: ["agent-owners"]
-```
+### Built-in Analytics
 
-## Troubleshooting
+Cagen provides comprehensive visibility into how your Agents and Actions use MCP tools:
+
+<Tabs>
+  <Tab title="Usage Dashboard">
+    **See how tools are being used:**
+    - Which Agents use which tools most often
+    - Success rates for different tool operations
+    - Average response times for tool calls
+    - Cost breakdown by tool and operation
+  </Tab>
+  
+  <Tab title="Performance Metrics">
+    **Optimize tool performance:**
+    - Identify slow or failing tool operations
+    - Track tool usage patterns over time
+    - Monitor rate limiting and quota usage
+    - Spot opportunities for efficiency improvements
+  </Tab>
+  
+  <Tab title="Error Analysis">
+    **Understand and fix issues:**
+    - Common error patterns by tool
+    - Failed operations with context
+    - Retry success rates
+    - User impact of tool failures
+  </Tab>
+</Tabs>
+
+### Automatic Alerts
+
+Get notified when tool issues affect your workflows:
+
+<CardGroup cols={2}>
+  <Card title="Tool Failures" icon="alert-triangle">
+    **When tools stop working:**
+    - Immediate notification of tool outages
+    - Impact assessment on affected Agents/Actions
+    - Estimated resolution times
+    - Alternative workflow suggestions
+  </Card>
+  
+  <Card title="Usage Limits" icon="gauge">
+    **Before you hit quotas:**
+    - 80% quota usage warnings
+    - Rate limiting notifications
+    - Cost threshold alerts
+    - Optimization recommendations
+  </Card>
+</CardGroup>
+
+## Troubleshooting MCP Tools
 
 <AccordionGroup>
-  <Accordion title="Connection Issues">
-    **Common Problems:**
-    - MCP server not responding
-    - Authentication failures
-    - Network connectivity issues
-    - Version incompatibilities
+  <Accordion title="Tool Not Working">
+    **What to check:**
+    - Is the tool properly bound to your Agent/Action?
+    - Do you have the required permissions for the operation?
+    - Is the external service (GitHub, database, etc.) accessible?
+    - Have you exceeded any rate limits?
     
-    **Debugging Steps:**
-    1. Check server logs: `cagen mcp logs [server-name]`
-    2. Test connectivity: `cagen mcp ping [server-name]`
-    3. Verify credentials: `cagen mcp auth test [server-name]`
-    4. Check firewall rules and network access
+    **Quick fixes:**
+    - Check the tool binding configuration
+    - Review permission settings
+    - Test the tool with a simpler operation
+    - Wait if rate limited, or increase quotas
   </Accordion>
   
-  <Accordion title="Permission Denied">
-    **Causes:**
-    - Agent lacks required permissions
-    - Server-side authorization failure
-    - Resource access restrictions
-    - Rate limiting
+  <Accordion title="Slow Tool Performance">
+    **Common causes:**
+    - External service is slow or overloaded
+    - Tool is making inefficient operations
+    - Network latency to external service
+    - Too many concurrent tool calls
     
-    **Resolution:**
-    1. Review agent permissions configuration
-    2. Check server-side access controls
-    3. Verify resource availability
-    4. Monitor rate limit usage
+    **Solutions:**
+    - Optimize tool operations (better queries, smaller requests)
+    - Implement caching where appropriate
+    - Limit concurrent tool usage
+    - Contact external service if consistently slow
   </Accordion>
   
-  <Accordion title="Performance Issues">
-    **Symptoms:**
-    - Slow tool execution
-    - Timeouts on resource access
-    - High memory usage
-    - Connection pool exhaustion
+  <Accordion title="Permission Errors">
+    **Understanding permissions:**
+    - Each tool has specific permissions you grant
+    - Agents/Actions can only do what you allow
+    - External services may have their own access controls
+    - Some operations require elevated permissions
     
-    **Optimization:**
-    1. Implement caching strategies
-    2. Optimize query patterns
-    3. Add connection pooling
-    4. Scale MCP servers horizontally
+    **Resolution steps:**
+    - Review tool permissions in Agent/Action settings
+    - Check external service permissions (GitHub tokens, database roles)
+    - Test with minimal permissions first, then expand
+    - Contact admin if you need elevated access
   </Accordion>
 </AccordionGroup>
 
 ## Related Features
 
-- [Action Management](/how-to/actions/create-action) - Create automated actions using MCP
-- [Agent Configuration](/how-to/agents/create-custom-agent) - Configure agents to use MCP
-- [Store Integration](/how-to/store/store-management) - Install MCP servers from store
-- [Runtime Environment](/how-to/runtime/runtime-environment) - MCP server execution environment
+- [Agent Creation](/how-to/agents/create-custom-agent) - Bind MCP tools to Agents
+- [Action Management](/how-to/actions/create-action) - Use MCP tools in Actions
+- [Runtime Environment](/reference/system/runtime-environment) - Where MCP tools execute
+- [Issue Management](/how-to/work/issue-management) - Tools in issue workflows
 
 <Note>
-  MCP enables powerful integrations while maintaining security and reliability. Start with well-tested MCP servers from the store, then gradually add custom integrations as your needs grow.
+  MCP tools extend your Agents and Actions with external capabilities while maintaining security and reliability. Start with the core tools (GitHub, Database, File System) and add specialized tools as your workflows grow.
 </Note>

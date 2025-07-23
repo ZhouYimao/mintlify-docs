@@ -1,452 +1,437 @@
 ---
-title: "Built-in Agent Types"
-description: "Complete reference for all pre-built Agent templates available in Cagen"
-sidebarTitle: "Built-in Agents"
+title: "Agent Types and Patterns"
+description: "Common agent patterns and approaches for different business functions"
+sidebarTitle: "Agent Patterns"
 ---
 
 <Info>
-  All built-in Agents can be customized to fit your specific needs. Use them as starting points and modify as required.
+  Cagen doesn't provide pre-built agent templates. Instead, you create custom agents powered by Claude Code for your specific needs. This guide shows common patterns and approaches.
 </Info>
 
-## Agent Template Overview
+## Common Agent Patterns
 
-| Agent Type | Primary Function | Best For | Pricing Tier |
-|------------|------------------|----------|--------------|
-| Growth Hacker | Marketing & Growth | Startups, Marketers | All plans |
-| Customer Success | Support & Engagement | SaaS, Service businesses | All plans |
-| Code Review | Development Quality | Dev teams | All plans |
-| Data Intelligence | Analysis & Insights | Analysts, Decision makers | All plans |
-| Personal Productivity | Task Management | Everyone | All plans |
+Based on how teams use Cagen, here are the most effective agent patterns you can implement:
 
-## Growth Hacker Agent
+## Customer Support Agents
 
-### Capabilities
+### Purpose and Approach
 
-<Tabs>
-  <Tab title="Core Functions">
-    - A/B test design and execution
-    - Growth metrics tracking
-    - Campaign performance analysis
-    - Competitor monitoring
-    - SEO optimization suggestions
-    - Content multiplication
-  </Tab>
-  
-  <Tab title="Integrations">
-    - Google Analytics
-    - Facebook Ads
-    - Google Ads
-    - LinkedIn Campaign Manager
-    - Mailchimp/SendGrid
-    - Social media platforms
-  </Tab>
-  
-  <Tab title="Outputs">
-    - Weekly growth reports
-    - A/B test results
-    - Campaign ROI analysis
-    - Competitor insights
-    - SEO recommendations
-    - Content calendars
-  </Tab>
-</Tabs>
-
-### Configuration Options
-
-```yaml
-growth_hacker_config:
-  focus_areas:
-    - acquisition
-    - activation
-    - retention
-    - referral
-    - revenue
+<CardGroup cols={2}>
+  <Card title="Primary Function" icon="headset">
+    **Handle customer inquiries and issues**
     
-  tracking:
-    primary_metric: "monthly_active_users"
-    secondary_metrics:
-      - conversion_rate
-      - customer_acquisition_cost
-      - lifetime_value
-      
-  experiment_velocity: "2_per_week"
+    Process support tickets, provide answers from knowledge base, escalate complex issues to humans
+  </Card>
   
-  reporting:
-    frequency: "weekly"
-    format: "executive_summary"
-    include_recommendations: true
-```
-
-### Performance Metrics
-
-- **Average improvement**: 35% growth in primary metric within 3 months
-- **Test velocity**: 8-10 experiments per month
-- **Insight generation**: 20+ actionable insights weekly
-
-## Customer Success Agent
-
-### Capabilities
-
-<Tabs>
-  <Tab title="Core Functions">
-    - 24/7 customer inquiry handling
-    - Sentiment analysis
-    - Issue escalation
-    - Proactive outreach
-    - Feedback collection
-    - Success metrics tracking
-  </Tab>
-  
-  <Tab title="Integrations">
-    - Intercom
-    - Zendesk
-    - Freshdesk
-    - Slack/Discord
-    - Email systems
-    - CRM platforms
-  </Tab>
-  
-  <Tab title="Outputs">
-    - Response drafts
-    - Sentiment reports
-    - Escalation alerts
-    - Customer health scores
-    - Satisfaction surveys
-    - Retention analysis
-  </Tab>
-</Tabs>
-
-### Configuration Options
-
-```yaml
-customer_success_config:
-  response_mode:
-    speed: "immediate"  # immediate, reviewed, scheduled
-    tone: "friendly_professional"
-    personalization_level: "high"
+  <Card title="Key Capabilities" icon="cog">
+    **Claude Code enables intelligent responses**
     
-  escalation_rules:
-    - sentiment: "negative"
-      confidence: "> 0.8"
-      action: "notify_human"
-      
-    - keywords: ["refund", "cancel", "angry"]
-      action: "immediate_escalation"
-      
-  proactive_outreach:
-    - trigger: "no_activity_30_days"
-      message_type: "check_in"
-      
-    - trigger: "feature_underutilization"
-      message_type: "tips_and_tricks"
-```
+    Understand customer context, search documentation, create follow-up tasks, update CRM records
+  </Card>
+</CardGroup>
 
-### Performance Metrics
-
-- **Response time**: < 2 minutes average
-- **Resolution rate**: 78% first-contact resolution
-- **Satisfaction score**: 4.6/5.0 average
-
-## Code Review Agent
-
-### Capabilities
-
-<Tabs>
-  <Tab title="Core Functions">
-    - Automated code review
-    - Security vulnerability scanning
-    - Performance analysis
-    - Style guide enforcement
-    - Documentation generation
-    - Test coverage analysis
-  </Tab>
-  
-  <Tab title="Language Support">
-    - JavaScript/TypeScript
-    - Python
-    - Java
-    - Go
-    - Rust
-    - C/C++
-    - Ruby
-    - PHP
-  </Tab>
-  
-  <Tab title="Integrations">
-    - GitHub
-    - GitLab
-    - Bitbucket
-    - CI/CD pipelines
-    - IDE plugins
-    - Issue trackers
-  </Tab>
-</Tabs>
-
-### Configuration Options
-
-```yaml
-code_review_config:
-  review_depth: "comprehensive"  # quick, standard, comprehensive
-  
-  checks:
-    security:
-      - sql_injection
-      - xss_vulnerabilities
-      - authentication_issues
-      - dependency_vulnerabilities
-      
-    quality:
-      - complexity_threshold: 10
-      - duplication_threshold: "5%"
-      - test_coverage_minimum: "80%"
-      
-    style:
-      guide: "team_custom"  # or standard guides
-      auto_fix: true
-      
-  feedback_style: "constructive"
-  include_positive_feedback: true
-```
-
-### Performance Metrics
-
-- **Issues caught**: 95% of human-reviewable issues
-- **False positive rate**: < 5%
-- **Review speed**: 10x faster than manual review
-
-## Data Intelligence Agent
-
-### Capabilities
-
-<Tabs>
-  <Tab title="Core Functions">
-    - Data cleaning and preprocessing
-    - Statistical analysis
-    - Predictive modeling
-    - Visualization creation
-    - Anomaly detection
-    - Report generation
-  </Tab>
-  
-  <Tab title="Data Sources">
-    - Databases (SQL/NoSQL)
-    - CSV/Excel files
-    - APIs
-    - Real-time streams
-    - Cloud storage
-    - Web scraping
-  </Tab>
-  
-  <Tab title="Analysis Types">
-    - Descriptive statistics
-    - Trend analysis
-    - Correlation analysis
-    - Predictive analytics
-    - Cohort analysis
-    - A/B test analysis
-  </Tab>
-</Tabs>
-
-### Configuration Options
-
-```yaml
-data_intelligence_config:
-  analysis_mode: "automated"  # automated, guided, manual
-  
-  preprocessing:
-    handle_missing: "smart_imputation"
-    outlier_detection: true
-    normalization: "auto"
-    
-  modeling:
-    algorithm_selection: "auto"
-    cross_validation: true
-    explainability: "high"
-    
-  visualization:
-    library: "plotly"  # plotly, matplotlib, d3
-    interactivity: true
-    brand_colors: true
-    
-  reporting:
-    format: ["pdf", "interactive_html"]
-    include_methodology: true
-    executive_summary: true
-```
-
-### Performance Metrics
-
-- **Processing speed**: 100GB in < 10 minutes
-- **Accuracy**: 94% on benchmark datasets
-- **Insight quality**: 85% actionable insights
-
-## Personal Productivity Agent
-
-### Capabilities
-
-<Tabs>
-  <Tab title="Core Functions">
-    - Calendar optimization
-    - Task prioritization
-    - Meeting preparation
-    - Email management
-    - Focus time protection
-    - Daily planning
-  </Tab>
-  
-  <Tab title="Integrations">
-    - Google Calendar
-    - Microsoft Outlook
-    - Notion
-    - Todoist
-    - Slack
-    - Email providers
-  </Tab>
-  
-  <Tab title="Optimization Areas">
-    - Time blocking
-    - Energy management
-    - Context switching reduction
-    - Deep work scheduling
-    - Break reminders
-    - Weekly reviews
-  </Tab>
-</Tabs>
-
-### Configuration Options
-
-```yaml
-productivity_config:
-  work_style: "maker"  # maker, manager, hybrid
-  
-  preferences:
-    peak_hours: ["09:00-11:00", "14:00-16:00"]
-    meeting_preferences:
-      max_per_day: 3
-      buffer_time: 15
-      no_meeting_blocks: ["friday_afternoon"]
-      
-    task_batching:
-      email: "twice_daily"
-      shallow_work: "afternoon"
-      deep_work: "morning"
-      
-  optimization_goals:
-    - minimize_context_switching
-    - maximize_deep_work
-    - maintain_work_life_balance
-```
-
-### Performance Metrics
-
-- **Time saved**: 2+ hours daily
-- **Focus time increase**: 40% more deep work
-- **Task completion**: 25% improvement
-
-## Customization Guidelines
-
-### Extending Built-in Agents
+### Implementation Strategy
 
 <Steps>
-  <Step title="Clone the Template">
-    Start with the closest built-in Agent
+  <Step title="Define Agent Duty">
+    ```
+    "Process customer support tickets, provide helpful responses using 
+    company knowledge base, escalate complex technical issues to 
+    engineering team, and track customer satisfaction"
+    ```
   </Step>
   
-  <Step title="Modify Capabilities">
-    Add or remove functions based on needs
+  <Step title="System Prompt Design">
+    ```
+    You are a customer support specialist for [Company]. 
+    Always be helpful and empathetic. When customers have issues:
+    
+    1. Acknowledge their concern
+    2. Search the knowledge base for solutions
+    3. Provide clear, step-by-step guidance
+    4. If you can't solve it, escalate to humans with context
+    5. Follow up to ensure resolution
+    ```
   </Step>
   
-  <Step title="Adjust Parameters">
-    Fine-tune configuration for your use case
-  </Step>
-  
-  <Step title="Add Custom Instructions">
-    Include company-specific knowledge
-  </Step>
-  
-  <Step title="Test and Iterate">
-    Refine based on actual usage
+  <Step title="Connect Resources">
+    - **Memory Bank**: Customer support knowledge base, common FAQs
+    - **Actions**: Create support tickets, send follow-up emails, update CRM
+    - **MCP Tools**: Access to customer database, ticketing system
   </Step>
 </Steps>
 
-### Common Customizations
+## Development Assistant Agents
+
+### Purpose and Approach
+
+<CardGroup cols={2}>
+  <Card title="Code Analysis" icon="code">
+    **Help with development tasks**
+    
+    Review code, analyze bugs, suggest improvements, generate documentation
+  </Card>
+  
+  <Card title="Project Management" icon="tasks">
+    **Coordinate development work**
+    
+    Create GitHub issues, track progress, manage releases, coordinate team tasks
+  </Card>
+</CardGroup>
+
+### Implementation Strategy
+
+<Steps>
+  <Step title="Define Agent Duty">
+    ```
+    "Assist development team with code review, bug triage, issue 
+    management, and technical documentation. Create GitHub issues 
+    from bug reports and coordinate with team members."
+    ```
+  </Step>
+  
+  <Step title="System Prompt Design">
+    ```
+    You are a development assistant for [Team/Project]. You help with:
+    
+    1. Analyzing code for bugs and improvements
+    2. Creating detailed GitHub issues with proper labels
+    3. Triaging bug reports by severity and component
+    4. Suggesting fixes based on codebase patterns
+    5. Coordinating with team members via Slack
+    
+    Always provide specific, actionable feedback.
+    ```
+  </Step>
+  
+  <Step title="Connect Resources">
+    - **Memory Bank**: Coding standards, architecture docs, bug patterns
+    - **Actions**: Create GitHub issues, send Slack notifications, update project status
+    - **MCP Tools**: GitHub repository access, Slack integration, file system access
+  </Step>
+</Steps>
+
+## Business Operations Agents
+
+### Purpose and Approach
+
+<CardGroup cols={2}>
+  <Card title="Process Automation" icon="workflow">
+    **Handle routine business tasks**
+    
+    Process forms, generate reports, manage data entry, coordinate approvals
+  </Card>
+  
+  <Card title="Data Analysis" icon="chart-bar">
+    **Analyze business metrics**
+    
+    Query databases, generate insights, create visualizations, track KPIs
+  </Card>
+</CardGroup>
+
+### Implementation Strategy
+
+<Steps>
+  <Step title="Define Agent Duty">
+    ```
+    "Analyze business data, generate weekly reports, process expense 
+    submissions, and provide insights on key performance metrics. 
+    Handle routine data tasks and flag anomalies for review."
+    ```
+  </Step>
+  
+  <Step title="System Prompt Design">
+    ```
+    You are a business operations analyst. Your responsibilities:
+    
+    1. Query databases for business metrics
+    2. Generate clear, actionable reports
+    3. Identify trends and anomalies in data
+    4. Process routine administrative tasks
+    5. Escalate unusual patterns to management
+    
+    Always provide context and recommendations with your analysis.
+    ```
+  </Step>
+  
+  <Step title="Connect Resources">
+    - **Memory Bank**: Business metrics definitions, reporting templates, policies
+    - **Actions**: Generate reports, send notifications, update dashboards
+    - **MCP Tools**: Database access, email systems, file storage
+  </Step>
+</Steps>
+
+## Communication and Coordination Agents
+
+### Purpose and Approach
+
+<CardGroup cols={2}>
+  <Card title="Team Coordination" icon="users">
+    **Manage team communication**
+    
+    Schedule meetings, send updates, coordinate projects, manage notifications
+  </Card>
+  
+  <Card title="External Communication" icon="mail">
+    **Handle external messaging**
+    
+    Draft emails, manage social media, coordinate with partners, handle PR
+  </Card>
+</CardGroup>
+
+### Implementation Strategy
+
+<Steps>
+  <Step title="Define Agent Duty">
+    ```
+    "Coordinate team communications, schedule meetings, send project 
+    updates, and manage internal notifications. Help maintain clear 
+    communication channels and ensure important information reaches 
+    the right people."
+    ```
+  </Step>
+  
+  <Step title="System Prompt Design">
+    ```
+    You are a communication coordinator. Your focus:
+    
+    1. Schedule meetings efficiently, respecting everyone's calendar
+    2. Send clear, concise project updates
+    3. Route questions to the right team members
+    4. Maintain team communication channels
+    5. Follow up on important decisions and action items
+    
+    Always be professional and considerate of people's time.
+    ```
+  </Step>
+  
+  <Step title="Connect Resources">
+    - **Memory Bank**: Team contacts, communication templates, project info
+    - **Actions**: Send emails, create calendar events, post Slack messages
+    - **MCP Tools**: Calendar systems, email platforms, Slack integration
+  </Step>
+</Steps>
+
+## Specialized Domain Agents
+
+### Marketing and Growth
 
 <AccordionGroup>
-  <Accordion title="Industry-Specific Adaptations">
-    - **E-commerce**: Add inventory management to Growth Hacker
-    - **Healthcare**: Add HIPAA compliance to Customer Success
-    - **Finance**: Add regulatory checks to Data Intelligence
+  <Accordion title="Marketing Assistant">
+    **Focus:** Content creation, campaign analysis, social media management
+    
+    ```
+    Duty: "Create marketing content, analyze campaign performance, 
+    manage social media posting, and track marketing metrics"
+    
+    Key Resources:
+    - Brand guidelines and messaging frameworks
+    - Campaign performance data and analytics
+    - Content templates and approval workflows
+    ```
   </Accordion>
   
-  <Accordion title="Scale Adjustments">
-    - **Startup**: Focus on speed and experimentation
-    - **Enterprise**: Add approval workflows and audit trails
-    - **Solo**: Optimize for individual productivity
-  </Accordion>
-  
-  <Accordion title="Integration Extensions">
-    - Connect to proprietary systems
-    - Add custom API endpoints
-    - Implement special data formats
+  <Accordion title="Sales Support">
+    **Focus:** Lead qualification, proposal generation, CRM management
+    
+    ```
+    Duty: "Qualify incoming leads, generate sales proposals, 
+    update CRM records, and schedule follow-up activities"
+    
+    Key Resources:
+    - Sales methodology and qualification criteria
+    - Proposal templates and pricing information
+    - Customer interaction history and preferences
+    ```
   </Accordion>
 </AccordionGroup>
 
-## Selection Guide
-
-### By Business Goal
-
-| Goal | Recommended Agent | Why |
-|------|-------------------|-----|
-| Increase revenue | Growth Hacker | Focuses on acquisition and conversion |
-| Improve retention | Customer Success | Enhances customer experience |
-| Ship faster | Code Review | Accelerates development cycle |
-| Better decisions | Data Intelligence | Provides actionable insights |
-| Personal efficiency | Productivity | Optimizes individual output |
-
-### By Team Size
-
-- **Solo/Small (1-5)**: Start with Personal Productivity + one domain Agent
-- **Growing (5-20)**: Add Customer Success and Growth Hacker
-- **Scaling (20+)**: Full suite with custom configurations
-
-### By Industry
-
-- **SaaS**: All agents, especially Customer Success
-- **E-commerce**: Growth Hacker + Data Intelligence
-- **Agencies**: Productivity + specialized Agents
-- **Development**: Code Review + Productivity
-
-## Performance Benchmarks
-
-<Info>
-  These benchmarks are based on aggregate user data. Your results may vary based on configuration and usage patterns.
-</Info>
-
-| Metric | Growth Hacker | Customer Success | Code Review | Data Intelligence | Productivity |
-|--------|---------------|------------------|-------------|-------------------|--------------|
-| Setup time | 15 min | 20 min | 10 min | 25 min | 10 min |
-| Time to value | 1 day | Immediate | Immediate | 2 hours | 1 day |
-| ROI | 10x | 8x | 5x | 12x | 3x |
-| User satisfaction | 4.5/5 | 4.7/5 | 4.6/5 | 4.4/5 | 4.8/5 |
-
-## Frequently Asked Questions
+### Finance and Operations
 
 <AccordionGroup>
-  <Accordion title="Can I use multiple Agents together?">
-    Yes! Agents can work together. For example, Data Intelligence can feed insights to Growth Hacker for campaign optimization.
+  <Accordion title="Financial Analysis">
+    **Focus:** Budget tracking, expense processing, financial reporting
+    
+    ```
+    Duty: "Process expense reports, track budget variances, 
+    generate financial reports, and flag unusual spending patterns"
+    
+    Key Resources:
+    - Budget templates and spending categories
+    - Approval workflows and spending limits
+    - Financial policies and compliance requirements
+    ```
   </Accordion>
   
-  <Accordion title="How often are templates updated?">
-    Templates receive monthly updates based on user feedback and new capabilities. Your customizations are preserved during updates.
+  <Accordion title="HR Administration">
+    **Focus:** Employee onboarding, policy questions, time tracking
+    
+    ```
+    Duty: "Handle employee onboarding tasks, answer HR policy 
+    questions, process time-off requests, and coordinate training"
+    
+    Key Resources:
+    - Employee handbook and policies
+    - Onboarding checklists and forms
+    - Training materials and schedules
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Creating Your Own Agent Patterns
+
+### Design Process
+
+<Steps>
+  <Step title="Identify the Need">
+    What specific business problem or workflow do you want to automate?
+  </Step>
+  
+  <Step title="Define the Scope">
+    What should the agent do? What should it NOT do? Where should it escalate to humans?
+  </Step>
+  
+  <Step title="Gather Resources">
+    What information does the agent need? What systems should it connect to?
+  </Step>
+  
+  <Step title="Write Clear Instructions">
+    Create a detailed System Prompt with specific procedures and examples
+  </Step>
+  
+  <Step title="Test and Refine">
+    Start with simple scenarios and gradually handle more complex cases
+  </Step>
+</Steps>
+
+### Agent Design Best Practices
+
+<AccordionGroup>
+  <Accordion title="Start Simple">
+    **Begin with basic functionality**
+    - Handle the most common use cases first
+    - Add complexity gradually based on real needs
+    - Test thoroughly before expanding capabilities
   </Accordion>
   
-  <Accordion title="What if I need a completely different Agent?">
-    You can create custom Agents from scratch or request new templates through our community forum.
+  <Accordion title="Clear Boundaries">
+    **Define what the agent can and cannot do**
+    - Specify when to escalate to humans
+    - Set clear limits on actions and decisions
+    - Include error handling and fallback procedures
+  </Accordion>
+  
+  <Accordion title="Rich Context">
+    **Provide comprehensive background information**
+    - Connect relevant Memory Bank documents
+    - Include company policies and procedures
+    - Add examples of good and bad responses
+  </Accordion>
+  
+  <Accordion title="Continuous Improvement">
+    **Iterate based on real usage**
+    - Monitor agent performance and user feedback
+    - Refine instructions based on common issues
+    - Update resources as business needs change
+  </Accordion>
+</AccordionGroup>
+
+## Choosing Agent Patterns for Your Team
+
+### By Team Function
+
+| Function | Common Agent Patterns | Key Focus Areas |
+|----------|----------------------|------------------|
+| Customer Support | Support ticket processing, knowledge base search | Response quality, escalation handling |
+| Development | Code review, issue triage, deployment coordination | Code quality, team coordination |
+| Operations | Data analysis, report generation, process automation | Efficiency, accuracy, compliance |
+| Marketing | Content creation, campaign analysis, social management | Brand consistency, performance tracking |
+| Sales | Lead qualification, proposal generation, CRM updates | Pipeline management, follow-up automation |
+
+### By Business Stage
+
+<CardGroup cols={3}>
+  <Card title="Startup (1-10 people)" icon="rocket">
+    **Focus on essential operations**
+    
+    - Customer support agent
+    - Basic operations agent for data/reports
+    - Development coordination if tech company
+  </Card>
+  
+  <Card title="Growing (10-50 people)" icon="trending-up">
+    **Add specialized functions**
+    
+    - Dedicated agents per major function
+    - Process automation agents
+    - Cross-team coordination agents
+  </Card>
+  
+  <Card title="Established (50+ people)" icon="building">
+    **Comprehensive automation**
+    
+    - Multiple agents per department
+    - Specialized workflow agents
+    - Advanced integration with business systems
+  </Card>
+</CardGroup>
+
+## Measuring Agent Success
+
+### Key Metrics to Track
+
+<Tabs>
+  <Tab title="Task Completion">
+    **How well does the agent handle its assigned work?**
+    
+    - Percentage of tasks completed without human intervention
+    - Accuracy of agent responses and actions
+    - Time to complete typical tasks
+    - User satisfaction with agent performance
+  </Tab>
+  
+  <Tab title="Efficiency Gains">
+    **What time and effort does the agent save?**
+    
+    - Hours saved per week by team members
+    - Reduction in manual, repetitive tasks
+    - Faster response times to customers/requests
+    - Improved consistency in outputs
+  </Tab>
+  
+  <Tab title="Quality Improvement">
+    **Does the agent improve work quality?**
+    
+    - Reduction in errors compared to manual processes
+    - Consistency in following procedures and standards
+    - Better compliance with policies and requirements
+    - Improved customer/user experience
+  </Tab>
+</Tabs>
+
+## Common Questions
+
+<AccordionGroup>
+  <Accordion title="Can multiple agents work together?">
+    Yes! Agents can collaborate through issue channels and by referencing each other's work. For example, a support agent can create issues that development agents process.
+  </Accordion>
+  
+  <Accordion title="How do I know if an agent is working well?">
+    Monitor key metrics like task completion rate, user feedback, and time savings. Also watch for patterns in when agents escalate to humans - this shows where they might need improvement.
+  </Accordion>
+  
+  <Accordion title="What if my business needs are very specific?">
+    That's exactly what Cagen is designed for! Create custom agents with specific duties, system prompts, and resource connections that match your unique workflows.
+  </Accordion>
+  
+  <Accordion title="How long does it take to set up an effective agent?">
+    Simple agents can be working in 10-15 minutes. More complex agents with multiple integrations might take a few hours to configure and test properly.
   </Accordion>
 </AccordionGroup>
 
 ## Next Steps
 
-- [Create Your First Agent](/tutorials/getting-started/first-agent)
-- [Customize Agent Behavior](/how-to/agents/create-custom-agent)
-- [Agent Best Practices](/explanation/best-practices/agent-design)
+- [Create Custom Agent](/how-to/agents/create-custom-agent) - Learn how to build agents from scratch
+- [Memory Bank Management](/how-to/memory/manage-memory-bank) - Store knowledge for your agents
+- [Action Creation](/how-to/actions/create-action) - Build capabilities for your agents
+- [MCP Tools](/how-to/mcp/mcp-integration) - Connect agents to external systems
