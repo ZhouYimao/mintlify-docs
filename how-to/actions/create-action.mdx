@@ -19,25 +19,25 @@ Every agent has access to **Action 0**—the foundational capability to execute 
 Beyond Action 0, you can create **custom actions**—specialized executable functions that allow AI agents to:
 
 <CardGroup cols={2}>
-  <Card title="⚡ External Integrations" icon="plug">
+  <Card title="External Integrations" icon="plug">
     Connect to APIs, databases, and third-party services
     
     **Examples:** Send emails, create GitHub issues, update spreadsheets
   </Card>
   
-  <Card title="🔧 System Operations" icon="cog">
+  <Card title="System Operations" icon="cog">
     Perform system-level tasks and automations
     
     **Examples:** File operations, data processing, workflow triggers
   </Card>
   
-  <Card title="📊 Data Processing" icon="chart-bar">
+  <Card title="Data Processing" icon="chart-bar">
     Transform and analyze data from various sources
     
     **Examples:** Generate reports, analyze metrics, process uploads
   </Card>
   
-  <Card title="🚀 Workflow Automation" icon="rocket">
+  <Card title="Workflow Automation" icon="rocket">
     Chain multiple operations together
     
     **Examples:** Deployment pipelines, notification sequences, backup routines
@@ -51,7 +51,7 @@ Beyond Action 0, you can create **custom actions**—specialized executable func
 Cagen comes with pre-configured actions for common tasks:
 
 <AccordionGroup>
-  <Accordion title="📧 Communication">
+  <Accordion title="Communication">
     ```yaml
     send_email:
       description: "Send email via configured provider"
@@ -70,7 +70,7 @@ Cagen comes with pre-configured actions for common tasks:
     ```
   </Accordion>
   
-  <Accordion title="🗂️ File Operations">
+  <Accordion title="File Operations">
     ```yaml
     create_file:
       description: "Create new file with content"
@@ -94,7 +94,7 @@ Cagen comes with pre-configured actions for common tasks:
     ```
   </Accordion>
   
-  <Accordion title="🔧 Development Tools">
+  <Accordion title="Development Tools">
     ```yaml
     create_github_issue:
       description: "Create issue in GitHub repository"
@@ -253,7 +253,7 @@ Result: {
   "invoice_url": "https://accounting.com/invoice/INV-001"
 }
 
-Agent: "✅ Invoice INV-001 created successfully! View it here: [Invoice Link]"
+Agent: "Invoice INV-001 created successfully! View it here: [Invoice Link]"
 ```
 
 ### Action Permissions
@@ -320,7 +320,7 @@ Control which agents can use which actions:
 ### Authentication & Authorization
 
 <CardGroup cols={2}>
-  <Card title="🔐 API Key Auth" icon="key">
+  <Card title="API Key Auth" icon="key">
     ```yaml
     authentication:
       type: "api_key"
@@ -329,7 +329,7 @@ Control which agents can use which actions:
     ```
   </Card>
   
-  <Card title="🎫 OAuth 2.0" icon="shield">
+  <Card title="OAuth 2.0" icon="shield">
     ```yaml
     authentication:
       type: "oauth2"
@@ -339,7 +339,7 @@ Control which agents can use which actions:
     ```
   </Card>
   
-  <Card title="🏷️ JWT Tokens" icon="id-card">
+  <Card title="JWT Tokens" icon="id-card">
     ```yaml
     authentication:
       type: "jwt"
@@ -349,7 +349,7 @@ Control which agents can use which actions:
     ```
   </Card>
   
-  <Card title="🔗 Webhook Auth" icon="link">
+  <Card title="Webhook Auth" icon="link">
     ```yaml
     authentication:
       type: "webhook"
@@ -566,25 +566,25 @@ Browse and install actions from the Cagen Store:
 ### Cost Optimization
 
 <CardGroup cols={2}>
-  <Card title="💰 Rate Limiting" icon="clock">
+  <Card title="Rate Limiting" icon="clock">
     Implement sensible rate limits to control costs
     
     Configure per-agent and per-user limits
   </Card>
   
-  <Card title="📊 Usage Analytics" icon="chart-line">
+  <Card title="Usage Analytics" icon="chart-line">
     Monitor action usage patterns and costs
     
     Identify optimization opportunities
   </Card>
   
-  <Card title="⚡ Caching" icon="database">
+  <Card title="Caching" icon="database">
     Cache action results when appropriate
     
     Reduce redundant API calls
   </Card>
   
-  <Card title="🎯 Smart Routing" icon="route">
+  <Card title="Smart Routing" icon="route">
     Route actions to most cost-effective providers
     
     Use fallback providers for resilience

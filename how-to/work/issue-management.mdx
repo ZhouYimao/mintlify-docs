@@ -5,8 +5,53 @@ sidebarTitle: "Issue Management"
 ---
 
 <Info>
-  Cagen's Issue system is inspired by Linear's clean, efficient approach to project management, with AI-enhanced workflows and automatic team coordination.
+  Inspired by [Linear's](https://linear.app/docs/conceptual-model) best practices for human work management, we've designed an Agent-native approach that lets humans and AI work together seamlessly.
 </Info>
+
+## Design Philosophy: Agent-Native Work
+
+Issues in Cagen have three key stages that make human-AI collaboration natural:
+
+### 1. Confirm Stage (Optional)
+**What it is**: A quick chat to make sure everyone's on the same page.
+
+```
+You: "I need dark mode"
+Agent: "Cool! Auto-switching with system preference?"
+You: "Yep, and make sure it's accessible"
+```
+
+Skip this if you already know exactly what you want.
+
+### 2. Deliverables (Required) 
+**What it is**: Who does what - crystal clear.
+
+```yaml
+Human does:
+  - Pick the colors
+  - Decide where the toggle goes
+  - Test with real users
+
+Agent does:
+  - Write all the code
+  - Make it work across browsers
+  - Run performance tests
+```
+
+### 3. Validation (Optional)
+**What it is**: How we know it's done right.
+
+```yaml
+Checks:
+  - Works in all browsers ✓
+  - Loads fast (under 50ms) ✓
+  - Users love it ✓
+
+Agent can self-fix:
+  - If too slow → optimize automatically
+  - If tests fail → fix and retry
+  - If accessibility issues → adjust and retest
+```
 
 ## What are Issues?
 
@@ -25,26 +70,26 @@ Each issue automatically creates a related discussion channel, keeping work and 
 ### Core Fields
 
 <CardGroup cols={2}>
-  <Card title="📝 Title" icon="heading">
+  <Card title="Title" icon="heading">
     Clear, descriptive summary of the work
     
     **Good:** "Add dark mode toggle to settings"
     **Avoid:** "Fix the thing"
   </Card>
   
-  <Card title="📋 Description" icon="align-left">
+  <Card title="Description" icon="align-left">
     Detailed explanation with context, requirements, and acceptance criteria
     
     Supports markdown, mentions, and file attachments
   </Card>
   
-  <Card title="👤 Assignee" icon="user">
+  <Card title="Assignee" icon="user">
     Person responsible for completing the work
     
     Can be human team member or AI agent
   </Card>
   
-  <Card title="📊 Status" icon="chart-bar">
+  <Card title="Status" icon="chart-bar">
     Current state of the issue
     
     **Backlog** → **Todo** → **In Progress** → **In Review** → **Done**
@@ -54,7 +99,7 @@ Each issue automatically creates a related discussion channel, keeping work and 
 ### Additional Properties
 
 ```yaml
-Priority: 🔴 Urgent, 🟡 High, 🔵 Medium, ⚪ Low
+Priority: Urgent, High, Medium, Low
 Label: Frontend, Backend, Bug, Feature, etc.
 Milestone: Sprint goals or release targets
 Due Date: Optional deadline for completion
@@ -99,10 +144,26 @@ Related Issues: Connected or dependent work
 
 ### Issue Templates
 
-Speed up creation with predefined templates:
+Quick templates to get started:
 
 <AccordionGroup>
-  <Accordion title="🐛 Bug Report Template">
+  <Accordion title="New Feature Template">
+    ```markdown
+    ## What we need
+    [Describe the feature]
+    
+    ## Who does what
+    **Human**: Design, user testing, final approval
+    **Agent**: Code, tests, documentation
+    
+    ## How we know it's done
+    - [ ] Works as expected
+    - [ ] Fast enough
+    - [ ] Users happy
+    ```
+  </Accordion>
+  
+  <Accordion title="Bug Report Template">
     ```markdown
     ## Description
     Brief description of the bug
@@ -128,7 +189,7 @@ Speed up creation with predefined templates:
     ```
   </Accordion>
   
-  <Accordion title="✨ Feature Request Template">
+  <Accordion title="Feature Request Template">
     ```markdown
     ## Problem Statement
     What problem does this solve?
@@ -149,7 +210,7 @@ Speed up creation with predefined templates:
     ```
   </Accordion>
   
-  <Accordion title="🔍 Research Task Template">
+  <Accordion title="Research Task Template">
     ```markdown
     ## Research Question
     What do we need to find out?
@@ -201,7 +262,7 @@ Channel: "#issue-123-dark-mode-toggle"
 ## Issue Workflow States
 
 <Steps>
-  <Step title="📋 Backlog">
+  <Step title="Backlog">
     **New issues** waiting to be prioritized and planned
     
     - Issues are triaged here
@@ -209,7 +270,7 @@ Channel: "#issue-123-dark-mode-toggle"
     - Initial scoping and estimation
   </Step>
   
-  <Step title="📝 Todo">
+  <Step title="Todo">
     **Ready to work** - fully defined and prioritized
     
     - Requirements are clear
@@ -217,7 +278,7 @@ Channel: "#issue-123-dark-mode-toggle"
     - Dependencies resolved
   </Step>
   
-  <Step title="⚡ In Progress">
+  <Step title="In Progress">
     **Actively being worked on**
     
     - Work has started
@@ -225,7 +286,7 @@ Channel: "#issue-123-dark-mode-toggle"
     - Channel discussions active
   </Step>
   
-  <Step title="👀 In Review">
+  <Step title="In Review">
     **Work complete, awaiting approval**
     
     - Code review in progress
@@ -233,7 +294,7 @@ Channel: "#issue-123-dark-mode-toggle"
     - Stakeholder approval
   </Step>
   
-  <Step title="✅ Done">
+  <Step title="Done">
     **Work completed and deployed**
     
     - Feature is live
@@ -302,9 +363,30 @@ Multiple Assignment:
   </Tab>
 </Tabs>
 
+## How It Works in Practice
+
+### Example: "Add search to our app"
+
+**Old way**: Design → Wait → Backend → Wait → Frontend → Wait → Test → Done (2 weeks)
+
+**Agent-native way**:
+```
+Confirm: "Full-text search, real-time, fast"
+
+Deliverables (everyone works at once):
+  You: Design the search box
+  Agent: Build everything else
+
+Validation: 
+  Slow at first (120ms)
+  Agent auto-optimizes → 65ms ✓
+  
+Done in 2 days!
+```
+
 ## AI Agent Integration
 
-### Agents as Issue Participants
+### Agents as Full Team Members
 
 ```yaml
 Code Generation:
@@ -345,19 +427,19 @@ Documentation:
 ### Issue Views
 
 <CardGroup cols={3}>
-  <Card title="📋 Board View" icon="columns">
+  <Card title="Board View" icon="columns">
     Kanban-style board with drag & drop
     
     Great for sprint management
   </Card>
   
-  <Card title="📊 List View" icon="list">
+  <Card title="List View" icon="list">
     Detailed table with all issue properties
     
     Best for detailed planning
   </Card>
   
-  <Card title="📈 Timeline View" icon="calendar">
+  <Card title="Timeline View" icon="calendar">
     Gantt-style timeline with dependencies
     
     Perfect for project planning
@@ -531,5 +613,5 @@ Per Project: Budget tracking for different initiatives
 - [Agent Management](/how-to/agents/create-custom-agent) - Configure AI agents for issue work
 
 <Note>
-  Issues in Cagen bridge the gap between project management and team communication. The automatic channel creation ensures every piece of work has a dedicated space for collaboration, while AI agents can participate as full team members.
+  Issues in Cagen are where humans and AI team up to get work done. Every issue gets its own channel for real-time collaboration, and agents can jump in to help or even take the lead on technical work.
 </Note>
